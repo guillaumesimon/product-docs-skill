@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product documentation template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F6F8FA; --ink:#1A1F36; --text:#3C4257; --muted:#697386; --line:#E3E8EE;
+  --accent:#635BFF; --accent-soft:#F2F1FF; --overlay:rgba(26,31,54,.45);
+  --ok-bg:#D7F7C2; --ok-fg:#05690D; --check-bg:#FCEDB9; --check-fg:#A82C00; --stale-bg:#FFE0EC; --stale-fg:#B3093C;
+  --info-bg:#D6ECFF; --info-fg:#0055BC; --mute-bg:#EBEEF1; --mute-fg:#545969;
+  --ring:0 0 0 1px rgba(60,66,87,.10),0 1px 2px rgba(60,66,87,.08);
+  --pop:0 0 0 1px rgba(60,66,87,.10),0 12px 40px rgba(26,31,54,.22);
+  --sans:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --mono:"Geist Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --head:57px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1016; --soft:#161922; --ink:#F3F5F9; --text:#C5CAD8; --muted:#8891A6; --line:#252A38;
+    --accent:#938EFF; --accent-soft:#1C1A3B; --overlay:rgba(0,0,0,.6);
+    --ok-bg:#12351B; --ok-fg:#84E093; --check-bg:#3B2C0A; --check-fg:#F3C66C; --stale-bg:#3F1427; --stale-fg:#FF9DC1;
+    --info-bg:#0F2C47; --info-fg:#86C3FF; --mute-bg:#222736; --mute-fg:#A8AFC2;
+    --ring:0 0 0 1px rgba(255,255,255,.09); --pop:0 0 0 1px rgba(255,255,255,.10),0 16px 48px rgba(0,0,0,.6);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1016; --soft:#161922; --ink:#F3F5F9; --text:#C5CAD8; --muted:#8891A6; --line:#252A38;
+  --accent:#938EFF; --accent-soft:#1C1A3B; --overlay:rgba(0,0,0,.6);
+  --ok-bg:#12351B; --ok-fg:#84E093; --check-bg:#3B2C0A; --check-fg:#F3C66C; --stale-bg:#3F1427; --stale-fg:#FF9DC1;
+  --info-bg:#0F2C47; --info-fg:#86C3FF; --mute-bg:#222736; --mute-fg:#A8AFC2;
+  --ring:0 0 0 1px rgba(255,255,255,.09); --pop:0 0 0 1px rgba(255,255,255,.10),0 16px 48px rgba(0,0,0,.6);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:auto}
+body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-decoration:none;font-weight:500}
+a:hover{text-decoration:underline;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+strong{color:var(--ink);font-weight:600}
+code{font-family:var(--mono);font-size:.84em;color:var(--ink);background:var(--soft);border:1px solid var(--line);padding:.1em .38em;border-radius:5px;overflow-wrap:anywhere}
+kbd{font-family:var(--sans);font-size:.75rem;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;background:var(--bg)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* En-tête */
+.top{position:sticky;top:0;z-index:20;height:var(--head);display:grid;grid-template-columns:272px minmax(0,1fr) auto;align-items:center;gap:16px;padding:0 20px 0 24px;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.6) blur(10px);-webkit-backdrop-filter:saturate(1.6) blur(10px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600;font-size:.9375rem}
+.brand:hover{text-decoration:none}
+.brand i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;background:var(--accent);color:#fff;font-style:normal;font-size:.8125rem;font-weight:600}
+.brand em{font-style:normal;font-weight:400;color:var(--muted);padding-left:10px;border-left:1px solid var(--line)}
+.searchbtn{justify-self:start;display:flex;align-items:center;gap:10px;width:min(100%,420px);height:36px;padding:0 10px 0 12px;font:inherit;font-size:.875rem;color:var(--muted);background:var(--soft);border:1px solid var(--line);border-radius:8px;cursor:pointer}
+.searchbtn:hover{border-color:color-mix(in srgb,var(--muted) 45%,var(--line))}
+.searchbtn span{flex:1;text-align:left}
+.searchbtn svg{flex:none}
+.health{display:flex;align-items:center;gap:8px;font-size:.8125rem;color:var(--muted);font-weight:500;padding:6px 10px;border-radius:8px}
+.health:hover{background:var(--soft);text-decoration:none}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none}
+.dot.ok{background:#3FB950} .dot.check{background:#F5A623} .dot.stale{background:#E5484D}
+.menu{display:none}
+
+/* Structure */
+.layout{display:grid;grid-template-columns:272px minmax(0,1fr);align-items:start}
+.side{position:sticky;top:var(--head);height:calc(100vh - var(--head));overflow-y:auto;padding:20px 12px 24px 16px;border-right:1px solid var(--line)}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 232px;gap:56px;max-width:1120px;padding:44px 40px 96px 56px;min-width:0}
+.content{min-width:0;max-width:780px}
+.toc{position:sticky;top:calc(var(--head) + 44px);max-height:calc(100vh - var(--head) - 88px);overflow-y:auto;font-size:.8125rem}
+
+/* Sommaire */
+.nav h2{font-size:.8125rem;font-weight:600;color:var(--ink);margin:22px 0 6px;padding:0 10px;letter-spacing:0}
+.nav h2:first-child{margin-top:0}
+.nav ul{list-style:none;margin:0;padding:0}
+.nav li{margin:0}
+.nav a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:5px 10px;border-radius:6px;color:var(--text);font-weight:400;font-size:.875rem;line-height:1.45}
+.nav a:hover{background:var(--soft);color:var(--ink);text-decoration:none}
+.nav a[aria-current="page"]{background:var(--accent-soft);color:var(--accent);font-weight:500}
+.switch{display:flex;align-items:center;gap:10px;margin:24px 10px 0;padding-top:16px;border-top:1px solid var(--line);font-size:.8125rem;color:var(--muted);cursor:pointer}
+.switch input{appearance:none;-webkit-appearance:none;flex:none;width:30px;height:18px;border-radius:9px;background:var(--mute-bg);position:relative;margin:0;cursor:pointer;transition:background .15s}
+.switch input::after{content:"";position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+.switch input:checked{background:var(--accent)}
+.switch input:checked::after{transform:translateX(12px)}
+
+/* Sur cette page */
+.toc p{margin:0 0 10px;font-weight:600;color:var(--ink)}
+.toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--line)}
+.toc a{display:block;padding:4px 0 4px 14px;margin-left:-1px;border-left:1px solid transparent;color:var(--muted);font-weight:400;line-height:1.4}
+.toc a:hover{color:var(--ink);text-decoration:none}
+.toc a.on{color:var(--accent);border-left-color:var(--accent);font-weight:500}
+
+/* Pages */
+.page{display:none;scroll-margin-top:400px}
+.page.is-active{display:block}
+.crumb{font-size:.8125rem;color:var(--muted);margin:0 0 10px}
+h1{font-size:2rem;line-height:1.2;font-weight:600;letter-spacing:-.022em;color:var(--ink);margin:0}
+.desc{font-size:1.125rem;line-height:1.55;color:var(--text);margin:10px 0 0;max-width:60ch}
+.meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px;font-size:.8125rem;color:var(--muted)}
+.fiche{display:grid;grid-template-columns:1fr 1fr;margin:24px 0 32px;border:1px solid var(--line);border-radius:10px;background:var(--soft)}
+.fiche div{padding:14px 18px}
+.fiche div + div{border-left:1px solid var(--line)}
+.fiche dt{font-size:.75rem;font-weight:500;color:var(--muted);margin-bottom:4px}
+.fiche dd{margin:0;font-size:.875rem;color:var(--ink);line-height:1.5}
+.fiche code{display:inline-block;margin:2px 4px 2px 0;background:var(--bg)}
+h2{position:relative;font-size:1.375rem;line-height:1.3;font-weight:600;letter-spacing:-.015em;color:var(--ink);margin:48px 0 12px;scroll-margin-top:calc(var(--head) + 24px)}
+h3{font-size:1rem;font-weight:600;color:var(--ink);margin:28px 0 6px}
+.anchor{position:absolute;left:-1.1em;top:0;width:1.1em;color:var(--muted);font-weight:400;opacity:0}
+h2:hover .anchor,.anchor:focus-visible{opacity:1}
+.anchor:hover{text-decoration:none;color:var(--accent)}
+p{margin:0 0 14px}
+ul,ol{margin:0 0 16px;padding-left:1.3em}
+li{margin-bottom:6px}
+li::marker{color:var(--muted)}
+.lead{font-size:1.125rem;line-height:1.5;color:var(--ink);font-weight:500}
+.opt{font-size:.75rem;font-weight:500;letter-spacing:0;color:var(--mute-fg);background:var(--mute-bg);border-radius:4px;padding:2px 7px;margin-left:10px;vertical-align:middle}
+
+/* Pastilles */
+.tag,.badge{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:500;line-height:1;padding:4px 7px;border-radius:5px;white-space:nowrap;background:var(--mute-bg);color:var(--mute-fg)}
+.t-ok,.b-ok{background:var(--ok-bg);color:var(--ok-fg)}
+.t-check,.b-check{background:var(--check-bg);color:var(--check-fg)}
+.t-stale,.b-stale{background:var(--stale-bg);color:var(--stale-fg)}
+.t-info{background:var(--info-bg);color:var(--info-fg)}
+
+/* Encadrés */
+.guide{position:relative;margin:0 0 32px;padding:14px 18px 14px 46px;border-radius:10px;background:var(--accent-soft);color:var(--ink)}
+.guide::before{content:"i";position:absolute;left:16px;top:15px;display:grid;place-items:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:.75rem;font-weight:600;font-family:var(--mono)}
+.guide p{margin:0 0 6px;font-size:.9063rem;line-height:1.55}
+.guide p:last-child{margin:0}
+.guide code{background:var(--bg)}
+body.no-guide .guide{display:none}
+
+/* Tableaux */
+.scroll{overflow-x:auto;margin:16px 0 24px}
+table{border-collapse:collapse;width:100%;font-size:.875rem;line-height:1.5}
+th,td{text-align:left;vertical-align:top;padding:11px 20px 11px 0;border-bottom:1px solid var(--line)}
+th:last-child,td:last-child{padding-right:0}
+th{font-size:.75rem;font-weight:600;color:var(--muted);white-space:nowrap;padding-top:0;padding-bottom:9px}
+td:first-child{color:var(--ink);font-weight:500}
+td.plain{font-weight:400;color:var(--text)}
+.sub{color:var(--muted);font-size:.8125rem}
+tbody tr:last-child td{border-bottom:0}
+
+/* Entrées identifiées : règles, décisions, runbooks */
+.entry{display:grid;grid-template-columns:5rem minmax(0,1fr);gap:0 20px;padding:20px 0;border-top:1px solid var(--line);scroll-margin-top:calc(var(--head) + 12px)}
+.entry:last-of-type{border-bottom:1px solid var(--line)}
+.entry .id{padding-top:1px}
+.entry .id span{font-family:var(--mono);font-size:.75rem;font-weight:500;color:var(--mute-fg);background:var(--mute-bg);padding:3px 7px;border-radius:5px}
+.entry h3{margin:0 0 6px}
+.entry p{margin:0 0 10px}
+.entry dl{display:grid;grid-template-columns:8rem minmax(0,1fr);gap:6px 12px;margin:12px 0 0;font-size:.8438rem}
+.entry dt{color:var(--muted)} .entry dd{margin:0}
+.entry:target{background:linear-gradient(90deg,var(--accent-soft),transparent 70%);box-shadow:-16px 0 0 var(--accent-soft)}
+
+/* Roadmap */
+.roadmap td.rank{font-family:var(--mono);font-size:.8125rem;color:var(--muted);font-weight:400;white-space:nowrap;padding-right:14px}
+.roadmap td.project{min-width:9rem}
+.roadmap td.horizon,.roadmap td.spec{white-space:nowrap}
+.roadmap tr[data-horizon="later"] td.rank{opacity:.6}
+.horizons{align-items:start;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 8px}
+.horizons .col{border:1px solid var(--line);border-radius:10px;padding:16px 18px 6px;background:var(--bg)}
+.horizons h2{font-size:.9375rem;margin:0;letter-spacing:0}
+.horizons .anchor{display:none}
+.horizons p.when{min-height:2.7em;font-size:.8125rem;color:var(--muted);margin:2px 0 8px}
+.bet{padding:14px 0;border-top:1px solid var(--line)}
+.bet h3{margin:0 0 4px;font-size:.9063rem}
+.bet p{font-size:.8438rem;line-height:1.5;margin:0 0 8px}
+.bet .meta{display:block;font-size:.78rem;color:var(--muted);margin:0}
+
+/* Gabarit de spec, bloc à copier */
+.sheet{border:1px solid var(--line);border-radius:10px;padding:4px 22px 16px;margin:16px 0 24px;box-shadow:var(--ring)}
+.sheet h3{margin-top:18px;font-size:.9063rem}
+.sheet p{font-size:.875rem;color:var(--muted);margin:0}
+.copy{position:relative;margin:16px 0 24px}
+pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink);white-space:pre-wrap}
+.copy button{position:absolute;top:10px;right:10px;font:inherit;font-size:.75rem;font-weight:500;padding:5px 10px;border:0;border-radius:6px;background:var(--bg);color:var(--ink);box-shadow:var(--ring);cursor:pointer}
+.copy button:hover{color:var(--accent)}
+
+/* Accueil */
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0 36px}
+.btn{display:inline-flex;align-items:center;height:36px;padding:0 14px;border-radius:8px;font-size:.875rem;font-weight:500;color:var(--ink);background:var(--bg);box-shadow:var(--ring)}
+.btn:hover{text-decoration:none;background:var(--soft)}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:none}
+.btn.primary:hover{filter:brightness(1.08);background:var(--accent)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0 8px}
+.card{display:block;padding:16px 18px 18px;border-radius:10px;box-shadow:var(--ring);color:var(--text);font-weight:400;background:var(--bg);transition:box-shadow .15s,transform .15s}
+.card:hover{text-decoration:none;box-shadow:0 0 0 1px var(--accent),0 4px 14px rgba(99,91,255,.14)}
+.card b{display:block;color:var(--ink);font-weight:600;font-size:.9375rem;margin-bottom:4px}
+.card span{display:block;font-size:.8438rem;line-height:1.5}
+.card small{display:block;margin-top:10px;font-size:.75rem;color:var(--muted)}
+.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0 24px}
+.stat{padding:14px 18px;border-radius:10px;box-shadow:var(--ring)}
+.stat b{display:block;font-size:1.75rem;line-height:1.1;font-weight:600;color:var(--ink);letter-spacing:-.02em}
+.stat span{display:flex;align-items:center;gap:7px;margin-top:6px;font-size:.8125rem;color:var(--muted)}
+
+/* Pied de page : précédent, suivant */
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:64px;padding-top:24px;border-top:1px solid var(--line)}
+.pager a{display:block;padding:12px 16px;border-radius:10px;box-shadow:var(--ring);color:var(--ink);font-size:.9063rem}
+.pager a:hover{text-decoration:none;box-shadow:0 0 0 1px var(--accent)}
+.pager small{display:block;font-size:.75rem;font-weight:400;color:var(--muted);margin-bottom:2px}
+.pager .next{text-align:right;grid-column:2}
+
+/* Recherche */
+.modal{position:fixed;inset:0;z-index:50;display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 0;background:var(--overlay)}
+.modal.open{display:flex}
+.palette{width:min(620px,100%);max-height:70vh;display:flex;flex-direction:column;background:var(--bg);border-radius:12px;box-shadow:var(--pop);overflow:hidden}
+.palette input{width:100%;border:0;outline:0;padding:16px 18px;font:inherit;font-size:1rem;color:var(--ink);background:transparent;border-bottom:1px solid var(--line)}
+.results{overflow-y:auto;padding:8px}
+.results p{margin:0;padding:8px 10px 6px;font-size:.75rem;font-weight:600;color:var(--muted)}
+.results a{display:block;padding:9px 10px;border-radius:8px;color:var(--ink);font-size:.9063rem}
+.results a small{display:block;font-size:.78rem;font-weight:400;color:var(--muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.results a.sel{background:var(--accent-soft);text-decoration:none}
+.results a:hover{text-decoration:none}
+.results mark{background:transparent;color:var(--accent);font-weight:600}
+.empty{padding:28px 18px;text-align:center;color:var(--muted);font-size:.875rem}
+.hints{display:flex;gap:16px;padding:9px 16px;border-top:1px solid var(--line);font-size:.75rem;color:var(--muted)}
+
+@media (max-width:1180px){ .main{grid-template-columns:minmax(0,1fr);padding-right:40px} .toc{display:none} }
+@media (max-width:900px){
+  .top{grid-template-columns:auto minmax(0,1fr) auto;padding:0 12px;gap:10px}
+  .menu{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:8px;background:transparent;color:var(--ink);cursor:pointer}
+  .brand em,.health span.txt,.searchbtn kbd{display:none}
+  .searchbtn{justify-self:end;width:auto}
+  .searchbtn span{display:none}
+  .layout{display:block}
+  .side{display:none;position:fixed;inset:var(--head) 0 0 0;height:auto;z-index:15;background:var(--bg);border-right:0;padding:16px}
+  .side.open{display:block}
+  .main{padding:28px 18px 72px}
+  h1{font-size:1.625rem} .desc{font-size:1rem}
+  .fiche{grid-template-columns:1fr}
+  .fiche div + div{border-left:0;border-top:1px solid var(--line)}
+  .cards,.counts,.horizons{grid-template-columns:1fr}
+  .entry{grid-template-columns:1fr;gap:8px}
+  .entry dl{grid-template-columns:1fr;gap:2px} .entry dd{margin-bottom:8px}
+  .anchor{display:none}
+  .pager{grid-template-columns:1fr} .pager .next{grid-column:auto;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.top,.side,.toc,.pager,.modal{display:none!important}.layout,.main{display:block;padding:0}.page{display:block;break-before:page}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div style="display:flex;align-items:center;gap:6px">
+    <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="side" aria-label="Open navigation"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
+    <!-- Product name: replace here, on the home page and in <title> -->
+    <a class="brand" href="#home"><i>B</i>Bordereau<em>Product docs</em></a>
+  </div>
+  <button class="searchbtn" id="searchBtn" type="button" aria-haspopup="dialog">
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="7" cy="7" r="4.6"/><path d="M10.6 10.6 14 14"/></svg>
+    <span>Search the docs</span><kbd id="kbdHint">Ctrl K</kbd>
+  </button>
+  <a class="health" id="health" href="#home--documentation-health"></a>
+</header>
+
+<div class="layout">
+<aside class="side" id="side">
+  <nav class="nav" id="nav" aria-label="Navigation"></nav>
+  <label class="switch"><input type="checkbox" id="guideToggle" checked> Template guidance</label>
+</aside>
+
+<main class="main">
+<div class="content">
+
+<!-- =====================================================================
+  CONVENTION: one page = one <section class="page"> with its metadata.
+  data-title    : displayed title (navigation, header, search)
+  data-desc     : the page in one sentence (under the title, cards, search)
+  data-group    : navigation group. Omit it and set data-parent instead for a
+                  child page, such as a spec: it stays out of the navigation and
+                  out of the health register, and is reached from its parent.
+  data-status   : ok | check | stale
+  data-verified : ISO date of the last review against the code
+  data-trigger  : the event that forces an update of this page
+  data-sources  : where the details live (files, folders, tools, comma separated).
+                  The page explains, these sources win. Never copy their content.
+  Spec pages carry data-parent="specs" plus data-spec-id, data-spec-status
+  (draft | ready | in-progress | shipped | dropped), data-target, data-updated.
+  Navigation, headers, table of contents, search, previous/next, the spec index
+  and the home register are all generated from this metadata and the <h2> titles.
+====================================================================== -->
+
+
+<section class="page" id="home" data-title="Home" data-group="Understand">
+  <p class="crumb">Product documentation</p>
+  <h1>Understanding Bordereau</h1>
+  <p class="desc">What the product does today, why it does it, and where to enter the code for the details.</p>
+  <div class="actions"><a class="btn primary" href="#overview">Discover the product</a><a class="btn" href="#maintaining">Maintain these docs</a></div>
+  <div class="guide">
+    <p><strong>This is a template.</strong> Bordereau is a fictional product (invoicing for French freelancers) used as an example. Replace the content, keep the structure. Boxes like this one are guidance: hide them with the switch at the bottom of the sidebar.</p>
+    <p><strong>Writing rule: these docs explain, they do not copy.</strong> Anything you can read in the database, the configuration or the code (columns, event lists, price grids, flag states, metric values) is not listed here. Explain the principle, the reason and the pitfalls, then point to the file that holds the details.</p>
+  </div>
+  <h2>Where to start</h2>
+  <div class="cards" id="start"></div>
+  <h2>All documentation</h2>
+  <div class="cards" id="groups"></div>
+  <h2>Documentation health</h2>
+  <p>Every page declares what triggers an update, where the details live, and when it was last reviewed against the code. The docs display their own level of confidence.</p>
+  <div class="counts" id="counts"></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Page</th><th>Status</th><th>Reviewed</th><th>Update when</th></tr></thead>
+    <tbody id="register"></tbody>
+  </table></div>
+</section>
+
+<section class="page" id="overview" data-title="Overview" data-group="Understand" data-status="ok" data-verified="2026-09-14"
+  data-desc="The product in two minutes: what it does, for whom, and what it does not do."
+  data-trigger="The scope, the surfaces or the stage of the product changes" data-sources="README.md">
+  <div class="guide">
+    <p><strong>Purpose:</strong> let a newcomer, human or agent, place the product in two minutes.</p>
+    <p><strong>Leave out:</strong> mission, vision, personas and strategy. They live in the business card. A link is enough here.</p>
+  </div>
+  <p class="lead">Bordereau lets French freelancers create, send and get paid for their invoices without any accounting knowledge.</p>
+  <h2>Identity</h2>
+  <div class="scroll"><table><tbody>
+    <tr><td>Stage</td><td class="plain">In production since March 2026</td></tr>
+    <tr><td>Surfaces</td><td class="plain">Web app, mobile PWA, transactional emails</td></tr>
+    <tr><td>Production</td><td class="plain"><code>app.bordereau.example</code></td></tr>
+    <tr><td>Repository</td><td class="plain"><code>github.com/example/bordereau</code></td></tr>
+    <tr><td>Business card</td><td class="plain">Mission, vision, personas, strategy: link to the dedicated tool</td></tr>
+  </tbody></table></div>
+  <h2>Scope</h2>
+  <h3>The product does</h3>
+  <ul><li>Quotes, invoices and credit notes compliant with French requirements</li><li>Email delivery, open tracking, automatic reminders</li><li>Payment by link (card, bank transfer)</li><li>Monthly accounting export</li></ul>
+  <h3>The product does not do</h3>
+  <ul><li>Bookkeeping, VAT returns, tax filings</li><li>Recurring invoicing (see <a href="#roadmap">Roadmap</a>)</li><li>Several companies under one account</li></ul>
+</section>
+
+<section class="page" id="glossary" data-title="Glossary" data-group="Understand" data-status="ok" data-verified="2026-09-10"
+  data-desc="One word per concept, from the interface down to the code."
+  data-trigger="A new concept appears in the product, the code or team conversations" data-sources="src/domain/types.ts">
+  <div class="guide">
+    <p><strong>Purpose:</strong> one word per concept, everywhere: interface, code, specs, support. The "Name in code" column stops agents from inventing synonyms.</p>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th>Term</th><th>Definition</th><th>Name in code</th><th>Not to be confused with</th></tr></thead>
+    <tbody>
+      <tr><td>Draft</td><td class="plain">An editable invoice with no number, invisible to the end customer</td><td class="plain"><code>Invoice{status:"draft"}</code></td><td class="plain">Quote</td></tr>
+      <tr><td>Issuing</td><td class="plain">The moment an invoice gets its number and becomes immutable</td><td class="plain"><code>issueInvoice()</code></td><td class="plain">Sending (the email goes out afterwards)</td></tr>
+      <tr><td>Credit note</td><td class="plain">A document that cancels all or part of an issued invoice</td><td class="plain"><code>CreditNote</code></td><td class="plain">Refund (a movement of money)</td></tr>
+      <tr><td>Reminder</td><td class="plain">An automatic email sent after the due date</td><td class="plain"><code>Reminder</code></td><td class="plain">A nudge before the due date</td></tr>
+      <tr><td>Customer</td><td class="plain">The person or company our user invoices</td><td class="plain"><code>Customer</code></td><td class="plain">User (<code>Account</code>)</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="features" data-title="Features" data-group="Product" data-status="ok" data-verified="2026-09-15"
+  data-desc="Everything the user can do today, with the real status of each capability."
+  data-trigger="A capability is added, changes in nature or is removed" data-sources="src/features/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> answer "does the product do X?". One row per capability as the user perceives it, not per technical component.</p>
+    <p><strong>Do not copy:</strong> a flag's rollout percentage, the exact plan or the quotas. Status stays deliberately coarse; the details live in the configuration.</p>
+  </div>
+  <div class="scroll"><table>
+    <thead><tr><th>Feature</th><th>What the user can do</th><th>Status</th><th>To understand it</th></tr></thead>
+    <tbody>
+      <tr><td>Invoice creation</td><td class="plain">Build an invoice line by line, with a live PDF preview</td><td class="plain"><span class="tag t-ok">Live</span></td><td class="plain"><a href="#M-lifecycle">Invoice lifecycle</a></td></tr>
+      <tr><td>Automatic reminders</td><td class="plain">Let the product chase late-paying customers</td><td class="plain"><span class="tag t-ok">Live</span></td><td class="plain"><a href="#M-reminders">Reminders</a>, <a href="#BR-003">BR-003</a></td></tr>
+      <tr><td>Payment by link</td><td class="plain">Add a pay button to the invoice that is sent</td><td class="plain"><span class="tag t-info">Beta</span></td><td class="plain"><a href="#M-collection">Collection</a>, <a href="#spec-S-027">S-027</a></td></tr>
+      <tr><td>Customer import by email</td><td class="plain">Forward an email to create the customer record</td><td class="plain"><span class="tag t-check">Partial rollout</span></td><td class="plain"><a href="#ai">AI components</a>, <a href="#spec-S-031">S-031</a></td></tr>
+      <tr><td>Legacy CSV export</td><td class="plain">Download all invoices in the old format</td><td class="plain"><span class="tag t-mute">Being retired</span></td><td class="plain">Replaced by the accounting export</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="journeys" data-title="User journeys" data-group="Product" data-status="ok" data-verified="2026-09-08"
+  data-desc="The paths that carry the value, from the user's intent to the outcome."
+  data-trigger="A step is added, removed or moved in a key journey" data-sources="e2e/, src/app/routes/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> tell the three to six journeys that carry the value: where the user starts, what they are after, where it can get stuck. The screen-by-screen detail lives in the end-to-end test, which is executable and therefore always right.</p>
+  </div>
+  <h2>First invoice</h2>
+  <p><strong>Intent.</strong> A new signup should have sent a real invoice in under five minutes, knowing nothing about legal mentions.</p>
+  <ol>
+    <li>They enter their company number. The product derives the legal name and the VAT regime, which removes the tax questions.</li>
+    <li>They create the customer and the lines on the same screen. No customer record to fill in beforehand.</li>
+    <li>They check the preview, then issue. This is when the invoice becomes final (see <a href="#M-lifecycle">lifecycle</a>).</li>
+    <li>They email the customer from the product.</li>
+  </ol>
+  <p><strong>Where it gets stuck.</strong> Company number not found: manual entry is offered. Invalid customer email: sending is blocked but the invoice stays issued.</p>
+  <p><strong>Details live in</strong> <code>e2e/first-invoice.spec.ts</code>.</p>
+  <h2>Collection</h2>
+  <p>Same layout: intent, one sentence per step, friction points, reference test.</p>
+</section>
+
+<section class="page" id="mechanisms" data-title="Key mechanisms" data-group="Product" data-status="ok" data-verified="2026-09-15"
+  data-desc="How the things you cannot guess from the interface actually work."
+  data-trigger="The way a mechanism works changes, or a new non-obvious mechanism appears" data-sources="src/domain/invoice/, src/jobs/, src/integrations/payments/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> explain the few things you cannot work out by looking at the interface or by reading a single file. Three to eight mechanisms, one screen each.</p>
+    <p><strong>Layout:</strong> in short, how it unfolds, special cases, why it is built this way, where to enter the code. <strong>Success test:</strong> after reading, you know which file to open and you understand what you read there.</p>
+  </div>
+
+  <h2 id="M-lifecycle">Invoice lifecycle</h2>
+  <p><strong>In short.</strong> An invoice is free-form while it is a draft, then frozen once issued. Everything that happens next (sending, lateness, payment, cancellation) changes its state without ever changing its content.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>From</th><th>To</th><th>What causes the move</th></tr></thead>
+    <tbody>
+      <tr><td>Draft</td><td class="plain">Issued</td><td class="plain">The user issues it. The number is assigned at that instant.</td></tr>
+      <tr><td>Issued</td><td class="plain">Sent</td><td class="plain">The email goes out, or the user declares having delivered it another way.</td></tr>
+      <tr><td>Sent</td><td class="plain">Overdue</td><td class="plain">A daily job notices the due date has passed.</td></tr>
+      <tr><td>Sent, Overdue</td><td class="plain">Paid</td><td class="plain">The payment provider reports it, or manual entry.</td></tr>
+      <tr><td>Any issued invoice</td><td class="plain">Cancelled</td><td class="plain">A full credit note is created.</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Good to know.</strong> The customer's details are copied into the invoice when it is issued. Editing the customer record later does not change past invoices.</p>
+  <p><strong>Where to enter the code.</strong> <code>src/domain/invoice/state.ts</code> holds every allowed transition; nothing is decided elsewhere.</p>
+
+  <h2 id="M-reminders">Automatic reminders</h2>
+  <p><strong>In short.</strong> After the due date, the product sends the customer a series of emails that are increasingly spaced out and increasingly firm, and stops on its own as soon as there is no reason left to chase.</p>
+  <h3>How it unfolds</h3>
+  <ol>
+    <li>Every working morning, a job looks for overdue invoices whose next reminder is due.</li>
+    <li>For each one, it picks the email template that matches the reminder's rank.</li>
+    <li>It records the reminder before sending the email, which makes the job safe to rerun without duplicates.</li>
+  </ol>
+  <h3>Special cases</h3>
+  <ul><li>A payment, even partial, pauses the sequence until the user decides.</li><li>An invoice marked as disputed is never chased.</li><li>Nothing goes out at weekends: it moves to the next working day.</li></ul>
+  <p><strong>Why this way.</strong> Users do not dare chase customers themselves. The sequence is deliberately not configurable for now (see <a href="#decisions">Decisions</a>).</p>
+  <p><strong>Where to enter the code.</strong> <code>src/jobs/reminders.ts</code> for orchestration; the delays are constants at the top of the file.</p>
+
+  <h2 id="M-collection">Collection by payment link</h2>
+  <p><strong>In short.</strong> Bordereau never touches the money. The link opens a page hosted by the provider, the money goes straight to the user's account, and the product learns the outcome from a message sent by the provider.</p>
+  <p><strong>Good to know.</strong> That message can arrive twice or out of order: processing is designed to give the same result in every case. Until it arrives, the invoice stays "Sent", even if the customer has paid.</p>
+  <p><strong>Where to enter the code.</strong> <code>src/integrations/payments/webhook.ts</code>.</p>
+</section>
+
+<section class="page" id="rules" data-title="Business rules" data-group="Product" data-status="ok" data-verified="2026-09-15"
+  data-desc="What the product decides on the user's behalf, and why."
+  data-trigger="What the product decides on the user's behalf changes: a rule is added, modified or retired" data-sources="src/domain/, tests/domain/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> the most valuable page. Everything the product decides on the user's behalf, with the reason. Without it, these rules only exist as scattered <code>if</code> statements.</p>
+    <p><strong>Format:</strong> a stable identifier, the intent in one sentence, the why, the file that implements it and the test that proves it. The rule gives the behaviour: exact constants (delays, caps, formats) are in the cited file, and that file wins.</p>
+  </div>
+  <h2>Rules</h2>
+  <div class="entry" id="BR-001"><div class="id">BR-001</div><div>
+    <h3>Invoice numbering is continuous and assigned when issuing</h3>
+    <p>A draft has no number. Numbers follow the <code>YYYY-NNNN</code> format, with no gap and no duplicate, per account.</p>
+    <dl><dt>Why</dt><dd>French legal requirement. A gap in the sequence is a risk during a tax audit.</dd>
+    <dt>Code</dt><dd><code>src/domain/invoice/numbering.ts</code></dd><dt>Test</dt><dd><code>tests/domain/numbering.test.ts</code></dd><dt>Since</dt><dd>1.0.0</dd></dl>
+  </div></div>
+  <div class="entry" id="BR-002"><div class="id">BR-002</div><div>
+    <h3>An issued invoice can no longer be edited</h3>
+    <p>Any correction goes through a credit note, full or partial, followed by a new invoice.</p>
+    <dl><dt>Why</dt><dd>Accounting integrity. See decision <a href="#D-007">D-007</a>.</dd>
+    <dt>Code</dt><dd><code>src/domain/invoice/guards.ts</code></dd><dt>Test</dt><dd><code>tests/domain/immutability.test.ts</code></dd><dt>Since</dt><dd>1.0.0</dd></dl>
+  </div></div>
+  <div class="entry" id="BR-003"><div class="id">BR-003</div><div>
+    <h3>Reminders space out after the due date and stop as soon as they no longer make sense</h3>
+    <p>Payment or dispute: the sequence stops. Never a reminder at the weekend. Full walkthrough in <a href="#M-reminders">Key mechanisms</a>.</p>
+    <dl><dt>Why</dt><dd>Saturday reminders triggered annoyed replies (support tickets, February 2026).</dd>
+    <dt>Code</dt><dd><code>src/jobs/reminders.ts</code></dd><dt>Test</dt><dd><code>tests/jobs/reminders.test.ts</code></dd><dt>Since</dt><dd>2.3.0, changed in 2.9.0</dd></dl>
+  </div></div>
+  <div class="entry" id="BR-004"><div class="id">BR-004</div><div>
+    <h3>Payment terms have a default and a legal ceiling</h3>
+    <p>The user can shorten terms freely. Above the ceiling, the field rejects the value and explains why.</p>
+    <dl><dt>Why</dt><dd>Legal cap on payment terms between businesses in France.</dd>
+    <dt>Code</dt><dd><code>src/domain/invoice/due-date.ts</code></dd><dt>Test</dt><dd><code>tests/domain/due-date.test.ts</code></dd><dt>Since</dt><dd>1.2.0</dd></dl>
+  </div></div>
+  <p>To see these rules at work in a complete flow: <a href="#mechanisms">Key mechanisms</a>.</p>
+</section>
+
+<section class="page" id="plans" data-title="Plans and permissions" data-group="Product" data-status="ok" data-verified="2026-09-02"
+  data-desc="The logic behind how plans and roles are split."
+  data-trigger="The logic behind plans or roles changes (not every price or quota change)" data-sources="config/plans.ts, src/auth/permissions.ts">
+  <div class="guide"><p><strong>Purpose:</strong> explain the logic of the split, not the grid. Exact prices and quotas live in the configuration and on the pricing page: copying them here guarantees they will drift apart.</p></div>
+  <h2>Plan logic</h2>
+  <p>The free plan lets you invoice occasionally and stay compliant. The Pro plan unlocks everything that saves time or brings money in faster: automation, branding, online payment.</p>
+  <p><strong>Non-negotiable principle.</strong> Access to a legal document that has already been issued is never removed, whatever the plan or the subscription state.</p>
+  <h3>What happens at the limit</h3>
+  <p>Free quota reached: the user can still prepare drafts, but issuing is blocked with an invitation to upgrade. Moving from Pro back to Free: automations stop, nothing is deleted.</p>
+  <h2>Role logic</h2>
+  <p>Two roles only. The owner does everything. The invited accountant reads and exports, but creates nothing and cannot touch the subscription. There is no role in between, by choice: the target is a freelancer working alone.</p>
+  <h2>Where the details live</h2>
+  <ul><li>Quotas and plan contents: <code>config/plans.ts</code></li><li>Permission matrix: <code>src/auth/permissions.ts</code></li><li>Displayed prices: the pricing page of the website</li></ul>
+</section>
+
+<section class="page" id="roadmap" data-title="Roadmap" data-group="Direction" data-status="ok" data-verified="2026-09-17"
+  data-desc="Every live project in priority order, with the status of its spec."
+  data-trigger="A priority changes, or a project starts, ends or is ruled out" data-sources="Linear: Bordereau project">
+  <div class="guide">
+    <p><strong>Purpose:</strong> one ordered list of everything we intend to do, most important first. Each row starts from a problem and targets a metric, not a dated feature list.</p>
+    <p><strong>How it works:</strong> rows are written in priority order and numbered automatically. The project name and its spec status are read from the spec page, so they are written in one place only. Once an item ships, it leaves this page and enters <a href="#features">Features</a> and the <a href="#changelog">Changelog</a>. If the roadmap lives in a tracker, reduce this page to the prioritisation logic and a link.</p>
+  </div>
+  <h2>Priorities</h2>
+  <p>Order is the decision. Two rows never share a rank, and moving one down is as explicit as moving another up.</p>
+  <div class="scroll"><table class="roadmap">
+    <thead><tr><th>#</th><th>Project</th><th>Problem it solves</th><th>Target metric</th><th>Horizon</th><th>Spec</th></tr></thead>
+    <!-- One <tr> per project, in priority order. data-spec points at a spec page: the
+         project name and the spec status are filled in from it. Use data-project for a
+         project that has no spec yet. Horizon: now | next | later. -->
+    <tbody data-roadmap>
+      <tr data-spec="spec-S-027" data-horizon="now">
+        <td class="plain">Invoices settled by manual transfer are paid much later than the others</td>
+        <td class="plain">Median time to payment</td></tr>
+      <tr data-spec="spec-S-031" data-horizon="now">
+        <td class="plain">Entering the first customer is the main drop-off point in onboarding</td>
+        <td class="plain">Activation</td></tr>
+      <tr data-spec="spec-S-033" data-horizon="next">
+        <td class="plain">Many Pro users duplicate the same invoice every month</td>
+        <td class="plain">Pro retention at 90 days</td></tr>
+      <tr data-project="Mandatory e-invoicing" data-horizon="later">
+        <td class="plain">The French reform will require receiving, then issuing, in a structured format</td>
+        <td class="plain">Regulatory constraint, no metric</td></tr>
+      <tr data-project="Foreign currencies" data-horizon="later">
+        <td class="plain">Users cannot invoice a customer outside the eurozone in their currency</td>
+        <td class="plain">Not sized yet</td></tr>
+    </tbody>
+  </table></div>
+  <h2>What the horizons mean</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Horizon</th><th>Means</th><th>What is expected of it</th></tr></thead>
+    <tbody>
+      <tr><td>Now</td><td class="plain">In development</td><td class="plain">A spec that is ready or in progress, and a named owner</td></tr>
+      <tr><td>Next</td><td class="plain">Scoped, not started</td><td class="plain">A spec at least in draft, and an agreed problem</td></tr>
+      <tr><td>Later</td><td class="plain">Problem identified, solution open</td><td class="plain">A problem worth writing down; no spec required</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Ruled out</h2>
+  <p>Kept on purpose: it stops the same idea coming back every quarter without new information.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Idea</th><th>Reason</th><th>Revisit if</th></tr></thead>
+    <tbody><tr><td>Native mobile app</td><td class="plain">The mobile web version covers most of the usage we observe</td><td class="plain">Users need to scan expense receipts</td></tr></tbody>
+  </table></div>
+</section>
+
+<section class="page" id="specs" data-title="Specs" data-group="Direction" data-status="ok" data-verified="2026-09-16"
+  data-desc="Upcoming changes, described before they are built. One page per project."
+  data-trigger="A spec is created, changes status or has its scope modified" data-sources="Spec pages below">
+  <div class="guide">
+    <p><strong>Purpose:</strong> a spec describes a change to come. The rest of the docs describes the present state. When a spec ships, its lasting content moves to Features, Business rules and Key mechanisms, then the spec is frozen.</p>
+    <p><strong>How it works:</strong> each project has its own page, a <code>&lt;section class="page" data-parent="specs"&gt;</code>. The index below is generated from those pages, so a spec's title and status are written in one place only.</p>
+  </div>
+  <h2>Projects</h2>
+  <div class="scroll"><table>
+    <thead><tr><th style="width:5.5rem">ID</th><th>Project</th><th>Status</th><th>Target</th><th>Updated</th></tr></thead>
+    <tbody data-index-of="specs"></tbody>
+  </table></div>
+  <h2>Spec template</h2>
+  <p>Copy an existing spec page and keep these sections.</p>
+  <div class="sheet">
+    <h3>Problem</h3><p>What is wrong today, for whom, with the evidence (data, quote, ticket).</p>
+    <h3>Expected outcome</h3><p>The metric that should move, and in which direction.</p>
+    <h3>Behaviour</h3><p>What the user sees and does, screen by screen. Empty states, errors and edge cases included.</p>
+    <h3>Acceptance criteria</h3><p>A checkable list. Each criterion should be able to become a test.</p>
+    <h3>Out of scope</h3><p>What we are deliberately not doing in this version.</p>
+    <h3>Impact on the docs</h3><p>Pages to update when it ships: rules, mechanisms, features, measurement.</p>
+    <h3>Open questions</h3><p>Each with an owner and a date for the answer.</p>
+  </div>
+</section>
+
+<!-- Spec pages: children of "specs". They do not appear in the sidebar or in the health register.
+     data-spec-id, data-spec-status (draft | ready | in-progress | shipped | dropped), data-target, data-updated -->
+
+<section class="page" id="spec-S-031" data-parent="specs" data-title="Customer import by email" data-spec-id="S-031" data-spec-status="in-progress" data-target="2.15" data-updated="2026-09-12"
+  data-desc="Forward an email, get a ready-to-use customer record.">
+  <h2>Problem</h2>
+  <p>Entering the first customer is where most new signups give up. They have the customer's details in an email (a quote request, a signature) and have to retype them field by field, often on a phone.</p>
+  <p><strong>Evidence.</strong> Onboarding funnel in the analytics tool, step "first customer". Eleven support conversations asking for a way to paste a signature.</p>
+  <h2>Expected outcome</h2>
+  <p>Activation goes up, because the first invoice becomes reachable in one sitting. Definition of activation: see <a href="#metrics">Metrics and tracking</a>.</p>
+  <h2>Behaviour</h2>
+  <ol>
+    <li>Each account gets a private forwarding address, shown on the empty customer list and in the new-invoice screen.</li>
+    <li>The user forwards any email from their customer to that address.</li>
+    <li>Within a minute, a proposed customer record appears in the product, with the source email quoted next to each field.</li>
+    <li>The user reviews, corrects and confirms. Nothing is saved before that confirmation.</li>
+  </ol>
+  <h3>Edge cases</h3>
+  <ul>
+    <li>Nothing usable in the email: the user is told so and offered the manual form, prefilled with the sender's address.</li>
+    <li>The customer already exists: the product proposes updating the existing record instead of creating a duplicate.</li>
+    <li>The model is unavailable: the forwarded email waits in a queue, and the manual form stays available.</li>
+  </ul>
+  <h2>Acceptance criteria</h2>
+  <ul>
+    <li>A forwarded email with a standard signature yields a correct name and address without manual edits.</li>
+    <li>No customer record is ever created without an explicit confirmation.</li>
+    <li>The forwarded email is deleted once processed, within a day at most.</li>
+    <li>The feature is fully hidden when its flag is off.</li>
+  </ul>
+  <h2>Out of scope</h2>
+  <ul><li>Reading attachments (purchase orders, PDFs)</li><li>Creating the invoice itself from the email</li><li>Connecting a mailbox</li></ul>
+  <h2>Impact on the docs</h2>
+  <ul>
+    <li><a href="#ai">AI components</a>: new component, its guardrails and its evaluation set</li>
+    <li><a href="#security">Security and personal data</a>: email content, purpose and retention</li>
+    <li><a href="#journeys">User journeys</a>: step 2 of "First invoice"</li>
+    <li><a href="#features">Features</a>: status moves from partial rollout to live</li>
+  </ul>
+  <h2>Open questions</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Question</th><th>Owner</th><th>Answer by</th></tr></thead>
+    <tbody>
+      <tr><td class="plain">Do we accept emails forwarded from an address that is not the account's?</td><td class="plain">Product</td><td class="plain">22 Sep 2026</td></tr>
+      <tr><td class="plain">Free plan or Pro only after the rollout?</td><td class="plain">Product</td><td class="plain">30 Sep 2026</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="spec-S-027" data-parent="specs" data-title="Payment by link" data-spec-id="S-027" data-spec-status="in-progress" data-target="2.15" data-updated="2026-09-09"
+  data-desc="A pay button on every invoice, so customers pay the day they read it.">
+  <h2>Problem</h2>
+  <p>Customers who pay by manual bank transfer pay late: they have to log in to their bank, retype the details and the reference. Our users then spend time matching transfers to invoices.</p>
+  <h2>Expected outcome</h2>
+  <p>Median time to payment goes down for invoices that carry the link.</p>
+  <h2>Behaviour</h2>
+  <ol>
+    <li>The user connects their payment provider account once, from the settings.</li>
+    <li>From then on, every invoice sent carries a pay button, in the email and on the PDF.</li>
+    <li>The customer pays on a page hosted by the provider. The invoice moves to "Paid" when the provider confirms.</li>
+  </ol>
+  <p>Beta scope covers card payments. Leaving beta adds bank transfer through the same link and the button in reminder emails.</p>
+  <h2>Acceptance criteria</h2>
+  <ul>
+    <li>A provider confirmation received twice never records two payments.</li>
+    <li>If the provider is down, invoices are still sent, without the button.</li>
+    <li>A partial payment updates the balance and pauses reminders (<a href="#BR-003">BR-003</a>).</li>
+  </ul>
+  <h2>Out of scope</h2>
+  <ul><li>Holding funds or issuing payouts ourselves (see decision <a href="#D-012">D-012</a>)</li><li>Instalment plans</li></ul>
+  <h2>Impact on the docs</h2>
+  <ul><li><a href="#M-collection">Key mechanisms</a>: collection by payment link</li><li><a href="#integrations">Integrations and API</a>: behaviour when the provider is down</li></ul>
+  <h2>Open questions</h2>
+  <p>None at this stage.</p>
+</section>
+
+<section class="page" id="spec-S-033" data-parent="specs" data-title="Recurring invoicing" data-spec-id="S-033" data-spec-status="draft" data-target="To be defined" data-updated="2026-09-03"
+  data-desc="Stop duplicating the same invoice every month.">
+  <div class="guide"><p><strong>A draft spec is allowed to be incomplete.</strong> Problem and expected outcome come first. Behaviour is written once the problem is agreed.</p></div>
+  <h2>Problem</h2>
+  <p>Many Pro users duplicate the same invoice for the same customer every month, then fix the date by hand. Some forget, and invoice late.</p>
+  <h2>Expected outcome</h2>
+  <p>Pro retention at 90 days goes up. Secondary effect: fewer late invoices.</p>
+  <h2>Behaviour</h2>
+  <p>To be written. Main open choice: fully automatic issuing, or a draft prepared each period that the user confirms. The second option fits <a href="#BR-002">BR-002</a> better, since an issued invoice cannot be edited.</p>
+  <h2>Open questions</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Question</th><th>Owner</th><th>Answer by</th></tr></thead>
+    <tbody><tr><td class="plain">Automatic issuing or confirmed draft?</td><td class="plain">Product</td><td class="plain">Five user interviews, October</td></tr></tbody>
+  </table></div>
+</section>
+
+<section class="page" id="spec-S-019" data-parent="specs" data-title="Automatic reminders" data-spec-id="S-019" data-spec-status="shipped" data-target="2.3" data-updated="2026-02-20"
+  data-desc="Let the product chase late payers so the user does not have to.">
+  <div class="guide"><p><strong>A shipped spec is frozen.</strong> It records what was decided at the time. The current behaviour is described in the living pages, which win if they disagree.</p></div>
+  <h2>Where the current behaviour is described</h2>
+  <ul><li><a href="#M-reminders">Key mechanisms</a>: how reminders unfold today</li><li><a href="#BR-003">BR-003</a>: the rule and its reason</li></ul>
+  <h2>Problem, as written at the time</h2>
+  <p>Users do not dare chase their customers, and late invoices stay late. They asked for the product to do it for them, in a tone they would not be ashamed of.</p>
+  <h2>What shipped</h2>
+  <p>A fixed sequence of three reminder emails after the due date, stopped by a payment or a dispute. The weekend rule was added later, in 2.9.</p>
+</section>
+
+<section class="page" id="decisions" data-title="Decisions" data-group="Direction" data-status="ok" data-verified="2026-09-05"
+  data-desc="The memory of structuring choices and the reasons behind them."
+  data-trigger="A structuring choice, product or technical, is made or revised" data-sources="docs/decisions/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> keep the memory of why. A decision is never edited: a new one is added that supersedes it. This avoids reopening the same debates, and lets an agent avoid undoing a deliberate choice.</p>
+  </div>
+  <div class="entry" id="D-012"><div class="id">D-012</div><div>
+    <h3>Payments go through a single provider, with no internal wallet</h3>
+    <p>12 June 2026. <span class="tag t-ok">Active</span></p>
+    <dl><dt>Context</dt><dd>We need to collect money on behalf of users without a payment institution licence.</dd>
+    <dt>Options ruled out</dt><dd>Bank aggregation only (no cards), two providers (reconciliation complexity).</dd>
+    <dt>Consequences</dt><dd>Strong dependency, see <a href="#integrations">Integrations</a>. The fee is passed on to the Pro plan.</dd></dl>
+  </div></div>
+  <div class="entry" id="D-007"><div class="id">D-007</div><div>
+    <h3>No editing of an issued invoice, not even for a typo</h3>
+    <p>3 February 2026. <span class="tag t-ok">Active</span></p>
+    <dl><dt>Context</dt><dd>Recurring request from support. The legal risk was judged greater than the inconvenience.</dd>
+    <dt>Options ruled out</dt><dd>A ten-minute edit window after issuing.</dd>
+    <dt>Consequences</dt><dd>Rule <a href="#BR-002">BR-002</a>. The credit note flow was simplified in return.</dd></dl>
+  </div></div>
+</section>
+
+<section class="page" id="architecture" data-title="Architecture" data-group="Technical" data-status="ok" data-verified="2026-09-01"
+  data-desc="The components of the system, their role and what they depend on."
+  data-trigger="A component, a service or a background job is added, removed or changes role" data-sources="infra/, src/jobs/, docker-compose.yml">
+  <div class="guide"><p><strong>Purpose:</strong> the map of components at the level a PM needs: what exists, what it is for, what depends on what. Implementation detail stays in the code.</p></div>
+  <h2>Components</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Component</th><th>Role</th><th>Tech</th><th>Folder</th></tr></thead>
+    <tbody>
+      <tr><td>Web app</td><td class="plain">User interface and back office</td><td class="plain">Next.js</td><td class="plain"><code>src/app/</code></td></tr>
+      <tr><td>Domain</td><td class="plain">Pure business rules, no external dependency</td><td class="plain">TypeScript</td><td class="plain"><code>src/domain/</code></td></tr>
+      <tr><td>Database</td><td class="plain">Data, authentication, PDF storage</td><td class="plain">Postgres (Supabase)</td><td class="plain"><code>supabase/</code></td></tr>
+      <tr><td>PDF generator</td><td class="plain">Invoice rendering, archiving</td><td class="plain">Serverless function</td><td class="plain"><code>src/pdf/</code></td></tr>
+    </tbody>
+  </table></div>
+  <h2>Background jobs</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Job</th><th>When</th><th>Role</th><th>If it fails</th></tr></thead>
+    <tbody>
+      <tr><td><code>mark-overdue</code></td><td class="plain">Daily, early morning</td><td class="plain">Moves past-due invoices to overdue</td><td class="plain">Retried an hour later, then alerts</td></tr>
+      <tr><td><code>send-reminders</code></td><td class="plain">Every working morning</td><td class="plain">Sends the reminders that are due (BR-003)</td><td class="plain">See the dedicated runbook</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="data-model" data-title="Data model" data-group="Technical" data-status="ok" data-verified="2026-09-11"
+  data-desc="The concepts, how they relate, and the choices you cannot guess from the schema."
+  data-trigger="A concept, a relationship or an invariant changes (not every migration)" data-sources="supabase/migrations/, src/domain/types.ts">
+  <div class="guide"><p><strong>Purpose:</strong> give the mental map: the concepts, how they hold together, and the choices you cannot guess by reading the schema. No list of tables, no list of columns: the schema lives in the migrations and the generated types.</p></div>
+  <h2>Concepts and how they relate</h2>
+  <p>An <strong>account</strong> represents a freelancer and their business. It owns <strong>customers</strong> and <strong>invoices</strong>. An invoice targets one customer, contains <strong>lines</strong>, and can receive several partial <strong>payments</strong>. A <strong>credit note</strong> always attaches to an issued invoice and cancels all or part of it. <strong>Reminders</strong> are the history of emails sent for an overdue invoice.</p>
+  <h2>Choices to know before touching the schema</h2>
+  <ul>
+    <li><strong>An issued invoice is a snapshot.</strong> It embeds a copy of the customer's and the seller's details. Never rebuild a PDF from the current records.</li>
+    <li><strong>Drafts and invoices share one table.</strong> The number stays empty while the status is draft.</li>
+    <li><strong>Amounts are whole cents.</strong> No decimals in the database; rounding happens once, at line level.</li>
+    <li><strong>Nothing issued is physically deleted.</strong> Deleting an account anonymises it.</li>
+    <li><strong>Isolation between accounts is enforced by the database</strong>, not by application code.</li>
+  </ul>
+  <h2>Where the details live</h2>
+  <ul><li>Exact schema: <code>supabase/migrations/</code></li><li>Types used by the code: <code>src/domain/types.ts</code></li><li>Isolation rules: <code>supabase/policies/</code></li></ul>
+</section>
+
+<section class="page" id="integrations" data-title="Integrations and API" data-group="Technical" data-status="check" data-verified="2026-07-20"
+  data-desc="What the product depends on outside, and what happens when it goes down."
+  data-trigger="We start or stop depending on a service, or the behaviour during an outage changes" data-sources="src/integrations/, openapi.yaml">
+  <div class="guide"><p><strong>Purpose:</strong> for each external dependency, say why we depend on it and what happens to the user when it goes down. Variable names, keys and the endpoint list live in the repository.</p></div>
+  <p><span class="tag t-check">Gap spotted</span> Partial refunds (2.13) bring in a new type of message from the payment provider. Its effect on the invoice status is not explained here yet.</p>
+  <h2>Third-party services</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Service</th><th>Why we depend on it</th><th>If it goes down</th><th>Where to enter</th></tr></thead>
+    <tbody>
+      <tr><td>Payment provider</td><td class="plain">Collect money without holding funds or carrying a licence</td><td class="plain">Pay button hidden, invoices sent as usual</td><td class="plain"><code>src/integrations/payments/</code></td></tr>
+      <tr><td>Email delivery</td><td class="plain">Deliverability and open tracking</td><td class="plain">Queued, retried automatically for a day</td><td class="plain"><code>src/integrations/mail/</code></td></tr>
+      <tr><td>Company registry</td><td class="plain">Prefill signup from the company number</td><td class="plain">Manual entry offered</td><td class="plain"><code>src/integrations/sirene/</code></td></tr>
+    </tbody>
+  </table></div>
+  <h2>Public API</h2>
+  <p><strong>Principle.</strong> One key per account, read or write. The API can read invoices and create drafts. It cannot issue: issuing remains a human action, by choice.</p>
+  <p><strong>Details live in</strong> <code>openapi.yaml</code>, which also generates the developer documentation.</p>
+</section>
+
+<section class="page" id="ai" data-title="AI components" data-group="Technical" data-optional="true" data-status="ok" data-verified="2026-09-09"
+  data-desc="What each AI component is allowed to do, and how we know it works."
+  data-trigger="An AI component is added, changes role, or its guardrails evolve" data-sources="src/ai/prompts/, evals/">
+  <div class="guide"><p><strong>Purpose:</strong> keep this page if the product calls models. A prompt is a business rule in disguise. Explain what the component is allowed to do and how we know it works. The prompt itself, the model and the parameters live in the repository.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Component</th><th>What it does</th><th>What it must never do</th><th>How we know it works</th><th>Where to enter</th></tr></thead>
+    <tbody>
+      <tr><td>Customer record extraction</td><td class="plain">Reads a forwarded email and proposes name, address, company number</td><td class="plain">Save anything without the user's confirmation</td><td class="plain">Annotated email set replayed on every prompt change</td><td class="plain"><code>src/ai/prompts/extract-customer.md</code></td></tr>
+      <tr><td>Line suggestions</td><td class="plain">Proposes invoice lines from the account's history</td><td class="plain">Suggest an amount</td><td class="plain">Acceptance rate tracked in production</td><td class="plain"><code>src/ai/prompts/suggest-lines.md</code></td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>If the model is unavailable:</strong> both components step aside and the classic form remains usable.</p>
+</section>
+
+<section class="page" id="metrics" data-title="Metrics and tracking" data-group="Measurement" data-status="check" data-verified="2026-08-04"
+  data-desc="What we measure, why, and the exact definitions."
+  data-trigger="A metric definition changes, or the tracking convention evolves (not every new event)" data-sources="src/analytics/events.ts, PostHog: Bordereau KPIs dashboard">
+  <div class="guide"><p><strong>Purpose:</strong> pin down what we measure, why, and the exact definition. No values here: read them in the analytics tool. No event list either: it lives in the typed file cited above.</p></div>
+  <p><span class="tag t-check">Gap spotted</span> The activation definition says 7 days; the dashboard filters on 14. To be settled.</p>
+  <h2>North star metric</h2>
+  <p class="lead">Amount collected through Bordereau, per week.</p>
+  <p>It only goes up if users invoice, send and get paid through the product: it covers the whole promise.</p>
+  <h2>Input metrics</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Metric</th><th>Exact definition</th><th>Why it matters</th></tr></thead>
+    <tbody>
+      <tr><td>Activation</td><td class="plain">Share of new accounts that send an invoice within 7 days</td><td class="plain">Without a first invoice sent, the account does not come back</td></tr>
+      <tr><td>Median time to payment</td><td class="plain">Days between sending and the move to "Paid"</td><td class="plain">This is the benefit the user actually feels</td></tr>
+      <tr><td>Pro retention at 90 days</td><td class="plain">Pro subscribers still active at day 90, by monthly cohort</td><td class="plain">Shows whether automation keeps its promise</td></tr>
+    </tbody>
+  </table></div>
+  <h2>How we track</h2>
+  <ul>
+    <li>An event describes a completed business fact, not a click. It is emitted server-side whenever possible.</li>
+    <li>Naming: object then action in the past tense.</li>
+    <li>Every new event is declared in the typed file before it is emitted. That file is the reference list.</li>
+  </ul>
+</section>
+
+<section class="page" id="experiments" data-title="Experiments and flags" data-group="Measurement" data-status="ok" data-verified="2026-09-15"
+  data-desc="The hypotheses we tested and what we learned from them."
+  data-trigger="An experiment starts or concludes; the way we use flags changes" data-sources="config/flags.ts, feature flag tool">
+  <div class="guide"><p><strong>Purpose:</strong> keep what the code does not remember: the hypotheses tested and what we learned. The list of flags and their live state are read in the flag tool.</p></div>
+  <h2>How we use flags</h2>
+  <p>Three uses: roll a feature out gradually, compare two variants, cut off a fragile component in an emergency. Every flag gets an owner and a removal date when it is created. A flag with no removal date becomes debt.</p>
+  <h2>Experiment log</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Experiment</th><th>Hypothesis</th><th>Verdict</th><th>What we keep from it</th></tr></thead>
+    <tbody>
+      <tr><td>Two-step onboarding</td><td class="plain">Postponing the logo choice increases activation</td><td class="plain"><span class="tag t-info">Running</span></td><td class="plain">Readout planned for the end of September</td></tr>
+      <tr><td>Nudge before the due date</td><td class="plain">A friendly nudge three days before reduces lateness</td><td class="plain"><span class="tag t-stale">Disproved</span></td><td class="plain">No effect on time to payment, a few annoyed replies. Do not retry without targeting.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="tooling" data-title="Internal tooling" data-group="Operations" data-status="ok" data-verified="2026-09-03"
+  data-desc="Everything the team uses that the user never sees."
+  data-trigger="A script, a command, an admin screen or an automation is added or changed" data-sources="scripts/, src/app/admin/, .github/workflows/">
+  <div class="guide"><p><strong>Purpose:</strong> everything the team uses and the user does not see. It is the most often forgotten category, and the one whose absence costs the most on the day of an incident.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Tool</th><th>Used for</th><th>Where</th><th>Precautions</th></tr></thead>
+    <tbody>
+      <tr><td>Back office</td><td class="plain">Find an account, see its invoices, change its plan</td><td class="plain"><code>/admin</code></td><td class="plain">Every action is logged</td></tr>
+      <tr><td>Log in as</td><td class="plain">Reproduce a problem reported by a user</td><td class="plain">Back office, account page</td><td class="plain">Read only, visible banner, time limited</td></tr>
+      <tr><td><code>scripts/renumber-check.ts</code></td><td class="plain">Checks that invoice numbers are continuous (BR-001)</td><td class="plain">Local or CI, nightly</td><td class="plain">Writes nothing</td></tr>
+      <tr><td><code>scripts/seed.ts</code></td><td class="plain">Creates a demo account with sample invoices</td><td class="plain">Local, staging</td><td class="plain">Refuses to run in production</td></tr>
+      <tr><td>Docs review agent</td><td class="plain">Compares these docs with the code and reports gaps</td><td class="plain">Scheduled task, weekly</td><td class="plain">Opens a pull request, never merges</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="environments" data-title="Environments and runbooks" data-group="Operations" data-status="ok" data-verified="2026-08-28"
+  data-desc="Where the product runs, how we ship, and what to do when it breaks."
+  data-trigger="An environment, the deployment process or an alert changes; an incident is resolved" data-sources="infra/, .github/workflows/deploy.yml">
+  <div class="guide"><p><strong>Purpose:</strong> where the product runs, how we ship, and what to do when it breaks. Write a runbook right after the incident, while it is fresh.</p></div>
+  <h2>Environments</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Environment</th><th>Data</th><th>How it gets deployed</th></tr></thead>
+    <tbody>
+      <tr><td>Local</td><td class="plain">Demo data set</td><td class="plain">Started by hand, see the README</td></tr>
+      <tr><td>Staging</td><td class="plain">Anonymised copy of production, refreshed weekly</td><td class="plain">On every merge to the main branch</td></tr>
+      <tr><td>Production</td><td class="plain">Real</td><td class="plain">Version tag, then manual approval</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Runbooks</h2>
+  <div class="entry" id="RB-02"><div class="id">RB-02</div><div>
+    <h3>Reminders have stopped going out</h3>
+    <dl><dt>Symptom</dt><dd>Alert "send-reminders: 0 emails" on a working day.</dd>
+    <dt>Check</dt><dd>The email provider's status, then the job logs, then the monthly quota.</dd>
+    <dt>Act</dt><dd>Rerun the job from the back office. It is safe to rerun: no duplicate reminders.</dd>
+    <dt>Last occurrence</dt><dd>4 July 2026, quota exceeded.</dd></dl>
+  </div></div>
+</section>
+
+<section class="page" id="limitations" data-title="Known limitations and debt" data-group="Quality" data-status="ok" data-verified="2026-09-06"
+  data-desc="What does not work well today, stated honestly."
+  data-trigger="A limitation is discovered, worked around or lifted; a technical shortcut is taken on purpose" data-sources="Linear: debt label, TODOs in the code">
+  <div class="guide"><p><strong>Purpose:</strong> say honestly what does not work well. It avoids rediscovering the same problem every three months and gives support a ready answer.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Limitation</th><th>Impact on the user</th><th>Workaround</th><th>Planned</th></tr></thead>
+    <tbody>
+      <tr><td>Slow PDF on very long invoices</td><td class="plain">The preview takes several seconds</td><td class="plain">None</td><td class="plain">Not planned</td></tr>
+      <tr><td>Single currency (euro)</td><td class="plain">Cannot invoice a customer outside the eurozone in their currency</td><td class="plain">Manual mention in the notes</td><td class="plain">Later</td></tr>
+      <tr><td>Numbering not carried over on import</td><td class="plain">A user who migrates restarts from a chosen number, with no history</td><td class="plain">"Next number" field during onboarding</td><td class="plain">No</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="security" data-title="Security and personal data" data-group="Quality" data-status="ok" data-verified="2026-08-30"
+  data-desc="The data we hold, why, for how long, and who can access it."
+  data-trigger="A new piece of personal data is collected, a subprocessor changes, a retention period evolves" data-sources="supabase/policies/, GDPR register">
+  <div class="guide"><p><strong>Purpose:</strong> know what data we hold, why, for how long, and who has access. Essential from the first European user.</p></div>
+  <div class="scroll"><table>
+    <thead><tr><th>Data</th><th>Purpose</th><th>Retention</th><th>Stored with</th></tr></thead>
+    <tbody>
+      <tr><td>User identity and company number</td><td class="plain">Legal mentions on invoices</td><td class="plain">Life of the account, then the legal period for invoices</td><td class="plain">Main database, EU region</td></tr>
+      <tr><td>Contact details of invoiced customers</td><td class="plain">Issuing and sending</td><td class="plain">Same</td><td class="plain">Main database</td></tr>
+      <tr><td>Content of forwarded emails</td><td class="plain">Customer record extraction</td><td class="plain">Deleted after processing</td><td class="plain">Not retained</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Access and protections</h2>
+  <ul><li>Per-account isolation at database level (row policies)</li><li>Daily backup, restore tested every quarter</li><li>Account deletion: immediate anonymisation, invoices kept for the legal obligation</li></ul>
+</section>
+
+<section class="page" id="support" data-title="Support and feedback" data-group="Quality" data-status="stale" data-verified="2026-05-12"
+  data-desc="What users do not understand, and what that reveals about the product."
+  data-trigger="A recurring question appears or disappears; a feedback theme emerges" data-sources="Support inbox, quarterly survey">
+  <div class="guide"><p><strong>Purpose:</strong> what users do not understand and what that reveals about the product. Volumes and verbatims stay in the support tool: only the synthesis goes here.</p></div>
+  <h2>Recurring questions</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Question</th><th>Standard answer</th><th>What it reveals</th></tr></thead>
+    <tbody>
+      <tr><td>I made a mistake on an issued invoice</td><td class="plain">Create a credit note from the invoice, then issue a corrected one</td><td class="plain">The final nature of issuing is not announced clearly enough (<a href="#BR-002">BR-002</a>)</td></tr>
+      <tr><td>My customer paid but the invoice still says "Sent"</td><td class="plain">The status changes when the provider's confirmation arrives</td><td class="plain">The delay is misunderstood (<a href="#M-collection">Collection</a>)</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Request themes</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Theme</th><th>Need behind the request</th><th>Where it stands</th></tr></thead>
+    <tbody>
+      <tr><td>Recurring invoicing</td><td class="plain">Stop duplicating the same invoice every month</td><td class="plain"><a href="#spec-S-033">S-033</a>, Next on the roadmap</td></tr>
+      <tr><td>Foreign currencies</td><td class="plain">Invoice a customer outside the eurozone</td><td class="plain"><a href="#limitations">Known limitation</a></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="changelog" data-title="Changelog" data-group="History" data-status="ok" data-verified="2026-09-15"
+  data-desc="What changed for the user, version after version."
+  data-trigger="A change visible to the user ships" data-sources="Git tags, CHANGELOG.md">
+  <div class="guide"><p><strong>Purpose:</strong> history lives here and in Decisions, nowhere else. Written from the user's point of view, with a link to the rule or spec involved.</p></div>
+  <h2>2.14.0, 15 September 2026</h2>
+  <ul><li><strong>Added.</strong> Customer import by email, open to a share of Pro accounts (<a href="#spec-S-031">S-031</a>)</li><li><strong>Changed.</strong> The pay button now also appears in reminder emails</li><li><strong>Fixed.</strong> VAT rounding on percentage discounts</li></ul>
+  <h2>2.13.0, 28 August 2026</h2>
+  <ul><li><strong>Added.</strong> Partial refund from a paid invoice</li><li><strong>Removed.</strong> Old email template editor</li></ul>
+</section>
+
+<section class="page" id="maintaining" data-title="Maintaining these docs" data-group="Meta" data-status="ok" data-verified="2026-09-17"
+  data-desc="The rules that keep this documentation right over time."
+  data-trigger="The structure of the docs or the update process changes" data-sources="AGENTS.md, .github/pull_request_template.md">
+  <h2>Six principles</h2>
+  <ol>
+    <li><strong>Explain, do not copy.</strong> If a piece of information can be obtained with a database query or by opening a file, the docs give the path, not the content.</li>
+    <li><strong>The docs describe the present.</strong> History goes in Changelog and Decisions, the future in Roadmap and Specs.</li>
+    <li><strong>One piece of information, one place.</strong> Everywhere else, a link.</li>
+    <li><strong>Every page has a trigger.</strong> We know which kind of change forces us to reopen it.</li>
+    <li><strong>Same pull request as the code.</strong> A behaviour change without a docs update is not done.</li>
+    <li><strong>Every explanation ends with a door into the code.</strong> A file, a test, a dashboard.</li>
+  </ol>
+  <h2>What belongs here and what does not</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>In the docs</th><th>In the code, the database or the tool</th></tr></thead>
+    <tbody>
+      <tr><td class="plain">The intent of a rule and its reason</td><td class="plain">Exact constants, thresholds and formats</td></tr>
+      <tr><td class="plain">Concepts and how they relate</td><td class="plain">Tables, columns and types</td></tr>
+      <tr><td class="plain">How a mechanism unfolds, its special cases</td><td class="plain">The step-by-step implementation</td></tr>
+      <tr><td class="plain">A metric's definition and why it matters</td><td class="plain">Its value, the list of events and properties</td></tr>
+      <tr><td class="plain">The logic behind the plans</td><td class="plain">Prices and quotas</td></tr>
+      <tr><td class="plain">Hypotheses tested and what we learned</td><td class="plain">The live state of flags</td></tr>
+      <tr><td class="plain">Why we depend on a service, what happens if it goes down</td><td class="plain">Endpoints, keys and environment variables</td></tr>
+    </tbody>
+  </table></div>
+  <p>A useful consequence: most commits do not touch the docs. They only move when the understanding of the product has to move.</p>
+  <h2>Which change updates which pages</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>If the change</th><th>Update</th></tr></thead>
+    <tbody>
+      <tr><td>Starts a project, reshapes its scope or changes its priority</td><td class="plain">Its spec page (create one from the template), and a row on the Roadmap in the right position</td></tr>
+      <tr><td>Adds or removes a capability for the user</td><td class="plain">Features, User journeys if affected, the spec's status, Roadmap, Changelog</td></tr>
+      <tr><td>Changes what the product decides on the user's behalf</td><td class="plain">Business rules, Glossary if there is a new term</td></tr>
+      <tr><td>Changes how a mechanism unfolds</td><td class="plain">Key mechanisms</td></tr>
+      <tr><td>Changes the logic behind plans or roles</td><td class="plain">Plans and permissions</td></tr>
+      <tr><td>Introduces a concept, a relationship or an invariant</td><td class="plain">Data model, Glossary</td></tr>
+      <tr><td>Adds an external dependency or changes outage behaviour</td><td class="plain">Integrations and API, Architecture, Security if personal data is involved</td></tr>
+      <tr><td>Redefines a metric or the tracking convention</td><td class="plain">Metrics and tracking</td></tr>
+      <tr><td>Starts or concludes an experiment</td><td class="plain">Experiments and flags</td></tr>
+      <tr><td>Adds an AI component or changes its guardrails</td><td class="plain">AI components</td></tr>
+      <tr><td>Adds a script, a command or an admin screen</td><td class="plain">Internal tooling</td></tr>
+      <tr><td>Resolves an incident</td><td class="plain">Runbooks, Known limitations</td></tr>
+      <tr><td>Settles a structuring choice</td><td class="plain">Decisions</td></tr>
+      <tr><td>Only changes values, columns, events or styling</td><td class="plain">Nothing</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Freshness statuses</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Status</th><th>Means</th><th>Who sets it</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag t-ok">Up to date</span></td><td class="plain">Reviewed against the code on the date shown; the explanation still holds</td><td class="plain">The author of the change, in the pull request</td></tr>
+      <tr><td><span class="tag t-check">Needs review</span></td><td class="plain">A specific gap was spotted and noted at the top of the page</td><td class="plain">Whoever notices the gap, or the weekly review</td></tr>
+      <tr><td><span class="tag t-stale">Stale</span></td><td class="plain">The cited code has moved a lot since the last review</td><td class="plain">The automated review</td></tr>
+    </tbody>
+  </table></div>
+  <h2>Instruction for coding agents</h2>
+  <p>Paste into <code>AGENTS.md</code> or <code>CLAUDE.md</code> and adapt the path.</p>
+  <div class="copy"><button type="button" id="copyBtn">Copy</button>
+<pre id="agentBlock">## Product documentation
+
+The product documentation lives in docs/product/index.html.
+Its goal is understanding: what the product does, how its mechanisms work, why.
+Details are then explored in the code.
+Read it before changing an area you do not know.
+
+Golden rule: explain, do not copy.
+Never write in the docs what can be read in the database, the configuration or
+the code: columns, event lists, prices, quotas, flag states, metric values,
+endpoints, environment variables. Explain the principle, then cite the file.
+
+Before closing a task, ask one question: would someone who read the docs
+yesterday misunderstand the product today because of my change?
+- No: do not touch the docs.
+- Yes: open "Maintaining these docs", table "Which change updates which pages",
+  and fix the affected pages in the same commit.
+
+On every page you touch: data-verified = today's date, data-status = "ok".
+If you spot a gap you cannot resolve: data-status = "check" and describe the gap
+at the top of the page.
+If the change is visible to the user, add a Changelog entry.
+
+Specs: one page per project, a section with data-parent="specs" copied from an
+existing spec. Set data-spec-id, data-spec-status, data-target, data-updated.
+The index on the Specs page builds itself. When a spec ships, move its lasting
+content to the living pages, set data-spec-status="shipped" and stop editing it.
+
+Roadmap: one row per live project, in priority order, in the tbody[data-roadmap].
+Point it at its spec with data-spec and set data-horizon. Rank, project name and
+spec status are filled in from the spec page, so never type them in the row.
+Reordering rows is how priority is changed; a shipped or dropped project loses
+its row.
+
+Writing rules:
+- One piece of information, one place. Elsewhere, a link.
+- A mechanism is explained as: in short, how it unfolds, special cases, why,
+  where to enter the code. One screen at most.
+- A business rule always has: identifier, intent, why, file, test.
+- Never reuse an identifier (BR, D, S, RB). A retired entry stays, marked as such.
+- Use the Glossary terms, no synonyms.
+- Everything is written in English.</pre></div>
+  <h2>Periodic review</h2>
+  <p>Once a week, an agent rereads each page against the code it cites and asks whether the explanation is still true. It fixes what it can in a pull request and sets the rest to "Needs review". The register on the home page serves as the dashboard.</p>
+</section>
+</div>
+<aside class="toc" id="toc" aria-label="On this page"></aside>
+</main>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Search the documentation">
+  <div class="palette">
+    <input id="q" type="text" placeholder="Search pages, rules, mechanisms" autocomplete="off" spellcheck="false" aria-controls="results">
+    <div class="results" id="results" role="listbox"></div>
+    <div class="hints"><span><kbd>↑</kbd> <kbd>↓</kbd> navigate</span><span><kbd>Enter</kbd> open</span><span><kbd>Esc</kbd> close</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ---- Configuration: adapt to your project ---- */
+  var GROUPS={
+    'Understand':'Place the product and speak the same language.',
+    'Product':'What the product does and how it behaves.',
+    'Direction':'Where we are going, and why this path.',
+    'Technical':'How the system is built, at the level useful for decisions.',
+    'Measurement':'What we measure and what we learn.',
+    'Operations':'Running the product day to day.',
+    'Quality':'What is fragile, sensitive or misunderstood.',
+    'History':'What changed for the user.',
+    'Meta':'How these docs stay right.'
+  };
+  var START=['overview','mechanisms','rules'];                    // "Where to start" cards
+  var SUGGESTED=['mechanisms','rules','features','maintaining'];  // empty-search suggestions
+  /* ---------------------------------------------- */
+
+  var STATUS={ok:'Up to date',check:'Needs review',stale:'Stale'};
+  var SPEC={draft:['Draft','mute'],ready:['Ready','info'],'in-progress':['In progress','info'],shipped:['Shipped','ok'],dropped:['Dropped','mute']};
+  var $=function(id){return document.getElementById(id);};
+  var pages=[].slice.call(document.querySelectorAll('.page'));
+  var byId={}; pages.forEach(function(p){byId[p.id]=p;});
+  var nav=$('nav'), side=$('side'), menu=$('menu'), toc=$('toc');
+
+  function fmt(iso){ if(!iso) return ''; return new Date(iso+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
+  function el(tag,cls,html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+  function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+  function fold(s){ return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  function slug(s){ return fold(s).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+  function badge(st){ return '<span class="badge b-'+st+'"><i class="dot '+st+'"></i>'+STATUS[st]+'</span>'; }
+
+  // Scrollable tables, identifiers as pills
+  document.querySelectorAll('table').forEach(function(t){ if(!t.parentElement.classList.contains('scroll')){ var w=el('div','scroll'); t.parentNode.insertBefore(w,t); w.appendChild(t);} });
+  document.querySelectorAll('.entry > .id').forEach(function(d){ d.innerHTML='<span>'+d.textContent+'</span>'; });
+
+  // Ancres de section
+  pages.forEach(function(p){
+    p.querySelectorAll('h2').forEach(function(h){
+      if(h.closest('.horizons')) return;
+      if(!h.id) h.id=p.id+'--'+slug(h.textContent);
+      var a=el('a','anchor','#'); a.href='#'+h.id; a.setAttribute('aria-label','Link to this section'); h.insertBefore(a,h.firstChild);
+    });
+  });
+
+  // Page headers, register, counters
+  var groups={}, order=[], counts={ok:0,check:0,stale:0}, register=$('register'), children={};
+  pages.forEach(function(p){ var par=p.dataset.parent; if(par){ (children[par]=children[par]||[]).push(p); } });
+  pages.forEach(function(p,i){
+    var d=p.dataset, par=d.parent, g=d.group||(par&&byId[par]?byId[par].dataset.title:'Other');
+    if(!par){ if(!groups[g]){ groups[g]=[]; order.push(g); } groups[g].push(p); }
+    if(p.id!=='home'){
+      var st=d.status||'ok', spec=SPEC[d.specStatus], meta=[];
+      if(!par) meta.push(badge(st));
+      if(spec) meta.push('<span class="tag t-'+spec[1]+'">'+spec[0]+'</span>');
+      if(d.specId) meta.push('<span>'+esc(d.specId)+'</span>');
+      if(d.target) meta.push('<span>Target '+esc(d.target)+'</span>');
+      if(d.verified) meta.push('<span>Reviewed '+fmt(d.verified)+'</span>');
+      else if(d.updated) meta.push('<span>Updated '+fmt(d.updated)+'</span>');
+      var crumb=par?'<a href="#'+par+'">'+esc(byId[par]?byId[par].dataset.title:par)+'</a>':esc(g);
+      var head=el('header','page-head',
+        '<p class="crumb">'+crumb+'</p>'+
+        '<h1>'+esc(d.title)+(d.optional?'<span class="opt">Optional</span>':'')+'</h1>'+
+        (d.desc?'<p class="desc">'+esc(d.desc)+'</p>':'')+
+        '<div class="meta">'+meta.join('')+'</div>');
+      p.insertBefore(head,p.firstChild);
+      if(!par){
+        counts[st]++;
+        var src=(d.sources||'').split(',').map(function(s){return '<code>'+esc(s.trim())+'</code>';}).join(' ');
+        var fiche=el('dl','fiche','<div><dt>Update when</dt><dd>'+esc(d.trigger||'')+'</dd></div><div><dt>Details live in</dt><dd>'+src+'</dd></div>');
+        head.parentNode.insertBefore(fiche,head.nextSibling);
+        register.appendChild(el('tr',null,'<td><a href="#'+p.id+'">'+esc(d.title)+'</a></td><td class="plain">'+badge(st)+'</td><td class="plain" style="white-space:nowrap">'+fmt(d.verified)+'</td><td class="plain">'+esc(d.trigger||'')+'</td>'));
+      }
+    }
+    // previous, next
+    var prev=pages[i-1], next=pages[i+1], pg=el('nav','pager'); pg.setAttribute('aria-label','Nearby pages');
+    if(prev) pg.appendChild(el('a','prev','<small>Previous</small>'+esc(prev.dataset.title))).href='#'+prev.id;
+    if(next) pg.appendChild(el('a','next','<small>Next</small>'+esc(next.dataset.title))).href='#'+next.id;
+    p.appendChild(pg);
+  });
+
+  // Roadmap rows: rank, project name and spec status filled in from the spec pages
+  var HORIZON={now:['Now','info'],next:['Next','mute'],later:['Later','mute']};
+  document.querySelectorAll('[data-roadmap] tr').forEach(function(tr,i){
+    var d=tr.dataset, sp=d.spec?byId[d.spec]:null, h=HORIZON[d.horizon]||['','mute'];
+    var name=sp?'<a href="#'+sp.id+'">'+esc(sp.dataset.title)+'</a>':esc(d.project||'');
+    var s=sp?(SPEC[sp.dataset.specStatus]||null):null;
+    var spec=s?'<span class="tag t-'+s[1]+'">'+s[0]+'</span> <span class="sub">'+esc(sp.dataset.specId||'')+'</span>'
+             :'<span class="sub">No spec yet</span>';
+    tr.insertAdjacentHTML('afterbegin','<td class="rank">'+(i+1)+'</td><td class="project">'+name+'</td>');
+    tr.insertAdjacentHTML('beforeend','<td class="plain horizon"><span class="tag t-'+h[1]+'">'+h[0]+'</span></td><td class="plain spec">'+spec+'</td>');
+  });
+
+  // Child indexes, such as the project table on the Specs page
+  document.querySelectorAll('[data-index-of]').forEach(function(tb){
+    tb.innerHTML=(children[tb.dataset.indexOf]||[]).map(function(p){ var d=p.dataset, s=SPEC[d.specStatus]||['','mute'];
+      return '<tr><td style="white-space:nowrap"><code>'+esc(d.specId||'')+'</code></td>'+
+             '<td class="plain"><a href="#'+p.id+'">'+esc(d.title)+'</a>'+(d.desc?'<br><span class="sub">'+esc(d.desc)+'</span>':'')+'</td>'+
+             '<td class="plain"><span class="tag t-'+s[1]+'">'+s[0]+'</span></td>'+
+             '<td class="plain">'+esc(d.target||'')+'</td>'+
+             '<td class="plain" style="white-space:nowrap">'+fmt(d.updated)+'</td></tr>'; }).join('');
+  });
+
+  $('counts').innerHTML=['ok','check','stale'].map(function(s){
+    var label={ok:'pages up to date',check:'need review',stale:'stale'}[s];
+    return '<div class="stat"><b>'+counts[s]+'</b><span><i class="dot '+s+'"></i>'+label+'</span></div>'; }).join('');
+  var issues=counts.check+counts.stale;
+  $('health').innerHTML= issues
+    ? '<i class="dot '+(counts.stale?'stale':'check')+'"></i><span class="txt">'+issues+' page'+(issues>1?'s':'')+' to review</span>'
+    : '<i class="dot ok"></i><span class="txt">Docs up to date</span>';
+
+  // Accueil : cartes
+  $('start').innerHTML=START.filter(function(id){return byId[id];}).map(function(id){ var d=byId[id].dataset;
+    return '<a class="card" href="#'+id+'"><b>'+esc(d.title)+'</b><span>'+esc(d.desc||'')+'</span></a>'; }).join('');
+  $('groups').innerHTML=order.map(function(g){ var list=groups[g].filter(function(p){return p.id!=='home';}); if(!list.length) return '';
+    return '<a class="card" href="#'+list[0].id+'"><b>'+esc(g)+'</b><span>'+esc(GROUPS[g]||'')+'</span><small>'+list.map(function(p){return esc(p.dataset.title);}).join(', ')+'</small></a>'; }).join('');
+
+  // Navigation
+  order.forEach(function(g){
+    nav.appendChild(el('h2',null,esc(g)));
+    var ul=el('ul');
+    groups[g].forEach(function(p){
+      var st=p.dataset.status, flag=(st&&st!=='ok')?'<i class="dot '+st+'" title="'+STATUS[st]+'"></i><span class="sr">'+STATUS[st]+'</span>':'';
+      ul.appendChild(el('li',null,'<a href="#'+p.id+'"><span>'+esc(p.dataset.title)+'</span>'+flag+'</a>'));
+    });
+    nav.appendChild(ul);
+  });
+
+  // Table of contents and scroll spy
+  var heads=[];
+  function buildToc(page){
+    heads=[].slice.call(page.querySelectorAll('h2[id]')).filter(function(h){return !h.closest('.horizons');});
+    if(heads.length<2){ toc.innerHTML=''; return; }
+    toc.innerHTML='<p>On this page</p><ul>'+heads.map(function(h){ return '<li><a href="#'+h.id+'">'+esc(h.textContent.replace(/^#/,''))+'</a></li>'; }).join('')+'</ul>';
+    spy();
+  }
+  function spy(){
+    if(!heads.length) return; var cur=heads[0];
+    heads.forEach(function(h){ if(h.getBoundingClientRect().top<140) cur=h; });
+    toc.querySelectorAll('a').forEach(function(a){ a.classList.toggle('on',a.getAttribute('href')==='#'+cur.id); });
+  }
+  var tick=false; window.addEventListener('scroll',function(){ if(tick) return; tick=true; requestAnimationFrame(function(){spy();tick=false;}); },{passive:true});
+
+  // Anchor routing: #page, #page--section or #identifier (BR-001, D-007)
+  var current=null;
+  function route(){
+    var id=decodeURIComponent(location.hash.slice(1))||'accueil';
+    var target=$(id), page=target&&target.closest('.page');
+    if(!page){ page=pages[0]; target=page; }
+    if(page!==current){
+      pages.forEach(function(p){ p.classList.toggle('is-active',p===page); });
+      nav.querySelectorAll('a').forEach(function(a){ if(a.getAttribute('href')==='#'+page.id){ a.setAttribute('aria-current','page'); if(current) a.scrollIntoView({block:'nearest'}); } else a.removeAttribute('aria-current'); });
+      document.title=page.dataset.title+' | Product documentation';
+      buildToc(page); current=page;
+    }
+    side.classList.remove('open'); menu.setAttribute('aria-expanded','false');
+    if(target!==page) target.scrollIntoView({block:'start'});
+    else { window.scrollTo(0,0); setTimeout(function(){window.scrollTo(0,0);},0); }
+    spy();
+  }
+  window.addEventListener('hashchange',route); route();
+
+  // Search
+  var index=[];
+  function blockText(root){ return [].slice.call(root.querySelectorAll('p,li,td,h2,h3,dd')).filter(function(n){return !n.closest('.pager,.page-head,.fiche,.guide');}).map(function(n){return n.textContent.replace(/^#/,'').replace(/\s+/g,' ').trim();}).filter(Boolean).join('. '); }
+  pages.forEach(function(p){
+    if(p.id==='home') return; var t=p.dataset.title;
+    index.push({id:p.id,title:t,sub:p.dataset.desc||'',kind:'Page',text:blockText(p)});
+    p.querySelectorAll('h2[id]').forEach(function(h){ if(h.closest('.horizons')) return; index.push({id:h.id,title:h.textContent.replace(/^#/,''),sub:t,kind:'Section',text:''}); });
+    p.querySelectorAll('.entry[id]').forEach(function(e){ var h=e.querySelector('h3'); index.push({id:e.id,title:e.id+'  '+(h?h.textContent:''),sub:t,kind:'Entry',text:blockText(e)}); });
+  });
+  index.forEach(function(it){ it.ft=fold(it.title); it.fx=fold(it.sub+' '+it.text); });
+  var modal=$('modal'), q=$('q'), results=$('results'), sel=0, lastFocus=null;
+  function hl(s,toks){ var out=esc(s); toks.forEach(function(t){ if(t.length<2) return; var f=fold(out), i=f.indexOf(t); if(i>-1 && f.length===out.length) out=out.slice(0,i)+'<mark>'+out.slice(i,i+t.length)+'</mark>'+out.slice(i+t.length); }); return out; }
+  function snippet(it,toks){ if(!it.text) return it.sub; var f=fold(it.text), i=f.indexOf(toks[0]); if(i<0||f.length!==it.text.length) return it.sub; var a=Math.max(0,i-40); return (a?'… ':'')+it.text.slice(a,a+110).trim()+' …'; }
+  function render(){
+    var v=q.value.trim(), toks=fold(v).split(/\s+/).filter(Boolean), html='';
+    if(!toks.length){
+      html='<p>Suggested</p>'+SUGGESTED.filter(function(id){return byId[id];}).map(function(id){ var d=byId[id].dataset; return '<a href="#'+id+'">'+esc(d.title)+'<small>'+esc(d.desc||'')+'</small></a>'; }).join('');
+    } else {
+      var hits=index.map(function(it){ var inT=toks.every(function(t){return it.ft.indexOf(t)>-1;}), inX=toks.every(function(t){return (it.ft+' '+it.fx).indexOf(t)>-1;});
+        return {it:it,score:inT?(it.kind==='Page'?3:2):(inX?1:0)}; }).filter(function(h){return h.score;}).sort(function(a,b){return b.score-a.score;}).slice(0,9);
+      html=hits.length? hits.map(function(h){ var it=h.it; return '<a href="#'+it.id+'">'+hl(it.title,toks)+'<small>'+esc(it.kind)+(h.score===1?' : '+hl(snippet(it,toks),toks):(it.kind==='Page'?'':' in '+esc(it.sub)))+'</small></a>'; }).join('')
+        : '<div class="empty">No result for \u201c'+esc(v)+'\u201d.</div>';
+    }
+    results.innerHTML=html; sel=0; mark();
+  }
+  function items(){ return [].slice.call(results.querySelectorAll('a')); }
+  function mark(){ items().forEach(function(a,i){ a.classList.toggle('sel',i===sel); if(i===sel) a.scrollIntoView({block:'nearest'}); }); }
+  function open(){ lastFocus=document.activeElement; modal.classList.add('open'); q.value=''; render(); q.focus(); }
+  function close(){ modal.classList.remove('open'); if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  $('searchBtn').addEventListener('click',open);
+  q.addEventListener('input',render);
+  modal.addEventListener('click',function(e){ if(e.target===modal) close(); var a=e.target.closest&&e.target.closest('a'); if(a) close(); });
+  results.addEventListener('mousemove',function(e){ var a=e.target.closest('a'); if(!a) return; var i=items().indexOf(a); if(i!==sel){ sel=i; mark(); } });
+  document.addEventListener('keydown',function(e){
+    if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='k'){ e.preventDefault(); modal.classList.contains('open')?close():open(); return; }
+    if(e.key==='/'&&!modal.classList.contains('open')&&!/input|textarea/i.test(document.activeElement.tagName)){ e.preventDefault(); open(); return; }
+    if(!modal.classList.contains('open')) return;
+    var n=items().length;
+    if(e.key==='Escape'){ close(); }
+    else if(e.key==='ArrowDown'){ e.preventDefault(); if(n){ sel=(sel+1)%n; mark(); } }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); if(n){ sel=(sel-1+n)%n; mark(); } }
+    else if(e.key==='Enter'){ var a=items()[sel]; if(a){ e.preventDefault(); location.hash=a.getAttribute('href'); close(); } }
+    else if(e.key==='Tab'){ e.preventDefault(); q.focus(); }
+  });
+  if(/Mac|iPhone|iPad/.test(navigator.platform||navigator.userAgent)) $('kbdHint').textContent='⌘K';
+
+  // Template guidance
+  var tog=$('guideToggle');
+  try{ if(localStorage.getItem('doc-guide')==='off'){ tog.checked=false; document.body.classList.add('no-guide'); } }catch(e){}
+  tog.addEventListener('change',function(){ document.body.classList.toggle('no-guide',!tog.checked); try{ localStorage.setItem('doc-guide',tog.checked?'on':'off'); }catch(e){} });
+
+  menu.addEventListener('click',function(){ var o=side.classList.toggle('open'); menu.setAttribute('aria-expanded',o?'true':'false'); });
+
+  var copyBtn=$('copyBtn');
+  if(copyBtn) copyBtn.addEventListener('click',function(){
+    var btn=this, block=$('agentBlock'), txt=block.textContent;
+    function done(){ btn.textContent='Copied'; setTimeout(function(){btn.textContent='Copy';},1600); }
+    function select(){ var r=document.createRange(); r.selectNodeContents(block); var s=getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent='Selected'; }
+    try{ navigator.clipboard.writeText(txt).then(done,select); }catch(e){ select(); }
+  });
+})();
+</script>
+</body>
+</html>

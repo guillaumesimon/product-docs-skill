@@ -1,0 +1,110 @@
+---
+name: product-docs-bootstrap
+description: Create the living product documentation for a codebase - a single browsable HTML page at docs/product/index.html that explains what the product does, how its mechanisms work, the business rules and why they exist, the roadmap and one page per spec. Use this skill whenever a repository has no docs/product/index.html and the user asks for product documentation, a product knowledge base, product docs, a doc produit, an onboarding doc for the codebase, a place to keep specs and business rules, or says the project has no documentation and something should be written down. Also use it when starting a new project from scratch and setting up its documentation, and whenever another skill or CLAUDE.md instruction reports that the product documentation is missing. Do not use it to update documentation that already exists - use product-docs-update for that.
+---
+
+# Bootstrap product documentation
+
+Create `docs/product/index.html`: one self-contained HTML page, versioned with the code, that a product manager or an agent can read to understand the product without reading the whole codebase.
+
+The hard part is not the HTML. The template does that. The hard part is that a codebase contains the *what* and the *how* but almost never the *why*, and a docs page full of plausible invented reasons is worse than no docs at all. So the work runs in passes, with the user in the loop for anything the code cannot tell you.
+
+## The one rule that shapes everything
+
+**Explain, do not copy.** Anything that can be obtained with a database query or by opening a file does not belong in the docs: column lists, event lists, prices, quotas, flag states, metric values, endpoints, environment variables, exact constants. Explain the principle, the reason and the pitfalls, then cite the file where the detail lives.
+
+The test for a page: after reading it, someone knows which file to open and understands what they read there. Copying makes the docs stale within a week and adds nothing a `grep` would not give.
+
+## Pick the path
+
+**Existing codebase** (the usual case): run the inventory pass, get it reviewed, then write. Go to "Path A".
+
+**New project, nothing built yet**: there is nothing to inventory, so the content comes from an interview. Read `references/greenfield.md` and follow it.
+
+If unsure which applies, look: is there source code beyond a scaffold? Then it is Path A.
+
+## Path A: existing codebase
+
+### Pass 1 - inventory, write nothing but the inventory
+
+Explore the repository and produce `docs/product/INVENTORY.md`. Do not touch the template yet.
+
+A single agent reading a whole repository loses precision as the context fills, and the last territory explored is always the thinnest. Fan out instead: one agent per domain, in parallel, each writing a fragment you merge. Read `references/agent-teams.md` for the prompts and the rules that keep the fragments usable. Where subagents are not available, do the same passes in sequence.
+
+Cover, across the team:
+
+1. The product in one sentence, its surfaces, its scope (does / does not do).
+2. Domain concepts and their name in the code.
+3. Capabilities as the user perceives them, one line each.
+4. Three to eight non-obvious mechanisms - the ones that span several files: background jobs, webhooks, state machines, syncs, calculations, retries.
+5. Candidate business rules: every place the code decides something on the user's behalf. For each: the file, and the test if one exists.
+6. External dependencies and what happens to the user when each one is down.
+7. Internal tooling: scripts, admin screens, scheduled tasks.
+8. Which template pages are not relevant to this project.
+
+Separate what you **observed in the code** from what you **infer**. Then end the inventory with the questions only a human can answer, the "why" questions first. Read `references/page-catalog.md` for what each page needs and where to look for it in a repo.
+
+Tell the user the inventory is ready and ask them to correct it. This review is where most of the value is: thirty minutes of their time here prevents a plausible but wrong documentation.
+
+### Pass 2 - write, in batches
+
+Copy `assets/template.html` to `docs/product/index.html` and replace the example content (a fictional invoicing product called Bordereau). Keep the structure, the styles and the script; they generate the navigation, the search, the health register and the spec index from the page metadata.
+
+Write in this order and stop after each batch so the user can react:
+
+- **Batch 1**: Overview, Glossary, Features
+- **Batch 2**: Key mechanisms, Business rules
+- **Batch 3**: Data model, Architecture, Integrations
+- **Batch 4**: everything else that applies
+
+Batches 1 and 2 carry most of the understanding. If the user wants something useful fast, do those two and stop.
+
+Batches can be written in parallel, one agent each, but no agent writes into `index.html` - they produce fragments that you assemble, otherwise concurrent edits silently drop content. See `references/agent-teams.md`.
+
+### Pass 2b - critique the draft before showing it
+
+A draft written from an inventory always contains three defects the writer cannot see: content copied from the code, reasons that sound plausible but trace back to nothing, and gaps that only show up when someone reads the page without the repository in front of them. Run a critique pass on the assembled draft before the user sees it - a copy detector, a reason auditor and a newcomer test, none of them allowed to edit. The prompts are in `references/agent-teams.md`. Without subagents, do the three checks yourself on the finished draft, which still catches most of it.
+
+Fix the copied content and the invented reasons before showing the draft. Report the questions a newcomer still cannot answer: they point at the thin pages, and often at a real gap in the team's understanding of its own product.
+
+While writing:
+
+- Never invent a reason. If a "why" is not in the reviewed inventory, write `Why: to be confirmed` and set that page's `data-status="check"`.
+- Set `data-title`, `data-desc`, `data-group`, `data-status`, `data-verified` (today), `data-trigger` and `data-sources` on every page.
+- Delete the pages that do not apply, and their example content. An empty page is worse than a missing one.
+- Roadmap, Specs and Decisions cannot be derived from code. Leave the structure, fill what the user told you, and say plainly what is left for them.
+- Delete `INVENTORY.md` at the end.
+
+### Pass 3 - wire the maintenance
+
+Docs that nothing maintains go stale in a fortnight. Do all three, and tell the user what you did:
+
+1. Append the block in `assets/claude-md-block.md` to `CLAUDE.md` (or `AGENTS.md`) at the repo root, adapting the path. Create the file if it does not exist.
+2. Add one line to the pull request template: `Does this change how the product is understood? If so, docs updated.`
+3. Mention that a weekly review can be scheduled, and that `product-docs-update` handles both the per-change updates and that review.
+
+## How to write a page
+
+Get the register straight: the docs describe the **present**. History lives in Changelog and Decisions, the future in Roadmap and Specs. One piece of information lives in exactly one page; everywhere else, a link.
+
+**A mechanism** is one screen: in short / how it unfolds / special cases / why it is built this way / where to enter the code. If it runs past a screen, you are copying the implementation.
+
+**A business rule** has a stable identifier (BR-001), the intent in one verifiable sentence, the why, the file, the test. Never reuse an identifier; a retired rule stays, marked as retired.
+
+**A spec** is one page per project, `<section class="page" data-parent="specs">`, with `data-spec-id`, `data-spec-status`, `data-target`, `data-updated`. The index on the Specs page and the rows on the Roadmap read from it, so a project's name and status are written once.
+
+**The roadmap** is one table in priority order. Each row points at its spec page with `data-spec` and sets `data-horizon`; rank, project name and spec status are filled in automatically.
+
+Watch for the two failure modes. The first is copying, because the code is what you are looking at: if a page grows long lists, you have drifted. The second is promoting implementation details to business rules - format validations, technical defaults. A business rule is something a user or support could argue about.
+
+## Language
+
+Write the documentation in English by default, whatever language the conversation is in. It is read by agents and by people who may not share the team's language. If the user asks for another language, follow them and say so in the maintenance block so later updates stay consistent.
+
+## Files in this skill
+
+- `assets/template.html` - the page to copy, filled with a worked example that shows the expected depth and tone
+- `assets/claude-md-block.md` - the block to append to CLAUDE.md
+- `references/page-catalog.md` - each page: purpose, what belongs, what does not, where to find it in a repo
+- `references/agent-teams.md` - the exploration, writing and critique teams: prompts, rules, what to do with what comes back
+- `references/greenfield.md` - the interview for a project that does not exist yet
