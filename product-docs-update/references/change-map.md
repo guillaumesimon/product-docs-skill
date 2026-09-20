@@ -6,7 +6,8 @@ Find the row that matches what you just changed. If several match, all of them a
 
 | If the change | Update |
 |---|---|
-| Starts a project, reshapes its scope or changes its priority | Its spec page (copy an existing one) including its future changelog, and its row on the Roadmap in the right position |
+| Starts a project, reshapes its scope or changes its priority | Its spec page (copy an existing one), its future changelog and its handover lines, and its row on the Roadmap in the right position |
+| Makes a spec's behaviour real: a flag removed, a gate deleted, a job switched on | The spec's handover, line by line - see `handover.md`. Then the spec's status, the Roadmap and the Changelog |
 | Adds or removes a capability for the user | Features, User journeys if affected, the spec's status, Roadmap, Changelog |
 | Changes what the product decides on the user's behalf | Business rules, Glossary if there is a new term |
 | Changes how a mechanism unfolds, or adds a non-obvious one | Key mechanisms |
@@ -43,7 +44,7 @@ If the page a change points at does not exist yet - the first background job in 
 
 A page's `data-trigger` is its contract. If your change matches it, the page is in scope. If you find yourself editing a page whose trigger has nothing to do with your change, you are probably putting the information in the wrong place.
 
-Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` and `data-updated`, and hold their future changelog in a `<div class="release">`.
+Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` and `data-updated`, hold their future changelog in a `<div class="release">` and their handover in a `<ul class="handover">` whose items carry `data-page` and, once moved, `data-done`.
 
 ## Writing rules in full
 
@@ -67,6 +68,8 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 
 **Shape of a runbook** - symptom, what to check in order, what to do, last occurrence. Write it right after the incident, while the detail is fresh.
 
+**Shape of a handover line** - one `<li data-page="target-id">` per page the project will have to feed, saying what the reader of that page will gain, not what we are doing to the docs. Ticked with `data-done="<date>"` the day the content actually lands there, never before.
+
 **Shape of a future changelog** - in every spec, a `<div class="release">`: a title line (`p.release .lede`) and two or three bullets, one emoji each, each one a benefit the user gets rather than a feature we built. No identifiers, no internal vocabulary, no hedging. Short enough to post as is.
 
 **Changelog entries** are written from the user's point of view. When a spec ships, its future changelog block *is* the entry - it was written before the build, so release day is a copy. Anything with no spec behind it is added directly, grouped as added, changed, fixed, removed, with a link to the rule or spec involved.
@@ -80,6 +83,7 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 - No invented reason; anything uncertain is `Why: to be confirmed`
 - New concepts added to the Glossary
 - `data-verified` = today and `data-status` = `ok` on every edited page, or `check` with the gap described
-- A new or reshaped spec has a future changelog that matches its current scope
-- A shipped spec had its content moved to the living pages, its status set to shipped, its roadmap row removed and its future changelog copied into the Changelog
+- A new or reshaped spec has a future changelog and handover lines that match its current scope
+- A change that makes a spec real ran that spec's handover, rather than leaving it for later
+- A shipped spec has every handover line ticked, its status set to shipped, its roadmap row removed and its future changelog copied into the Changelog
 - The edit is in the same commit as the code

@@ -83,6 +83,15 @@ starts. It doubles as a benefit test: a project nobody can announce in three lin
 whose value isn't settled yet. On shipping, that block becomes the Changelog entry, so release day
 is a copy rather than a writing exercise. ✨
 
+### Nothing ships without its handover 🔁
+
+The commonest way these docs rot: a project ships, and Features still says *planned* while Key
+mechanisms has never heard of it. So every spec lists the pages it will have to feed — written with
+the spec, not on release day. When your change makes that behaviour real (a flag removed, a gate
+deleted), the update skill moves each line into its target page, in that page's own shape, and ticks
+it with the date. A spec isn't shipped until every line is ticked, and a shipped spec with open
+lines shows up as **handover debt** on the home page, under the project's name. 🚨
+
 ### ⌘K search across pages, rules, decisions and sections
 
 <img src="docs/screenshots/05-search.png" alt="Search palette open with results across rules and decisions" width="100%">
@@ -164,6 +173,7 @@ If yes, a change map says exactly which pages are in scope:
 
 | If the change | Update |
 |---|---|
+| Makes a spec's behaviour real — a flag removed, a gate deleted, a job switched on | That spec's handover, line by line |
 | Changes what the product decides on the user's behalf | Business rules, Glossary if there's a new term |
 | Changes how a mechanism unfolds, or adds a non-obvious one | Key mechanisms |
 | Adds an external dependency, or changes outage behaviour | Integrations, Architecture, Security if personal data |
@@ -175,6 +185,14 @@ says where the detail lives so you don't copy it. Touch a page and its `data-ver
 today. Find a gap you can't resolve — the code says one thing, the page says another — and it's
 flagged `check` with the gap described in one sentence at the top. **A flagged gap is useful; a
 silent one rots.** 🚩
+
+### 🤝 The handover pass
+
+The one case that always answers *yes*. When the change in front of it makes a spec real, the skill
+opens that spec and works its handover line by line: content into the target page, in that page's
+shape and in the present tense, then the line ticked with today's date. It reports what moved, what
+it left open and why. What it will not do is tick a line by writing something plausible — an open
+line is visible debt, an invented paragraph is invisible damage. 🧾
 
 ### 🔬 The audit pass
 
@@ -289,6 +307,7 @@ product-docs-bootstrap/
 product-docs-update/
   SKILL.md                        the skill itself
   references/change-map.md        which change updates which pages + the full writing rules
+  references/handover.md          shipping a spec: moving its content into the living pages
   references/audit-team.md        the audit team: per-page and cross-page prompts, verdicts
 
 dist/                             pre-built .skill bundles for Chat / Cowork / claude.ai
@@ -334,6 +353,13 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 ## 🗓️ Changelog
 
 ### 20 September 2026
+
+- 🔁 Specs hand over to the living pages, line by line, when they ship
+- 🚨 A shipped project that never updated the docs shows as debt on the home page
+- 🤖 The agent moves the content itself, then tells you what it couldn't source
+- 🔒 No spec gets marked shipped while a line is still open
+
+### 19 September 2026
 
 - 📣 Every spec now ships with the release note users will read
 - ✅ Can't announce it in three lines? The value isn't settled yet

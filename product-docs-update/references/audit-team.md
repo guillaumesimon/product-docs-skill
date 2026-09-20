@@ -60,9 +60,10 @@ Find contradictions and duplication across pages:
 - a concept used under two names, or a term used without being in the Glossary
 - links that point at a page or an anchor that no longer exists
 - a business rule contradicted by a mechanism description, or the reverse
-- a spec marked shipped whose content never moved to the living pages
-- a spec with no future changelog, or one that promises something the spec no longer describes
+- a spec marked shipped with handover lines still open, and a living page that still describes the world before it
+- a spec with no future changelog or no handover lines, or a promise the spec no longer describes
 - a shipped spec whose future changelog never reached the Changelog
+- a handover line ticked as moved whose content is nowhere in the target page - the worst case, because it looks done
 - a roadmap row whose spec is shipped or dropped
 - an identifier (BR, D, S, RB) used twice
 

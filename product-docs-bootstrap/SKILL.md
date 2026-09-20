@@ -93,6 +93,8 @@ Get the register straight: the docs describe the **present**. History lives in C
 
 **A spec** is one page per project, `<section class="page" data-parent="specs">`, with `data-spec-id`, `data-spec-status`, `data-target`, `data-updated`. The index on the Specs page and the rows on the Roadmap read from it, so a project's name and status are written once.
 
+**A spec's handover** is the list of pages the project will have to feed when it ships, in a `<ul class="handover">`: one `<li data-page="features">` per target, saying what moves there, ticked with `data-done="<date>"` the day the content actually lands. Written with the spec, not on release day. An open line on a shipped spec shows up as debt on the home page, which is how these docs stop drifting the moment a feature goes live.
+
 **A spec's future changelog** is the announcement users will read on release day, written before the build, in a `<div class="release">`: a title and two or three lines, emoji, benefits rather than features - never internal vocabulary. It doubles as the benefit test: if it cannot be written, the value of the project is not settled. On shipping it becomes the Changelog entry.
 
 **The roadmap** is one table in priority order. Each row points at its spec page with `data-spec` and sets `data-horizon`; rank, project name and spec status are filled in automatically.

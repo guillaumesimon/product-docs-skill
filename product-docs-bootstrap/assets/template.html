@@ -179,6 +179,16 @@ tbody tr:last-child td{border-bottom:0}
 .release li{margin:0 0 8px;font-size:.9063rem;line-height:1.55}
 .release li:last-child{margin:0}
 .release .meta{margin:12px 0 0;font-size:.78rem;color:var(--muted)}
+
+/* Passation d'une spec vers les pages vivantes */
+.handover{list-style:none;margin:12px 0 20px;padding:0}
+.handover li{display:grid;grid-template-columns:7.5rem minmax(0,1fr);gap:4px 14px;align-items:baseline;padding:11px 0;border-top:1px solid var(--line)}
+.handover li:last-child{border-bottom:1px solid var(--line)}
+.handover li .tag{justify-self:start}
+.handover li .what{grid-column:2;font-size:.875rem;color:var(--muted)}
+.handover.pending li[data-done]{opacity:.62}
+.hand-note{margin:0 0 8px;font-size:.8125rem;color:var(--muted)}
+@media (max-width:720px){.handover li{grid-template-columns:1fr}.handover li .what{grid-column:1}}
 .copy{position:relative;margin:16px 0 24px}
 pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink);white-space:pre-wrap}
 .copy button{position:absolute;top:10px;right:10px;font:inherit;font-size:.75rem;font-weight:500;padding:5px 10px;border:0;border-radius:6px;background:var(--bg);color:var(--ink);box-shadow:var(--ring);cursor:pointer}
@@ -196,7 +206,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
 .card b{display:block;color:var(--ink);font-weight:600;font-size:.9375rem;margin-bottom:4px}
 .card span{display:block;font-size:.8438rem;line-height:1.5}
 .card small{display:block;margin-top:10px;font-size:.75rem;color:var(--muted)}
-.counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:16px 0 24px}
+.counts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 24px}
 .stat{padding:14px 18px;border-radius:10px;box-shadow:var(--ring)}
 .stat b{display:block;font-size:1.75rem;line-height:1.1;font-weight:600;color:var(--ink);letter-spacing:-.02em}
 .stat span{display:flex;align-items:center;gap:7px;margin-top:6px;font-size:.8125rem;color:var(--muted)}
@@ -284,6 +294,8 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
                   The page explains, these sources win. Never copy their content.
   Spec pages carry data-parent="specs" plus data-spec-id, data-spec-status
   (draft | ready | in-progress | shipped | dropped), data-target, data-updated.
+  Their handover is a ul.handover whose items carry data-page (the id of the
+  target page or entry) and data-done (the date the content landed there).
   Navigation, headers, table of contents, search, previous/next, the spec index
   and the home register are all generated from this metadata and the <h2> titles.
 ====================================================================== -->
@@ -309,6 +321,14 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
     <thead><tr><th>Page</th><th>Status</th><th>Reviewed</th><th>Update when</th></tr></thead>
     <tbody id="register"></tbody>
   </table></div>
+  <div id="debtBlock">
+    <h2>Handover debt</h2>
+    <p>Projects marked shipped whose content never reached the living pages. Each line was promised by a spec and is still missing where a reader would look for it. This is the one list that should always be empty.</p>
+    <div class="scroll"><table>
+      <thead><tr><th style="width:11rem">Shipped project</th><th>Owes</th><th>What has to move</th></tr></thead>
+      <tbody id="debt"></tbody>
+    </table></div>
+  </div>
 </section>
 
 <section class="page" id="overview" data-title="Overview" data-group="Understand" data-status="ok" data-verified="2026-09-14"
@@ -554,7 +574,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
     <h3>Behaviour</h3><p>What the user sees and does, screen by screen. Empty states, errors and edge cases included.</p>
     <h3>Acceptance criteria</h3><p>A checkable list. Each criterion should be able to become a test.</p>
     <h3>Out of scope</h3><p>What we are deliberately not doing in this version.</p>
-    <h3>Impact on the docs</h3><p>Pages to update when it ships: rules, mechanisms, features, measurement.</p>
+    <h3>Handover</h3><p>One line per page that has to change when this ships, each naming what moves there. Written now, ticked one by one on the day it ships. An open line is documentation debt and the home register counts it.</p>
     <h3>Open questions</h3><p>Each with an owner and a date for the answer.</p>
   </div>
 </section>
@@ -602,12 +622,13 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   </ul>
   <h2>Out of scope</h2>
   <ul><li>Reading attachments (purchase orders, PDFs)</li><li>Creating the invoice itself from the email</li><li>Connecting a mailbox</li></ul>
-  <h2>Impact on the docs</h2>
-  <ul>
-    <li><a href="#ai">AI components</a>: new component, its guardrails and its evaluation set</li>
-    <li><a href="#security">Security and personal data</a>: email content, purpose and retention</li>
-    <li><a href="#journeys">User journeys</a>: step 2 of "First invoice"</li>
-    <li><a href="#features">Features</a>: status moves from partial rollout to live</li>
+  <h2>Handover</h2>
+  <div class="guide"><p><strong>What moves into the living pages when this ships</strong>, decided now rather than on release day. Each line is ticked with <code>data-done</code> once the content is actually in the target page. While a line is open on a shipped spec, the home register counts it as debt.</p></div>
+  <ul class="handover">
+    <li data-page="ai">The new component, its guardrails and its evaluation set</li>
+    <li data-page="security" data-done="2026-09-11">Email content, why it is kept and for how long</li>
+    <li data-page="journeys">Step 2 of "First invoice", rewritten around the forwarding address</li>
+    <li data-page="features">Status moves from partial rollout to live</li>
   </ul>
   <h2>Open questions</h2>
   <div class="scroll"><table>
@@ -650,8 +671,12 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   </ul>
   <h2>Out of scope</h2>
   <ul><li>Holding funds or issuing payouts ourselves (see decision <a href="#D-012">D-012</a>)</li><li>Instalment plans</li></ul>
-  <h2>Impact on the docs</h2>
-  <ul><li><a href="#M-collection">Key mechanisms</a>: collection by payment link</li><li><a href="#integrations">Integrations and API</a>: behaviour when the provider is down</li></ul>
+  <h2>Handover</h2>
+  <ul class="handover">
+    <li data-page="M-collection">Collection by payment link, end to end</li>
+    <li data-page="integrations">What happens while the provider is down</li>
+    <li data-page="features">A new line, Pro plan</li>
+  </ul>
   <h2>Open questions</h2>
   <p>None at this stage.</p>
 </section>
@@ -684,8 +709,13 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
 <section class="page" id="spec-S-019" data-parent="specs" data-title="Automatic reminders" data-spec-id="S-019" data-spec-status="shipped" data-target="2.3" data-updated="2026-02-20"
   data-desc="Let the product chase late payers so the user does not have to.">
   <div class="guide"><p><strong>A shipped spec is frozen.</strong> It records what was decided at the time. The current behaviour is described in the living pages, which win if they disagree.</p></div>
-  <h2>Where the current behaviour is described</h2>
-  <ul><li><a href="#M-reminders">Key mechanisms</a>: how reminders unfold today</li><li><a href="#BR-003">BR-003</a>: the rule and its reason</li></ul>
+  <h2>Handover</h2>
+  <ul class="handover">
+    <li data-page="M-reminders" data-done="2026-02-20">How reminders unfold today</li>
+    <li data-page="BR-003" data-done="2026-02-20">The rule that stops the sequence, and why</li>
+    <li data-page="metrics">What reminders did to time to payment, and how we read it</li>
+  </ul>
+  <div class="guide"><p><strong>One line never moved.</strong> Seven months on, the metric this project was meant to prove is still not described anywhere. That is exactly the debt the home register counts - and why the handover is ticked line by line rather than declared done.</p></div>
   <h2>Problem, as written at the time</h2>
   <p>Users do not dare chase their customers, and late invoices stay late. They asked for the product to do it for them, in a tone they would not be ashamed of.</p>
   <h2>What shipped</h2>
@@ -973,6 +1003,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
     <thead><tr><th>If the change</th><th>Update</th></tr></thead>
     <tbody>
       <tr><td>Starts a project, reshapes its scope or changes its priority</td><td class="plain">Its spec page (create one from the template), and a row on the Roadmap in the right position</td></tr>
+      <tr><td>Makes a spec's behaviour real: a flag removed, a gate deleted, a job switched on</td><td class="plain">That spec's handover, line by line, before anything else. Then its status, the Roadmap and the Changelog</td></tr>
       <tr><td>Adds or removes a capability for the user</td><td class="plain">Features, User journeys if affected, the spec's status, Roadmap, Changelog</td></tr>
       <tr><td>Changes what the product decides on the user's behalf</td><td class="plain">Business rules, Glossary if there is a new term</td></tr>
       <tr><td>Changes how a mechanism unfolds</td><td class="plain">Key mechanisms</td></tr>
@@ -1033,6 +1064,14 @@ it cannot be written, the benefit is not settled and the spec is not ready.
 When a spec ships, move its lasting content to the living pages, copy the future
 changelog into the Changelog entry, set data-spec-status="shipped" and stop
 editing it.
+
+Handover: every spec lists the pages it will have to feed, one
+<li data-page="..."> per target inside a <ul class="handover">. When your change
+makes a spec's behaviour real - a flag removed, a gate deleted, a job switched
+on - move each line's content into its target page, in that page's own shape and
+in the present tense, then tick the line with data-done="<today>". A spec is not
+shipped until every line is ticked. Open lines on a shipped spec are listed as
+handover debt on the home page, under the project's name.
 
 Roadmap: one row per live project, in priority order, in the tbody[data-roadmap].
 Point it at its spec with data-spec and set data-horizon. Rank, project name and
@@ -1109,6 +1148,29 @@ Writing rules:
     });
   });
 
+  // Passation : one line per page a spec has to feed, ticked with data-done
+  var HAND={}, debt=[];
+  document.querySelectorAll('ul.handover').forEach(function(ul){
+    var spec=ul.closest('.page'); if(!spec) return;
+    var shipped=spec.dataset.specStatus==='shipped', open=0, items=[];
+    [].slice.call(ul.children).forEach(function(li){
+      var what=li.innerHTML, tid=li.dataset.page||'', t=tid?$(tid):null;
+      var host=t?(t.classList.contains('page')?t:t.closest('.page')):null;
+      var label=host?host.dataset.title:(tid||'Unknown target');
+      if(t&&host&&t!==host) label+=' \u203a '+t.id;
+      var done=li.dataset.done;
+      if(!done){ open++; items.push({target:tid,label:label,what:li.textContent.trim()}); }
+      li.innerHTML='<span class="tag t-'+(done?'ok':(shipped?'stale':'check'))+'">'+(done?'Moved '+fmt(done):'To move')+'</span>'+
+        '<a href="#'+esc(tid)+'">'+esc(label)+'</a><span class="what">'+what+'</span>';
+    });
+    if(open) ul.classList.add('pending');
+    HAND[spec.id]={open:open,total:ul.children.length};
+    ul.insertAdjacentHTML('beforebegin','<p class="hand-note">'+(open
+      ? open+' of '+ul.children.length+' still to move into the living pages'+(shipped?'. This spec is shipped: these are open debts.':'')
+      : 'All '+ul.children.length+' moved into the living pages.')+'</p>');
+    if(shipped&&open) debt.push({spec:spec,items:items});
+  });
+
   // Page headers, register, counters
   var groups={}, order=[], counts={ok:0,check:0,stale:0}, register=$('register'), children={};
   pages.forEach(function(p){ var par=p.dataset.parent; if(par){ (children[par]=children[par]||[]).push(p); } });
@@ -1121,6 +1183,8 @@ Writing rules:
       if(spec) meta.push('<span class="tag t-'+spec[1]+'">'+spec[0]+'</span>');
       if(d.specId) meta.push('<span>'+esc(d.specId)+'</span>');
       if(d.target) meta.push('<span>Target '+esc(d.target)+'</span>');
+      var hv=HAND[p.id];
+      if(hv) meta.push('<span class="tag t-'+(hv.open?(d.specStatus==='shipped'?'stale':'check'):'ok')+'">Handover '+(hv.total-hv.open)+'/'+hv.total+'</span>');
       if(d.verified) meta.push('<span>Reviewed '+fmt(d.verified)+'</span>');
       else if(d.updated) meta.push('<span>Updated '+fmt(d.updated)+'</span>');
       var crumb=par?'<a href="#'+par+'">'+esc(byId[par]?byId[par].dataset.title:par)+'</a>':esc(g);
@@ -1167,12 +1231,21 @@ Writing rules:
              '<td class="plain" style="white-space:nowrap">'+fmt(d.updated)+'</td></tr>'; }).join('');
   });
 
+  var owed=debt.reduce(function(n,d){return n+d.items.length;},0);
   $('counts').innerHTML=['ok','check','stale'].map(function(s){
     var label={ok:'pages up to date',check:'need review',stale:'stale'}[s];
-    return '<div class="stat"><b>'+counts[s]+'</b><span><i class="dot '+s+'"></i>'+label+'</span></div>'; }).join('');
-  var issues=counts.check+counts.stale;
-  $('health').innerHTML= issues
-    ? '<i class="dot '+(counts.stale?'stale':'check')+'"></i><span class="txt">'+issues+' page'+(issues>1?'s':'')+' to review</span>'
+    return '<div class="stat"><b>'+counts[s]+'</b><span><i class="dot '+s+'"></i>'+label+'</span></div>'; })
+    .concat('<div class="stat"><b>'+owed+'</b><span><i class="dot '+(owed?'stale':'ok')+'"></i>handover debt</span></div>').join('');
+  if(owed){
+    $('debt').innerHTML=debt.map(function(d){ return d.items.map(function(it,i){
+      return '<tr>'+(i?'<td class="plain"></td>':'<td><a href="#'+d.spec.id+'">'+esc(d.spec.dataset.title)+'</a><br><span class="sub">'+esc(d.spec.dataset.specId||'')+'</span></td>')+
+             '<td class="plain"><a href="#'+esc(it.target)+'">'+esc(it.label)+'</a></td><td class="plain">'+esc(it.what)+'</td></tr>'; }).join(''); }).join('');
+  } else { $('debtBlock').style.display='none'; }
+  var issues=counts.check+counts.stale, pills=[];
+  if(issues) pills.push(issues+' page'+(issues>1?'s':'')+' to review');
+  if(owed) pills.push(owed+' handover debt');
+  $('health').innerHTML= pills.length
+    ? '<i class="dot '+((counts.stale||owed)?'stale':'check')+'"></i><span class="txt">'+pills.join(' \u00b7 ')+'</span>'
     : '<i class="dot ok"></i><span class="txt">Docs up to date</span>';
 
   // Accueil : cartes

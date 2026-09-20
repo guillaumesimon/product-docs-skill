@@ -1,6 +1,6 @@
 ---
 name: product-docs-update
-description: Keep the living product documentation at docs/product/index.html true after a code change, and audit it against the code. Use this skill whenever work in a repository that has docs/product/index.html changes how the product is understood - a new or modified business rule, a new mechanism or background job, a new capability, a changed plan or permission logic, a new external dependency, a new AI component, a redefined metric, a concluded experiment, a resolved incident, a structuring decision, a new or shipped spec, a change of priority on the roadmap. Also use it when the user asks to review, audit or refresh the product docs, to check whether they still match the code, to add a spec page or a decision, or when a page is flagged as needing review or stale. If docs/product/index.html does not exist, use product-docs-bootstrap instead.
+description: Keep the living product documentation at docs/product/index.html true after a code change, and audit it against the code. Use this skill whenever work in a repository that has docs/product/index.html changes how the product is understood - a new or modified business rule, a new mechanism or background job, a new capability, a changed plan or permission logic, a new external dependency, a new AI component, a redefined metric, a concluded experiment, a resolved incident, a structuring decision, a new or shipped spec, a change of priority on the roadmap. Also use it when a project or feature has just shipped, when a feature flag or rollout gate is removed, or when the user says a spec is out, to move that spec's content into the living pages. Also use it when the user asks to review, audit or refresh the product docs, to check whether they still match the code, to add a spec page or a decision, or when a page is flagged as needing review or stale. If docs/product/index.html does not exist, use product-docs-bootstrap instead.
 ---
 
 # Update the product documentation
@@ -16,6 +16,8 @@ One question: **would someone who read the docs yesterday misunderstand the prod
 If no, stop. Most commits change values, columns, events, styling or implementation without changing how the product is understood, and the docs are deliberately silent about all of that. Editing them anyway trains everyone to skim a page that changes for no reason.
 
 If yes, find the pages with `references/change-map.md` and edit those, only those.
+
+**One case answers yes on its own: the change ships a spec.** If the code in front of you makes a spec's behaviour real - a feature flag or a rollout gate removed, a branch that becomes unconditional, a job that starts running - or if someone tells you a project is out, that spec's content has to move into the living pages now. Read `references/handover.md` and run it. This is the single most common way these docs go stale: the feature is live, Features still says planned, and Key mechanisms never heard of it.
 
 ## Make the edit
 
@@ -58,9 +60,11 @@ Three parts of the page generate themselves from metadata, so edit the source of
 
 **A spec's future changelog.** Every spec carries one, in a `<div class="release">` right after the expected outcome: the announcement users will read on release day, written before the build. A title and two or three lines, emoji, benefits rather than features, no internal vocabulary. It is also the benefit test - a project nobody can announce in three lines is a project whose value is not settled, and the spec is not ready. Keep it up to date when the scope moves.
 
+**Handover lines.** Inside each spec, a `<ul class="handover">` with one `<li data-page="...">` per page the project will have to feed, and `data-done="<date>"` once the content is actually there. The badges, the tally in the spec header, the debt table on the home page and the counter in the top bar are all generated from it, so ticking a line means moving the content, never the reverse. `references/handover.md` is the procedure.
+
 **Roadmap rows.** One `<tr>` per live project inside `<tbody data-roadmap>`, in priority order, with `data-spec` pointing at the spec page and `data-horizon` set to now, next or later. Rank, project name and spec status are filled in automatically - write only the problem, the metric and the horizon. Reordering the rows is how priority changes. A shipped or dropped project loses its row.
 
-**A shipped spec.** When a project ships, move its lasting content to the living pages - Features, Business rules, Key mechanisms, Metrics - then set `data-spec-status="shipped"` and stop editing the spec. Remove its roadmap row and copy the spec's future changelog into the Changelog as the version's entry, with at most a word changed. The spec becomes a record of what was decided and promised at the time; the living pages win if they disagree.
+**A shipped spec.** Work the handover line by line: for each one, move the content into its target page in that page's own shape, tick it with today's date, and set that page's `data-verified` and `data-status`. When every line is ticked, and only then, set `data-spec-status="shipped"`, copy the future changelog into the Changelog as the version's entry, remove the roadmap row and stop editing the spec. An open line keeps the spec `in-progress`; if the user says the feature is live anyway, mark it shipped and leave the line open - the home register will carry the debt under the project's name. Full procedure in `references/handover.md`. The spec becomes a record of what was decided and promised at the time; the living pages win if they disagree.
 
 ## The audit pass
 
@@ -77,4 +81,5 @@ Do not use a team for a single-change update. Reading one page and editing one e
 ## Reference
 
 - `references/change-map.md` - which change updates which pages, plus the full writing rules and the edit checklist
+- `references/handover.md` - shipping a spec: recognising it shipped, moving each line into the living pages, what blocks the shipped status
 - `references/audit-team.md` - the audit team: per-page and cross-page prompts, verdicts, how to apply the findings

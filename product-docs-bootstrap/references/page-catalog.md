@@ -62,8 +62,9 @@ Every page carries `data-trigger` (the kind of change that forces an update) and
 
 ### Specs
 **For:** changes to come, one page per project, before they are built.
-**In:** per spec page - problem with evidence, expected outcome, future changelog, behaviour, acceptance criteria, out of scope, impact on the docs, open questions with an owner.
+**In:** per spec page - problem with evidence, expected outcome, future changelog, behaviour, acceptance criteria, out of scope, handover, open questions with an owner.
 **Future changelog:** the announcement users will read on release day, written before the build - a title and two or three lines, emoji, benefits rather than features. It is the benefit test: a project nobody can announce in three lines is a project whose value is not settled. On shipping it becomes the Changelog entry.
+**Handover:** one line per page the project will have to feed when it ships, each naming what moves there, ticked with `data-done` once it has. Written with the spec. A shipped spec with open lines is counted as debt on the home page - this is what stops Features and Key mechanisms drifting behind the code.
 **Out:** anything about the present state; that belongs in the living pages. Once shipped, a spec is frozen and points at them.
 **Where to look:** tracker, design docs, PR descriptions of work in flight.
 
