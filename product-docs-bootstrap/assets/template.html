@@ -171,6 +171,14 @@ tbody tr:last-child td{border-bottom:0}
 .sheet{border:1px solid var(--line);border-radius:10px;padding:4px 22px 16px;margin:16px 0 24px;box-shadow:var(--ring)}
 .sheet h3{margin-top:18px;font-size:.9063rem}
 .sheet p{font-size:.875rem;color:var(--muted);margin:0}
+
+/* Changelog a venir, dans une spec : le texte publie aux utilisateurs */
+.release{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:16px 20px;margin:12px 0 20px;background:var(--bg);box-shadow:var(--ring)}
+.release .lede{margin:0 0 10px;color:var(--ink);font-weight:600;font-size:.9688rem}
+.release ul{list-style:none;margin:0;padding:0}
+.release li{margin:0 0 8px;font-size:.9063rem;line-height:1.55}
+.release li:last-child{margin:0}
+.release .meta{margin:12px 0 0;font-size:.78rem;color:var(--muted)}
 .copy{position:relative;margin:16px 0 24px}
 pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:10px;padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:.78rem;line-height:1.7;color:var(--ink);white-space:pre-wrap}
 .copy button{position:absolute;top:10px;right:10px;font:inherit;font-size:.75rem;font-weight:500;padding:5px 10px;border:0;border-radius:6px;background:var(--bg);color:var(--ink);box-shadow:var(--ring);cursor:pointer}
@@ -530,6 +538,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <div class="guide">
     <p><strong>Purpose:</strong> a spec describes a change to come. The rest of the docs describes the present state. When a spec ships, its lasting content moves to Features, Business rules and Key mechanisms, then the spec is frozen.</p>
     <p><strong>How it works:</strong> each project has its own page, a <code>&lt;section class="page" data-parent="specs"&gt;</code>. The index below is generated from those pages, so a spec's title and status are written in one place only.</p>
+    <p><strong>Every spec carries its future changelog:</strong> the text users will read when it ships, written before the build. It is the benefit test - a project nobody can announce in three lines is a project whose value is not settled. On shipping, that block becomes the version's <a href="#changelog">Changelog</a> entry, with at most a word changed.</p>
   </div>
   <h2>Projects</h2>
   <div class="scroll"><table>
@@ -541,6 +550,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <div class="sheet">
     <h3>Problem</h3><p>What is wrong today, for whom, with the evidence (data, quote, ticket).</p>
     <h3>Expected outcome</h3><p>The metric that should move, and in which direction.</p>
+    <h3>Future changelog</h3><p>The announcement the user will read on the day this ships: a title and two or three lines, emoji, benefits rather than features. Written now, before the build. If it cannot be written, the benefit is not clear yet and the spec is not ready.</p>
     <h3>Behaviour</h3><p>What the user sees and does, screen by screen. Empty states, errors and edge cases included.</p>
     <h3>Acceptance criteria</h3><p>A checkable list. Each criterion should be able to become a test.</p>
     <h3>Out of scope</h3><p>What we are deliberately not doing in this version.</p>
@@ -559,6 +569,17 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p><strong>Evidence.</strong> Onboarding funnel in the analytics tool, step "first customer". Eleven support conversations asking for a way to paste a signature.</p>
   <h2>Expected outcome</h2>
   <p>Activation goes up, because the first invoice becomes reachable in one sitting. Definition of activation: see <a href="#metrics">Metrics and tracking</a>.</p>
+  <h2>Future changelog</h2>
+  <div class="guide"><p><strong>Written before the build, not after.</strong> This is what users will read on release day. Short, concrete, about what they gain. On the day it ships it moves to the <a href="#changelog">Changelog</a> and the spec stops changing.</p></div>
+  <div class="release">
+    <p class="lede">📩 Your customers, without the typing</p>
+    <ul>
+      <li>✨ Forward any email from a customer to your private Bordereau address. The record is waiting for you a minute later.</li>
+      <li>👀 Nothing is saved until you say so: every field is shown next to the line it came from.</li>
+      <li>⚡ Your first invoice in one sitting, even from your phone.</li>
+    </ul>
+    <p class="meta">Pro accounts, gradual rollout.</p>
+  </div>
   <h2>Behaviour</h2>
   <ol>
     <li>Each account gets a private forwarding address, shown on the empty customer list and in the new-invoice screen.</li>
@@ -604,6 +625,16 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Customers who pay by manual bank transfer pay late: they have to log in to their bank, retype the details and the reference. Our users then spend time matching transfers to invoices.</p>
   <h2>Expected outcome</h2>
   <p>Median time to payment goes down for invoices that carry the link.</p>
+  <h2>Future changelog</h2>
+  <div class="release">
+    <p class="lede">💳 Get paid straight from the invoice</p>
+    <ul>
+      <li>✨ Every invoice you send now carries a pay button, in the email and on the PDF.</li>
+      <li>⏱️ Your customer pays the day they read it, with no bank details to retype.</li>
+      <li>✅ The invoice marks itself as paid. Nothing left to match by hand.</li>
+    </ul>
+    <p class="meta">Beta, card payments only.</p>
+  </div>
   <h2>Behaviour</h2>
   <ol>
     <li>The user connects their payment provider account once, from the settings.</li>
@@ -632,6 +663,15 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Many Pro users duplicate the same invoice for the same customer every month, then fix the date by hand. Some forget, and invoice late.</p>
   <h2>Expected outcome</h2>
   <p>Pro retention at 90 days goes up. Secondary effect: fewer late invoices.</p>
+  <h2>Future changelog</h2>
+  <div class="guide"><p>The behaviour is still open, the promise is not. A draft that cannot be announced is a draft that is not worth pursuing yet.</p></div>
+  <div class="release">
+    <p class="lede">🔁 Your monthly invoices, on their own</p>
+    <ul>
+      <li>✨ Set a customer up once and their invoice comes back every month without you.</li>
+      <li>🗓️ No more duplicating last month's and fixing the date.</li>
+    </ul>
+  </div>
   <h2>Behaviour</h2>
   <p>To be written. Main open choice: fully automatic issuing, or a draft prepared each period that the user confirms. The second option fits <a href="#BR-002">BR-002</a> better, since an issued invoice cannot be edited.</p>
   <h2>Open questions</h2>
@@ -650,6 +690,16 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Users do not dare chase their customers, and late invoices stay late. They asked for the product to do it for them, in a tone they would not be ashamed of.</p>
   <h2>What shipped</h2>
   <p>A fixed sequence of three reminder emails after the due date, stopped by a payment or a dispute. The weekend rule was added later, in 2.9.</p>
+  <h2>Changelog, as published</h2>
+  <div class="release">
+    <p class="lede">🔔 Let Bordereau chase late payers for you</p>
+    <ul>
+      <li>✨ Three reminder emails go out on their own after the due date, in a tone you can stand behind.</li>
+      <li>🤝 They stop the moment your customer pays or raises a dispute.</li>
+      <li>😶 Nothing to chase, nothing awkward to write.</li>
+    </ul>
+    <p class="meta">Written as the future changelog while this spec was in progress, published with 2.3.</p>
+  </div>
 </section>
 
 <section class="page" id="decisions" data-title="Decisions" data-group="Direction" data-status="ok" data-verified="2026-09-05"
@@ -884,7 +934,8 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
 <section class="page" id="changelog" data-title="Changelog" data-group="History" data-status="ok" data-verified="2026-09-15"
   data-desc="What changed for the user, version after version."
   data-trigger="A change visible to the user ships" data-sources="Git tags, CHANGELOG.md">
-  <div class="guide"><p><strong>Purpose:</strong> history lives here and in Decisions, nowhere else. Written from the user's point of view, with a link to the rule or spec involved.</p></div>
+  <div class="guide"><p><strong>Purpose:</strong> history lives here and in Decisions, nowhere else. Written from the user's point of view, with a link to the rule or spec involved.</p>
+  <p><strong>Where an entry comes from:</strong> the future changelog block of the spec that shipped. It was written before the build, so release day is a copy, not a writing exercise. Changes with no spec behind them are added here directly.</p></div>
   <h2>2.14.0, 15 September 2026</h2>
   <ul><li><strong>Added.</strong> Customer import by email, open to a share of Pro accounts (<a href="#spec-S-031">S-031</a>)</li><li><strong>Changed.</strong> The pay button now also appears in reminder emails</li><li><strong>Fixed.</strong> VAT rounding on percentage discounts</li></ul>
   <h2>2.13.0, 28 August 2026</h2>
@@ -970,12 +1021,18 @@ yesterday misunderstand the product today because of my change?
 On every page you touch: data-verified = today's date, data-status = "ok".
 If you spot a gap you cannot resolve: data-status = "check" and describe the gap
 at the top of the page.
-If the change is visible to the user, add a Changelog entry.
+If the change is visible to the user, add a Changelog entry - from the spec's
+future changelog when there is one.
 
 Specs: one page per project, a section with data-parent="specs" copied from an
 existing spec. Set data-spec-id, data-spec-status, data-target, data-updated.
-The index on the Specs page builds itself. When a spec ships, move its lasting
-content to the living pages, set data-spec-status="shipped" and stop editing it.
+The index on the Specs page builds itself. Every spec carries a "Future changelog"
+block, div.release: the announcement users will read when it ships, a title and
+two or three lines, emoji, benefits not features. Write it before the build; if
+it cannot be written, the benefit is not settled and the spec is not ready.
+When a spec ships, move its lasting content to the living pages, copy the future
+changelog into the Changelog entry, set data-spec-status="shipped" and stop
+editing it.
 
 Roadmap: one row per live project, in priority order, in the tbody[data-roadmap].
 Point it at its spec with data-spec and set data-horizon. Rank, project name and

@@ -61,6 +61,8 @@ Find contradictions and duplication across pages:
 - links that point at a page or an anchor that no longer exists
 - a business rule contradicted by a mechanism description, or the reverse
 - a spec marked shipped whose content never moved to the living pages
+- a spec with no future changelog, or one that promises something the spec no longer describes
+- a shipped spec whose future changelog never reached the Changelog
 - a roadmap row whose spec is shipped or dropped
 - an identifier (BR, D, S, RB) used twice
 

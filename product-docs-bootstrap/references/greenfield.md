@@ -33,6 +33,7 @@ Ask these in conversation, not as a form. Four or five questions per exchange at
 **The first projects**
 - What are you building first, and which problem does each solve?
 - These become roadmap rows and, for the one starting now, a spec page.
+- For each, ask what you would announce the day it ships, in three lines a user would be happy to read. That future changelog goes in the spec, and it is the cheapest way to find out whether a project is worth starting.
 
 **Measurement**
 - How will you know the first version works? One metric is enough, with its exact definition.
@@ -46,7 +47,7 @@ Create `docs/product/index.html` from `assets/template.html` and keep only:
 - **Business rules** - only the ones actually decided; an empty rules page with the format visible is fine and honest
 - **Decisions** - the structuring choices, with their reasons while they are fresh
 - **Roadmap** - the first projects in priority order
-- **Specs** - one page for the project starting now
+- **Specs** - one page for the project starting now, future changelog included
 - **Metrics and tracking** - the one metric and its definition
 - **Maintaining these docs** - kept as it ships
 

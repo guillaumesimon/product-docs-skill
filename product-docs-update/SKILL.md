@@ -56,9 +56,11 @@ Three parts of the page generate themselves from metadata, so edit the source of
 
 **Spec pages.** One page per project: `<section class="page" data-parent="specs">` with `data-spec-id`, `data-spec-status` (draft, ready, in-progress, shipped, dropped), `data-target`, `data-updated`. Create one by copying an existing spec page. The index on the Specs page builds itself, so never type a spec's title or status anywhere else.
 
+**A spec's future changelog.** Every spec carries one, in a `<div class="release">` right after the expected outcome: the announcement users will read on release day, written before the build. A title and two or three lines, emoji, benefits rather than features, no internal vocabulary. It is also the benefit test - a project nobody can announce in three lines is a project whose value is not settled, and the spec is not ready. Keep it up to date when the scope moves.
+
 **Roadmap rows.** One `<tr>` per live project inside `<tbody data-roadmap>`, in priority order, with `data-spec` pointing at the spec page and `data-horizon` set to now, next or later. Rank, project name and spec status are filled in automatically - write only the problem, the metric and the horizon. Reordering the rows is how priority changes. A shipped or dropped project loses its row.
 
-**A shipped spec.** When a project ships, move its lasting content to the living pages - Features, Business rules, Key mechanisms, Metrics - then set `data-spec-status="shipped"` and stop editing the spec. Remove its roadmap row and add a Changelog entry. The spec becomes a record of what was decided at the time; the living pages win if they disagree.
+**A shipped spec.** When a project ships, move its lasting content to the living pages - Features, Business rules, Key mechanisms, Metrics - then set `data-spec-status="shipped"` and stop editing the spec. Remove its roadmap row and copy the spec's future changelog into the Changelog as the version's entry, with at most a word changed. The spec becomes a record of what was decided and promised at the time; the living pages win if they disagree.
 
 ## The audit pass
 

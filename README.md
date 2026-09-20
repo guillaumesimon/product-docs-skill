@@ -75,6 +75,14 @@ priority changes.
 
 <img src="docs/screenshots/04-roadmap-dark.png" alt="Roadmap page in dark mode" width="100%">
 
+### Every spec ships with its announcement 📣
+
+Each spec page carries a **future changelog**: the two or three lines users will read on release
+day, with emoji, written from what they gain rather than from what we built — *before* the build
+starts. It doubles as a benefit test: a project nobody can announce in three lines is a project
+whose value isn't settled yet. On shipping, that block becomes the Changelog entry, so release day
+is a copy rather than a writing exercise. ✨
+
 ### ⌘K search across pages, rules, decisions and sections
 
 <img src="docs/screenshots/05-search.png" alt="Search palette open with results across rules and decisions" width="100%">
@@ -322,6 +330,23 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 - 🧪 Tighten or loosen the change map in `references/change-map.md`. The last row — *only changes
   values, columns, prices, styling or implementation → **nothing*** — is what stops the docs from
   becoming noise. Touch it last.
+
+## 🗓️ Changelog
+
+### 20 September 2026
+
+- 📣 Every spec now ships with the release note users will read
+- ✅ Can't announce it in three lines? The value isn't settled yet
+- 📋 Release day becomes a copy-paste, not a writing exercise
+- 🔎 The audit flags specs whose promise no longer matches their scope
+
+### 17 September 2026
+
+- 📚 Product docs that live in the repo, in one file you double-click
+- 🤖 Bootstrap writes them from your code, update keeps them true
+- 🚦 Every page says when it was last checked against the code
+- 🔒 Business rules keep their *why*, so nobody undoes them by accident
+- 🗺️ A roadmap that ranks itself from the spec pages
 
 ## 🙏 Credits
 

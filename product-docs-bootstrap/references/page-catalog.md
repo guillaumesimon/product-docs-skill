@@ -62,7 +62,8 @@ Every page carries `data-trigger` (the kind of change that forces an update) and
 
 ### Specs
 **For:** changes to come, one page per project, before they are built.
-**In:** per spec page - problem with evidence, expected outcome, behaviour, acceptance criteria, out of scope, impact on the docs, open questions with an owner.
+**In:** per spec page - problem with evidence, expected outcome, future changelog, behaviour, acceptance criteria, out of scope, impact on the docs, open questions with an owner.
+**Future changelog:** the announcement users will read on release day, written before the build - a title and two or three lines, emoji, benefits rather than features. It is the benefit test: a project nobody can announce in three lines is a project whose value is not settled. On shipping it becomes the Changelog entry.
 **Out:** anything about the present state; that belongs in the living pages. Once shipped, a spec is frozen and points at them.
 **Where to look:** tracker, design docs, PR descriptions of work in flight.
 
@@ -147,7 +148,7 @@ Every page carries `data-trigger` (the kind of change that forces an update) and
 
 ### Changelog
 **For:** what changed for the user, written from their point of view.
-**In:** per version - added, changed, fixed, removed, with a link to the rule or spec involved.
+**In:** per version - the future changelog block of each spec that shipped, plus added, changed, fixed, removed for anything with no spec behind it, with a link to the rule or spec involved.
 **Where to look:** git tags and an existing CHANGELOG. Do not backfill years of history; start at the current version and grow forward.
 
 ## Meta

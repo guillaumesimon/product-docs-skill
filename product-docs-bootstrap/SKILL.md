@@ -93,6 +93,8 @@ Get the register straight: the docs describe the **present**. History lives in C
 
 **A spec** is one page per project, `<section class="page" data-parent="specs">`, with `data-spec-id`, `data-spec-status`, `data-target`, `data-updated`. The index on the Specs page and the rows on the Roadmap read from it, so a project's name and status are written once.
 
+**A spec's future changelog** is the announcement users will read on release day, written before the build, in a `<div class="release">`: a title and two or three lines, emoji, benefits rather than features - never internal vocabulary. It doubles as the benefit test: if it cannot be written, the value of the project is not settled. On shipping it becomes the Changelog entry.
+
 **The roadmap** is one table in priority order. Each row points at its spec page with `data-spec` and sets `data-horizon`; rank, project name and spec status are filled in automatically.
 
 Watch for the two failure modes. The first is copying, because the code is what you are looking at: if a page grows long lists, you have drifted. The second is promoting implementation details to business rules - format validations, technical defaults. A business rule is something a user or support could argue about.

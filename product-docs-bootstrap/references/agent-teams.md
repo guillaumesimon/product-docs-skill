@@ -78,6 +78,9 @@ Rules:
   way / where to enter the code.
 - A business rule is: identifier, intent in one verifiable sentence, why, file,
   test. Do not promote format validation or technical defaults to business rules.
+- A spec, if you write one, carries its future changelog: the announcement users
+  will read when it ships, a title and two or three lines, emoji, benefits not
+  features. Write it from the problem, never from the implementation.
 - Every explanation ends with a file, a test or a dashboard.
 - If a "why" is not in the inventory, write "Why: to be confirmed" and set that
   page's data-status to "check". Never invent one.
