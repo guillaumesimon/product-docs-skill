@@ -166,6 +166,10 @@ tbody tr:last-child td{border-bottom:0}
 .bet h3{margin:0 0 4px;font-size:.9063rem}
 .bet p{font-size:.8438rem;line-height:1.5;margin:0 0 8px}
 .bet .meta{display:block;font-size:.78rem;color:var(--muted);margin:0}
+.north{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;padding:18px 22px;margin:16px 0 20px;background:var(--bg);box-shadow:var(--ring)}
+.north .tag{margin-bottom:12px}
+.north b{display:block;font-size:1.25rem;line-height:1.3;font-weight:600;letter-spacing:-.015em;color:var(--ink);margin-bottom:8px}
+.north p{margin:0;font-size:.9063rem;color:var(--muted)}
 
 /* Gabarit de spec, bloc à copier */
 .sheet{border:1px solid var(--line);border-radius:10px;padding:4px 22px 16px;margin:16px 0 24px;box-shadow:var(--ring)}
@@ -336,7 +340,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   data-trigger="The scope, the surfaces or the stage of the product changes" data-sources="README.md">
   <div class="guide">
     <p><strong>Purpose:</strong> let a newcomer, human or agent, place the product in two minutes.</p>
-    <p><strong>Leave out:</strong> mission, vision, personas and strategy. They live in the business card. A link is enough here.</p>
+    <p><strong>Leave out:</strong> mission, vision, personas, market and strategy. They live in the <a href="#pitch">Business card</a> pages. A link is enough here.</p>
   </div>
   <p class="lead">Bordereau lets French freelancers create, send and get paid for their invoices without any accounting knowledge.</p>
   <h2>Identity</h2>
@@ -345,7 +349,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
     <tr><td>Surfaces</td><td class="plain">Web app, mobile PWA, transactional emails</td></tr>
     <tr><td>Production</td><td class="plain"><code>app.bordereau.example</code></td></tr>
     <tr><td>Repository</td><td class="plain"><code>github.com/example/bordereau</code></td></tr>
-    <tr><td>Business card</td><td class="plain">Mission, vision, personas, strategy: link to the dedicated tool</td></tr>
+    <tr><td>Business card</td><td class="plain"><a href="#pitch">Pitch, mission and vision</a>, <a href="#personas">Personas</a>, <a href="#business-model">Business model</a>, <a href="#market">Market</a>, <a href="#strategy">Objective and strategy</a></td></tr>
   </tbody></table></div>
   <h2>Scope</h2>
   <h3>The product does</h3>
@@ -370,6 +374,201 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
       <tr><td>Customer</td><td class="plain">The person or company our user invoices</td><td class="plain"><code>Customer</code></td><td class="plain">User (<code>Account</code>)</td></tr>
     </tbody>
   </table></div>
+</section>
+
+<!-- =====================================================================
+  BUSINESS CARD. The five pages below are the only ones in this documentation
+  whose content is NOT in the repository. Nothing here can be verified by
+  reading code, so the rule that protects the other pages ("explain, do not
+  copy") is replaced by its mirror image: never write what the team has not
+  actually said. Anything inferred from the landing page, the pricing config
+  or a web search stays marked Unconfirmed, and its page stays data-status="check",
+  until a human confirms it.
+  data-sources on these pages names the person and the date of the confirmation,
+  not a file. That is where the detail lives.
+====================================================================== -->
+
+<section class="page" id="pitch" data-title="Pitch, mission and vision" data-group="Business card" data-status="ok" data-verified="2026-09-18"
+  data-desc="What we say in thirty seconds, why the company exists, and what the world looks like if we win."
+  data-trigger="A pivot, a new audience, a change of promise - never a feature" data-sources="Confirmed with the founders on 2026-09-18. Landing copy: www/">
+  <div class="guide">
+    <p><strong>Purpose:</strong> give everyone - human or agent - the context that makes the rest of this documentation readable. A feature only makes sense against a promise.</p>
+    <p><strong>Mission and vision are not the same thing.</strong> The mission is why the company exists <em>today</em>, in the present tense, and it should be true this morning. The vision is what the world looks like if we succeed, and it is deliberately not a plan. If your mission and your vision say the same thing, one of the two is wrong.</p>
+    <p><strong>Never invent this page.</strong> A plausible mission written by an agent will be quoted back in meetings for a year. If the team has not said it, leave it empty and set this page to <code>check</code>.</p>
+  </div>
+  <p class="lead">Bordereau gets French freelancers paid on time, without asking them to learn accounting.</p>
+  <h2>Positioning</h2>
+  <p>The long form of the pitch, in the shape that forces precision. Each line has to be defensible; the last one is the one people skip and the one that matters.</p>
+  <div class="scroll"><table><tbody>
+    <tr><td>For</td><td class="plain">French freelancers who invoice a handful of customers a month</td></tr>
+    <tr><td>Who</td><td class="plain">lose days chasing payment and are afraid of getting the legal form wrong</td></tr>
+    <tr><td>Bordereau is</td><td class="plain">an invoicing tool that sends, chases and collects on its own</td></tr>
+    <tr><td>Unlike</td><td class="plain">full accounting suites, which assume you already have an accountant</td></tr>
+    <tr><td>Because</td><td class="plain">we own the whole path from issuing to the money arriving, so the chasing can be automatic rather than a task the user has to remember</td></tr>
+  </tbody></table></div>
+  <h2>Mission</h2>
+  <p class="lead">Make getting paid the part of freelancing nobody has to think about.</p>
+  <p><strong>Why this and not "make invoicing simple".</strong> Simple invoicing is a feature and three competitors already have it. What freelancers actually lose sleep over is the money not arriving, which is why <a href="#M-reminders">automatic reminders</a> and <a href="#M-collection">collection by payment link</a> sit at the centre of the product and bookkeeping is explicitly <a href="#overview">out of scope</a>.</p>
+  <h2>Vision</h2>
+  <p>A freelancer issues an invoice and never touches it again: it gets sent, chased and settled, and the accounting export is ready when their accountant asks for it. Late payment stops being a fact of freelance life and becomes an exception the tool handles.</p>
+  <p class="sub">This is a direction, not a roadmap. What we are actually building next is on the <a href="#roadmap">Roadmap</a>, and the one thing we are optimising for right now is on <a href="#strategy">Objective and strategy</a>.</p>
+</section>
+
+<section class="page" id="personas" data-title="Personas" data-group="Business card" data-status="ok" data-verified="2026-09-18"
+  data-desc="The two people this product is built for, and the ones it is deliberately not built for."
+  data-trigger="A new audience is served on purpose, or an existing one is dropped" data-sources="Confirmed with the founders on 2026-09-18. 14 user interviews, Dovetail: Bordereau discovery">
+  <div class="guide">
+    <p><strong>Purpose:</strong> let anyone reading a spec ask "who is this for" and get a real answer. A persona is useful when it settles an argument about a design choice; anything that cannot settle an argument is decoration.</p>
+    <p><strong>Two to four, no more.</strong> Built on observed behaviour and the moment that brings someone to the product, not on age and job title. The test: someone in the team can name a real person for each one. If they cannot, it is a fiction and it will be used to justify anything.</p>
+    <p><strong>The second half of this page is the useful half.</strong> "Not our user" is what stops the product drifting into everyone's product.</p>
+  </div>
+  <h2>Who we build for</h2>
+  <div class="entry" id="P-01"><div class="id">P-01</div><div>
+    <h3>The solo consultant, three years in</h3>
+    <p>Bills four or five regular customers, always the same, on retainer or per day. Invoicing is a monthly chore of twenty minutes that they resent, and one customer always pays a month late.</p>
+    <dl>
+      <dt>What brings them</dt><dd>A late payment that hurt, or an accountant asking for documents they cannot find.</dd>
+      <dt>What they do today</dt><dd>A spreadsheet or a Word template, sent by hand, chased by an awkward email they put off writing.</dd>
+      <dt>What they need from us</dt><dd>That the chasing happens without them, and that they never have to have the awkward conversation.</dd>
+      <dt>What loses them</dt><dd>Anything that smells like accounting software. They left a suite because it asked them to pick a ledger account.</dd>
+      <dt>Evidence</dt><dd>The dominant profile in the interview set; the one who names late payment unprompted.</dd>
+    </dl>
+  </div></div>
+  <div class="entry" id="P-02"><div class="id">P-02</div><div>
+    <h3>The freelancer in year one</h3>
+    <p>Just registered, has one or two customers, and is mostly afraid of doing something illegal. Every field on an invoice is a question they do not know the answer to.</p>
+    <dl>
+      <dt>What brings them</dt><dd>The first invoice they have to issue, usually the same week they get the first customer.</dd>
+      <dt>What they do today</dt><dd>A free generator found on Google, or a template a friend sent them.</dd>
+      <dt>What they need from us</dt><dd>To be told the document is correct, and not to be asked anything they cannot answer.</dd>
+      <dt>What loses them</dt><dd>An empty state that assumes they already have customers, a price before they have sent anything.</dd>
+      <dt>Evidence</dt><dd>The drop-off at the first customer step in the onboarding funnel, and the eleven support conversations behind <a href="#spec-S-031">S-031</a>.</dd>
+    </dl>
+  </div></div>
+  <h2>Not our user</h2>
+  <p>Each of these has asked for the product, and each answer is a deliberate choice rather than a gap. They come back every quarter, which is why they are written down.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Who</th><th>Why not</th><th>We would revisit if</th></tr></thead>
+    <tbody>
+      <tr><td>Agencies of 5 to 20 people</td><td class="plain">They need several users, approval steps and a shared customer base. That is a different product, and it would slow down every screen for P-01.</td><td class="plain">The single-user product stops growing</td></tr>
+      <tr><td>Accountants</td><td class="plain">They want a portfolio view across clients. They are a channel to our users, not users. We make their export good and stop there.</td><td class="plain">Accountants become our main acquisition channel</td></tr>
+      <tr><td>Freelancers outside France</td><td class="plain">Compliance is the hard part of this product and it is national. See <a href="#BR-001">BR-001</a>.</td><td class="plain">A second country's rules are close enough to reuse the engine</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="page" id="business-model" data-title="Business model" data-group="Business card" data-status="ok" data-verified="2026-09-18"
+  data-desc="Who pays, for what, what makes an account grow, and what we deliberately leave on the table."
+  data-trigger="A new way of charging appears, or something free becomes paid" data-sources="Confirmed with the founders on 2026-09-18. Plan logic: #plans. Grid: config/billing.ts">
+  <div class="guide">
+    <p><strong>Purpose:</strong> the logic of how the company makes money, so a feature decision can be argued against it.</p>
+    <p><strong>Do not copy:</strong> prices, quotas, tiers. The grid lives in the billing configuration and the split logic in <a href="#plans">Plans and permissions</a>. This page explains <em>why</em> money changes hands where it does.</p>
+  </div>
+  <h2>How we make money</h2>
+  <p>A monthly subscription, paid by the freelancer, with a free tier that lets someone issue their first invoices without a card. Nothing is charged to the end customer who receives the invoice.</p>
+  <p><strong>Why a subscription and not a fee per invoice.</strong> A fee per invoice would tax the behaviour we are trying to cause. Our users invoice a handful of times a month and would count every send; a flat price makes automation feel free once it is on. It also keeps us out of the position of earning more when the user works more, which several interviewees said they would resent.</p>
+  <h2>The moment money changes hands</h2>
+  <p>The free tier exists to get someone to a <em>sent</em> invoice, because that is the point where the product has proved something. The paywall sits on automation - reminders, payment links, the export - not on the invoice itself. Somebody who only ever needs to send four invoices a year should be able to do that for free and tell a friend.</p>
+  <p>Where exactly the line falls, and what happens when a limit is reached, is in <a href="#plans">Plans and permissions</a>.</p>
+  <h2>What makes an account grow</h2>
+  <ul>
+    <li><strong>Getting paid faster.</strong> A user who sees the median time to payment drop renews without thinking about it. This is the retention engine and it is why <a href="#M-collection">collection</a> matters more than it looks.</li>
+    <li><strong>The accountant.</strong> Once the monthly export is part of a user's routine, leaving means renegotiating with their accountant. It is the stickiest thing in the product and it is not a feature anyone asks for.</li>
+  </ul>
+  <h2>What we deliberately do not monetise</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>What</th><th>Why we leave it</th></tr></thead>
+    <tbody>
+      <tr><td>A cut of the payments collected</td><td class="plain">It would make us a payment company, with the regulation that comes with it, and it would make the payment link feel expensive at exactly the moment we want it switched on. The provider's fee is passed through unchanged.</td></tr>
+      <tr><td>The customer's data</td><td class="plain">Not negotiable. See <a href="#security">Security and personal data</a>.</td></tr>
+      <tr><td>Seats</td><td class="plain">Charging per seat would mean building multi-user, which is the agency product we decided against on <a href="#personas">Personas</a>.</td></tr>
+    </tbody>
+  </table></div>
+  <h2>What it costs us to serve someone</h2>
+  <p>Coarse, and deliberately so: email delivery, PDF generation and the payment provider's fee, none of which scale with anything except invoices sent. A user who never sends costs almost nothing, which is what makes the free tier affordable. The actual numbers live in the billing dashboard, not here.</p>
+</section>
+
+<section class="page" id="market" data-title="Market and competitors" data-group="Business card" data-status="check" data-verified="2026-09-18"
+  data-desc="The category we are in, who else is in it, and where we actually win."
+  data-trigger="A competitor changes position, a new entrant matters, or the category shifts" data-sources="Confirmed with the founders on 2026-09-18. Competitor rows carry their own source and date.">
+  <div class="guide">
+    <p><strong>Purpose:</strong> know what a user is comparing us against when they land, so a spec can be argued in terms of where we win rather than in terms of what is missing.</p>
+    <p><strong>This page ages faster than any other.</strong> Every competitor row carries the date it was last checked and where the claim came from. A row with no source is a rumour. Never state a competitor's price, funding or headcount as fact without both.</p>
+    <p><strong>A web search returns the loudest, not the closest.</strong> The list below has to be confirmed by someone who talks to users - the competitor that actually costs us deals is often one that does no marketing at all.</p>
+  </div>
+  <p><span class="tag t-check">Unconfirmed</span> The positioning attributed to Facture.net below comes from their public site, not from a user telling us they compared. To be checked in the next interviews.</p>
+  <h2>The category we are in</h2>
+  <p>Invoicing tools for individuals and very small businesses in France - the slice between a free PDF generator and a full accounting suite. Buyers arrive through search, usually the week they have to issue something, and they choose in under an hour.</p>
+  <p><strong>What is moving.</strong> Mandatory electronic invoicing is arriving and will force every tool in this category to handle a structured format. It turns compliance from a differentiator into a ticket to play, and it is why that item sits on the <a href="#roadmap">Roadmap</a> despite having no metric attached.</p>
+  <h2>Who we are compared against</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Who</th><th>What they are best at</th><th>Where we win</th><th>Where they win</th><th>Checked</th></tr></thead>
+    <tbody>
+      <tr><td>Full accounting suites</td><td class="plain">Everything an accountant needs, in one place</td><td class="plain">Someone can issue a correct invoice in four minutes without learning a vocabulary</td><td class="plain">The moment a user hires an accountant who has an opinion</td><td class="plain">Sep 2026 - user interviews</td></tr>
+      <tr><td>Free PDF generators</td><td class="plain">Zero friction, no account, no price</td><td class="plain">Nothing happens after the PDF: no sending, no chasing, no record</td><td class="plain">The first invoice, every time. This is what P-02 uses before us.</td><td class="plain">Sep 2026 - user interviews</td></tr>
+      <tr><td>Facture.net</td><td class="plain">Closest positioning to ours, strong on compliance messaging</td><td class="plain">Automatic chasing; theirs is manual</td><td class="plain">Brand recognition in search</td><td class="plain">Sep 2026 - public site only</td></tr>
+      <tr><td>The spreadsheet</td><td class="plain">Free, familiar, already open</td><td class="plain">It cannot chase, and it does not survive an accountant's request</td><td class="plain">Inertia. The real incumbent for P-01.</td><td class="plain">Sep 2026 - user interviews</td></tr>
+    </tbody>
+  </table></div>
+  <h2>What we are not competing with</h2>
+  <p>Bank apps that generate an invoice as a side feature, and expense management tools. They show up in conversations but never in a lost deal: the user who wants them wants something else entirely.</p>
+  <h2>What would change the picture</h2>
+  <ul>
+    <li>An accounting suite shipping a genuinely simple standalone invoicing product, priced at ours.</li>
+    <li>The e-invoicing reform arriving faster than planned, which would compress the compliance work into a quarter and reorder the <a href="#roadmap">Roadmap</a>.</li>
+    <li>A bank bundling invoicing into a freelance account for free. This is the scenario with no answer, and it is worth re-reading every six months.</li>
+  </ul>
+</section>
+
+<section class="page" id="strategy" data-title="Objective and strategy" data-group="Business card" data-status="ok" data-verified="2026-09-18" data-objective="retention"
+  data-desc="The one thing we are optimising for right now, and the bets we are making to get there."
+  data-trigger="The objective changes, a bet is settled or abandoned" data-sources="Confirmed with the founders on 2026-09-18. Metric definition: #metrics">
+  <div class="guide">
+    <p><strong>Purpose:</strong> make it possible to say no. A roadmap can only be argued against an objective, and an objective can only do that job if there is exactly one.</p>
+    <p><strong>One objective, from four:</strong> acquisition, activation, retention, revenue. If two feel true, pick the one whose failure would hurt most in the next two quarters and write the other down under "not this, and why". The machine-readable value is on this page's <code>data-objective</code> attribute.</p>
+    <p><strong>This page is what makes the <a href="#roadmap">Roadmap</a> checkable.</strong> A project that does not serve the objective is not forbidden - it is just supposed to be visibly exceptional.</p>
+  </div>
+  <h2>The one objective</h2>
+  <div class="north">
+    <span class="tag t-info">Retention</span>
+    <b>Keep Pro subscribers past their third month.</b>
+    <p>Measured by Pro retention at 90 days, by monthly cohort. The exact definition is on <a href="#metrics">Metrics and tracking</a> and is written there only.</p>
+  </div>
+  <p><strong>Why this one.</strong> Acquisition is not the constraint: signups grow on search alone and we have never spent on it. The leak is later - a meaningful share of Pro subscribers stop in the first quarter, and each one was expensive to convince. Fixing the leak makes every other lever worth pulling; pulling them first just fills a bucket with a hole in it.</p>
+  <h2>Why not the other three</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Lever</th><th>Why not right now</th><th>What would promote it</th></tr></thead>
+    <tbody>
+      <tr><td>Acquisition</td><td class="plain">Already growing without effort, and more of it makes the leak more expensive, not less</td><td class="plain">Search traffic flattening for two consecutive quarters</td></tr>
+      <tr><td>Activation</td><td class="plain">Genuinely second. <a href="#spec-S-031">S-031</a> is on the roadmap precisely because activation is the closest thing to a rival objective.</td><td class="plain">Retention at 90 days getting healthy while first-invoice drop-off stays where it is</td></tr>
+      <tr><td>Revenue</td><td class="plain">Raising the price or the paywall on a cohort that is already leaving would hide the problem behind a better number</td><td class="plain">Retention holding, and the free tier visibly carrying users who would pay</td></tr>
+    </tbody>
+  </table></div>
+  <h2>How we think we get there</h2>
+  <p>Three bets. Each one says what would prove it wrong, because a bet nobody can lose is a slogan.</p>
+  <div class="bet">
+    <h3>People stay when the money arrives faster, not when there are more features</h3>
+    <p>The subscription is renewed by someone who can feel the product working. The feeling is a customer paying earlier than they used to - nothing else in the product produces it. So the work goes into the path from issuing to settlement rather than into breadth.</p>
+    <p class="meta"><strong>Proved wrong if:</strong> cohorts whose median time to payment improved churn at the same rate as the others. <strong>On the roadmap:</strong> <a href="#spec-S-027">S-027</a>.</p>
+  </div>
+  <div class="bet">
+    <h3>The third month is when the habit either forms or does not</h3>
+    <p>Churn clusters right after the second monthly cycle: enough time to have invoiced twice, not enough for the export to have gone to an accountant. We would rather make that cycle land than spread effort evenly across the lifetime.</p>
+    <p class="meta"><strong>Proved wrong if:</strong> the churn curve turns out to be flat and the cluster was a cohort artefact. <strong>Where to look:</strong> the retention dashboard cited on <a href="#metrics">Metrics and tracking</a>.</p>
+  </div>
+  <div class="bet">
+    <h3>Recurring invoicing is the retention feature disguised as a convenience</h3>
+    <p>P-01 duplicates the same invoice every month. Every duplication is a chance to not bother, and a user who does not invoice for a month is most of the way to gone. Removing the monthly decision removes the monthly chance to leave.</p>
+    <p class="meta"><strong>Proved wrong if:</strong> the users who duplicate most are already the ones who retain best, which would make this a comfort feature. <strong>On the roadmap:</strong> <a href="#spec-S-033">S-033</a>.</p>
+  </div>
+  <h2>What we are deliberately not doing</h2>
+  <ul>
+    <li>Paid acquisition, for as long as the leak is open.</li>
+    <li>Anything that only serves an audience listed under "not our user" on <a href="#personas">Personas</a>.</li>
+    <li>Breadth for its own sake - a feature whose case is "a competitor has it" needs a retention argument or it does not get ranked.</li>
+  </ul>
+  <h2>When we revisit</h2>
+  <p>This objective holds until Pro retention at 90 days is healthy for two consecutive cohorts, or until one of the "what would promote it" conditions above fires. Changing it is a <a href="#decisions">Decision</a>, not an edit to this page.</p>
 </section>
 
 <section class="page" id="features" data-title="Features" data-group="Product" data-status="ok" data-verified="2026-09-15"
@@ -569,7 +768,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Copy an existing spec page and keep these sections.</p>
   <div class="sheet">
     <h3>Problem</h3><p>What is wrong today, for whom, with the evidence (data, quote, ticket).</p>
-    <h3>Expected outcome</h3><p>The metric that should move, and in which direction.</p>
+    <h3>Expected outcome</h3><p>The metric that should move, and in which direction. Then one line saying how it serves the single objective on <a href="#strategy">Objective and strategy</a> - or, if it does not, why this project is the exception. A project that cannot answer is a project that has not been argued.</p>
     <h3>Future changelog</h3><p>The announcement the user will read on the day this ships: a title and two or three lines, emoji, benefits rather than features. Written now, before the build. If it cannot be written, the benefit is not clear yet and the spec is not ready.</p>
     <h3>Behaviour</h3><p>What the user sees and does, screen by screen. Empty states, errors and edge cases included.</p>
     <h3>Acceptance criteria</h3><p>A checkable list. Each criterion should be able to become a test.</p>
@@ -589,6 +788,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p><strong>Evidence.</strong> Onboarding funnel in the analytics tool, step "first customer". Eleven support conversations asking for a way to paste a signature.</p>
   <h2>Expected outcome</h2>
   <p>Activation goes up, because the first invoice becomes reachable in one sitting. Definition of activation: see <a href="#metrics">Metrics and tracking</a>.</p>
+  <p class="sub"><strong>Serves the objective</strong> (<a href="#strategy">retention</a>) indirectly, and this is the exception: it is an activation project, ranked because an account that never sends a first invoice cannot be retained at all. If retention work and this one compete for the same week, retention wins.</p>
   <h2>Future changelog</h2>
   <div class="guide"><p><strong>Written before the build, not after.</strong> This is what users will read on release day. Short, concrete, about what they gain. On the day it ships it moves to the <a href="#changelog">Changelog</a> and the spec stops changing.</p></div>
   <div class="release">
@@ -646,6 +846,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Customers who pay by manual bank transfer pay late: they have to log in to their bank, retype the details and the reference. Our users then spend time matching transfers to invoices.</p>
   <h2>Expected outcome</h2>
   <p>Median time to payment goes down for invoices that carry the link.</p>
+  <p class="sub"><strong>Serves the objective</strong> (<a href="#strategy">retention</a>): directly. It is the main instrument of the bet that people stay when the money arrives faster.</p>
   <h2>Future changelog</h2>
   <div class="release">
     <p class="lede">💳 Get paid straight from the invoice</p>
@@ -688,6 +889,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Many Pro users duplicate the same invoice for the same customer every month, then fix the date by hand. Some forget, and invoice late.</p>
   <h2>Expected outcome</h2>
   <p>Pro retention at 90 days goes up. Secondary effect: fewer late invoices.</p>
+  <p class="sub"><strong>Serves the objective</strong> (<a href="#strategy">retention</a>): directly, and it targets the metric itself. It is the bet that removing the monthly decision removes the monthly chance to leave.</p>
   <h2>Future changelog</h2>
   <div class="guide"><p>The behaviour is still open, the promise is not. A draft that cannot be announced is a draft that is not worth pursuing yet.</p></div>
   <div class="release">
@@ -995,9 +1197,11 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
       <tr><td class="plain">The logic behind the plans</td><td class="plain">Prices and quotas</td></tr>
       <tr><td class="plain">Hypotheses tested and what we learned</td><td class="plain">The live state of flags</td></tr>
       <tr><td class="plain">Why we depend on a service, what happens if it goes down</td><td class="plain">Endpoints, keys and environment variables</td></tr>
+      <tr><td class="plain">Who we build for, how we make money, what we are optimising for</td><td class="plain">Nowhere. The <a href="#pitch">Business card</a> is the one part of these docs with no source in the code - it comes from the team and is confirmed by a person, on a date.</td></tr>
     </tbody>
   </table></div>
   <p>A useful consequence: most commits do not touch the docs. They only move when the understanding of the product has to move.</p>
+  <p>The last row is the exception that proves the rule. On the five <a href="#pitch">Business card</a> pages the danger inverts: nothing can be copied because nothing is in the code, so the failure mode is invention. Those pages are never edited by an agent without an explicit yes, and their <code>data-verified</code> means a person confirmed, not that a review looked.</p>
   <h2>Which change updates which pages</h2>
   <div class="scroll"><table>
     <thead><tr><th>If the change</th><th>Update</th></tr></thead>
@@ -1016,6 +1220,11 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
       <tr><td>Adds a script, a command or an admin screen</td><td class="plain">Internal tooling</td></tr>
       <tr><td>Resolves an incident</td><td class="plain">Runbooks, Known limitations</td></tr>
       <tr><td>Settles a structuring choice</td><td class="plain">Decisions</td></tr>
+      <tr><td>Introduces a new way of charging, or moves the paywall</td><td class="plain"><a href="#business-model">Business model</a>, Plans and permissions, Decisions</td></tr>
+      <tr><td>Serves a new group of users on purpose, or drops one</td><td class="plain"><a href="#personas">Personas</a>, Decisions</td></tr>
+      <tr><td>Changes what the company is optimising for, or settles a bet</td><td class="plain"><a href="#strategy">Objective and strategy</a>, Decisions, then re-read the Roadmap</td></tr>
+      <tr><td>Changes the product's promise: new surface, new category, pivot</td><td class="plain"><a href="#pitch">Pitch, mission and vision</a>, Decisions</td></tr>
+      <tr><td>A competitor moves, or a new one starts costing deals</td><td class="plain"><a href="#market">Market and competitors</a></td></tr>
       <tr><td>Only changes values, columns, events or styling</td><td class="plain">Nothing</td></tr>
     </tbody>
   </table></div>
@@ -1073,6 +1282,32 @@ in the present tense, then tick the line with data-done="<today>". A spec is not
 shipped until every line is ticked. Open lines on a shipped spec are listed as
 handover debt on the home page, under the project's name.
 
+Business card: five pages - Pitch mission and vision, Personas, Business model,
+Market and competitors, Objective and strategy. Nothing on them is in the code,
+so the golden rule inverts: the danger is invention, not copying. Never edit them
+without an explicit yes from the user, and never on an ordinary commit.
+Ask the second question only when something was actually decided: did this work
+settle who the product is for, how it makes money, what it is optimising for, or
+where it stands against a competitor? Trigger list, closed:
+- a new way of charging, or the paywall moving -> Business model
+- a group of users served on purpose for the first time, or dropped -> Personas
+- the metric the team optimises for changing, or a bet settled -> Objective and
+  strategy, then re-read the Roadmap
+- the product's promise changing: new surface, new category, pivot -> Pitch
+- a competitor moving, or a new one starting to cost deals -> Market
+Not triggers: a new feature, a price or quota moving, a metric's value moving, a
+competitor shipping something, a strategy conversation that did not conclude, one
+user asking for something a persona does not cover.
+When one fires: say what you noticed and which page it changes, wait for a yes,
+edit one paragraph, move data-verified and the person-and-date in data-sources,
+and record a Decision if the change is structuring. If the answer is no, drop it
+and do not raise it again for the same change.
+
+Objective: exactly one, on the strategy page's data-objective - acquisition,
+activation, retention or revenue. Every spec carries a line saying how it serves
+it, or why it is the exception. Replacing the objective is a Decision; adding a
+second is not an option.
+
 Roadmap: one row per live project, in priority order, in the tbody[data-roadmap].
 Point it at its spec with data-spec and set data-horizon. Rank, project name and
 spec status are filled in from the spec page, so never type them in the row.
@@ -1108,6 +1343,7 @@ Writing rules:
   /* ---- Configuration: adapt to your project ---- */
   var GROUPS={
     'Understand':'Place the product and speak the same language.',
+    'Business card':'Who this is for, how it makes money, and what we are optimising for.',
     'Product':'What the product does and how it behaves.',
     'Direction':'Where we are going, and why this path.',
     'Technical':'How the system is built, at the level useful for decisions.',
@@ -1118,7 +1354,7 @@ Writing rules:
     'Meta':'How these docs stay right.'
   };
   var START=['overview','mechanisms','rules'];                    // "Where to start" cards
-  var SUGGESTED=['mechanisms','rules','features','maintaining'];  // empty-search suggestions
+  var SUGGESTED=['mechanisms','rules','strategy','features','maintaining'];  // empty-search suggestions
   /* ---------------------------------------------- */
 
   var STATUS={ok:'Up to date',check:'Needs review',stale:'Stale'};

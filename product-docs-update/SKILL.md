@@ -1,6 +1,6 @@
 ---
 name: product-docs-update
-description: Keep the living product documentation at docs/product/index.html true after a code change, and audit it against the code. Use this skill whenever work in a repository that has docs/product/index.html changes how the product is understood - a new or modified business rule, a new mechanism or background job, a new capability, a changed plan or permission logic, a new external dependency, a new AI component, a redefined metric, a concluded experiment, a resolved incident, a structuring decision, a change of priority on the roadmap. Also use it when a project or feature has just shipped, when a feature flag or rollout gate is removed, or when the user says a spec is out, to move that spec's content into the living pages. Also use it when the user asks to review, audit or refresh the product docs, to check whether they still match the code, to add a spec page or a decision, or when a page is flagged as needing review or stale. If docs/product/index.html does not exist, use product-docs-bootstrap instead.
+description: Keep the product documentation at docs/product/index.html true after a code change, and audit it against the code. Use this skill whenever work in a repository that has docs/product/index.html changes how the product is understood - a business rule, a mechanism or background job, a capability, plan or permission logic, an external dependency, an AI component, a metric, an experiment, a structuring decision, a roadmap priority. Also for the business card - pitch, mission and vision, personas, business model, market and competitors, the single objective and the strategy - when the company pivots, changes who it serves, how it charges or what it optimises for, or those pages are missing. Also when a project has shipped, a rollout gate is removed or a spec is out, to move that spec into the living pages. Also when the user asks to review, audit or refresh the docs, to add a spec page or a decision, or a page is flagged stale. If docs/product/index.html does not exist, use product-docs-bootstrap instead.
 ---
 
 # Update the product documentation
@@ -16,6 +16,8 @@ One question: **would someone who read the docs yesterday misunderstand the prod
 If no, stop. Most commits change values, columns, events, styling or implementation without changing how the product is understood, and the docs are deliberately silent about all of that. Editing them anyway trains everyone to skim a page that changes for no reason.
 
 If yes, find the pages with `references/change-map.md` and edit those, only those.
+
+**A second question, and only when something was decided.** Did this work settle who the product is for, how it makes money, what it is optimising for, or where it stands against a competitor? If so, the business card is in scope. That question has a closed trigger list and a rule about never editing those pages without an explicit yes - both in `references/business-card.md`. Do not ask it on an ordinary commit; a prompt that fires every time is a prompt everyone learns to dismiss.
 
 **One case answers yes on its own: the change ships a spec.** If the code in front of you makes a spec's behaviour real - a feature flag or a rollout gate removed, a branch that becomes unconditional, a job that starts running - or if someone tells you a project is out, that spec's content has to move into the living pages now. Read `references/handover.md` and run it. This is the single most common way these docs go stale: the feature is live, Features still says planned, and Key mechanisms never heard of it.
 
@@ -66,6 +68,16 @@ Three parts of the page generate themselves from metadata, so edit the source of
 
 **A shipped spec.** Work the handover line by line: for each one, move the content into its target page in that page's own shape, tick it with today's date, and set that page's `data-verified` and `data-status`. When every line is ticked, and only then, set `data-spec-status="shipped"`, copy the future changelog into the Changelog as the version's entry, remove the roadmap row and stop editing the spec. An open line keeps the spec `in-progress`; if the user says the feature is live anyway, mark it shipped and leave the line open - the home register will carry the debt under the project's name. Full procedure in `references/handover.md`. The spec becomes a record of what was decided and promised at the time; the living pages win if they disagree.
 
+## The business card
+
+Five pages - pitch and mission and vision, personas, business model, market and competitors, objective and strategy - behave unlike everything else here, and `references/business-card.md` is the procedure for all of it.
+
+What makes them different, in one line each: their trigger is the conversation rather than the diff, since a pivot never shows up in a diff; they cannot be verified against anything except the person who said it, so the audit marks them *old* rather than false; and they are never edited without an explicit yes, because an agent quietly rewriting a mission has changed something the team owns.
+
+The page that does real work is `Objective and strategy`. It carries one objective - acquisition, activation, retention or revenue - on `data-objective`, and every live spec carries a line saying how it serves it. That pair is what makes the roadmap checkable, so keep it singular: replacing the objective is a Decision, and adding a second is not an option.
+
+If the documentation has no business card at all - it was written before these pages existed - that is an update job, not a bootstrap one. The reference says how to add the group; the interview itself is in `product-docs-bootstrap/references/business-card.md`.
+
 ## The audit pass
 
 When asked to review or refresh the docs, or on a schedule, the job is to ask of every page: is what this page claims still true of the code it points at? Not whether the wording could be nicer - leave meaning-preserving rewrites alone.
@@ -76,10 +88,13 @@ You apply the findings, never the agents: set each page's `data-verified` to tod
 
 Open a pull request rather than pushing, and report as a list: page, verdict, what changed. Surface separately the unanswerable newcomer questions and any contradiction between pages, since that usually means the team holds two mental models of the same thing. The home page register is the dashboard: every page with its status, review date and trigger.
 
+The business card pages need their own three questions, since checking them against code is meaningless: how old is the confirmation, does the product still match its own pitch, and does the roadmap still serve the stated objective. That last one is where these pages earn their place - report it as a question to the team, never as a correction to apply.
+
 Do not use a team for a single-change update. Reading one page and editing one entry is faster done directly.
 
 ## Reference
 
 - `references/change-map.md` - which change updates which pages, plus the full writing rules and the edit checklist
 - `references/handover.md` - shipping a spec: recognising it shipped, moving each line into the living pages, what blocks the shipped status
+- `references/business-card.md` - the business card: the closed trigger list, what is not a trigger, changing the objective, adding the pages to docs that lack them
 - `references/audit-team.md` - the audit team: per-page and cross-page prompts, verdicts, how to apply the findings

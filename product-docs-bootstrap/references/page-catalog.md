@@ -4,14 +4,50 @@ For each page of the template: what it is for, what belongs in it, what must sta
 
 Every page carries `data-trigger` (the kind of change that forces an update) and `data-sources` (where the detail lives). Those two attributes are what makes the docs maintainable, so never leave them empty.
 
+The **Business card** group is the exception to everything below. Its five pages cannot be sourced from the repository at all, so `data-sources` names a person and a date instead of a file, and "where to look" is an interview. The full procedure is in `business-card.md`; what follows here is only what belongs on each page.
+
 ---
+
+## Business card
+
+The context the rest of the documentation is written against. Never deleted for being thin: unlike an optional technical page, an empty section here is itself information - it says this is not settled.
+
+### Pitch, mission and vision
+**For:** giving anyone, human or agent, the promise a feature is supposed to serve.
+**In:** the elevator pitch; the positioning frame (for / who / this is / unlike / because); the mission in the present tense, with why that wording and not the obvious one; the vision, explicitly labelled as a direction rather than a plan.
+**Out:** anything the team has not actually said. A mission assembled from landing-page adjectives will be quoted in meetings for a year.
+**Where to look:** the user. The landing hero and the README's first paragraph give a candidate to react to, never an answer.
+
+### Personas
+**For:** settling arguments about design choices. A persona that cannot settle an argument is decoration.
+**In:** two to four people, built on the day that brings them and on what they use today instead of us; what they need; what would lose them; the evidence. Then the "not our user" table - who asks for the product and is deliberately not served, why, and what would make us revisit.
+**Out:** demographics. "35-45, urban, tech-savvy" decides nothing.
+**Where to look:** the user, and any interview or support corpus they have. The interface's empty states and example data often reveal who the product silently assumes.
+
+### Business model
+**For:** arguing a feature against how the company actually makes money.
+**In:** who pays for what and why that shape rather than the obvious alternative; where the paywall sits and what that choice says; what makes an account stick; what we could charge for and deliberately do not; what it costs to serve someone, coarsely.
+**Out:** prices, quotas, tiers. The grid is in the billing config and the split logic is on Plans and permissions.
+**Where to look:** the pricing page and plan configuration for a candidate - the code is often a better witness than the team on where the paywall really sits. The reasons come from the user.
+
+### Market and competitors
+**For:** knowing what a user is comparing us against, so a spec can be argued from where we win rather than from what is missing.
+**In:** the category as a buyer would name it; what is moving in it; three to five competitors with what they are best at, where we win, where they win, and the month each row was checked; what we are explicitly not competing with; what would change the picture.
+**Out:** a feature matrix, funding, headcount. A matrix is stale the month it is written and it pulls the roadmap towards parity.
+**Where to look:** the web, then the user. A search returns the loudest, not the closest - always ask what is missing, and include the non-consumption option, which never appears in a search result and is usually the real incumbent.
+
+### Objective and strategy
+**For:** making it possible to say no. This is the page that does real work.
+**In:** exactly one objective - acquisition, activation, retention or revenue - with the metric it moves and why this one; a table of why not the other three and what would promote each; two to four bets, each saying what would prove it wrong; what we are deliberately not doing; when this gets revisited.
+**Out:** a second objective. Two objectives is no objective. Also out: the metric's definition, which lives on Metrics and tracking and is written there only.
+**Where to look:** the user, and only the user. Set `data-objective` on the section so an agent can check a spec against it.
 
 ## Understand
 
 ### Overview
 **For:** letting a newcomer, human or agent, place the product in two minutes.
 **In:** one sentence on what the product does and for whom; stage; surfaces; repository; scope as "does" and "does not do".
-**Out:** mission, vision, personas, strategy - those live in the business material; link to it. Version numbers, which go stale.
+**Out:** mission, vision, personas, market, strategy - those are the Business card pages above; link to them rather than summarising them here. Version numbers, which go stale.
 **Where to look:** README, package manifest, route list, landing page copy, the deploy config for surfaces.
 
 ### Glossary
@@ -58,11 +94,13 @@ Every page carries `data-trigger` (the kind of change that forces an update) and
 **For:** one ordered list of everything intended, most important first.
 **In:** one row per live project: problem, target metric, horizon, link to its spec.
 **Out:** dates, unless they are external constraints.
+**Check:** the order should be defensible against the single objective on Objective and strategy. A row that serves no objective is allowed, but it should be visibly exceptional.
 **Where to look:** not in the repo. Ask, or point the page at the tracker and keep only the prioritisation logic.
 
 ### Specs
 **For:** changes to come, one page per project, before they are built.
-**In:** per spec page - problem with evidence, expected outcome, future changelog, behaviour, acceptance criteria, out of scope, handover, open questions with an owner.
+**In:** per spec page - problem with evidence, expected outcome, how it serves the single objective, future changelog, behaviour, acceptance criteria, out of scope, handover, open questions with an owner.
+**Serves the objective:** one line per spec tying it to the objective on Objective and strategy - or saying why this project is the exception. It is what makes the roadmap checkable. A project that cannot answer is a project that has not been argued.
 **Future changelog:** the announcement users will read on release day, written before the build - a title and two or three lines, emoji, benefits rather than features. It is the benefit test: a project nobody can announce in three lines is a project whose value is not settled. On shipping it becomes the Changelog entry.
 **Handover:** one line per page the project will have to feed when it ships, each naming what moves there, ticked with `data-done` once it has. Written with the spec. A shipped spec with open lines is counted as debt on the home page - this is what stops Features and Key mechanisms drifting behind the code.
 **Out:** anything about the present state; that belongs in the living pages. Once shipped, a spec is frozen and points at them.

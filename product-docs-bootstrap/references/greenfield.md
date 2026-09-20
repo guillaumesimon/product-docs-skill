@@ -14,8 +14,17 @@ And it gives the coding agents a place to write what they learn. From the first 
 
 Ask these in conversation, not as a form. Four or five questions per exchange at most. Stop when you have enough for the day-one pages; the rest fills in as the project moves.
 
+**Start with the business card.** On a greenfield project it is not one pass among several - it is most of what there is to write, and it is the only thing that will still be true in six months when the code has been rewritten twice. Run the interview in `business-card.md` first, with two adjustments for a project that does not exist yet:
+
+- Skip the Positioning explorer. There is no product copy to react to, so this one really is a blank page. It is slower; accept that rather than filling it in for them.
+- Expect the strategy page to be thin and let it be. A project with no users has no retention problem, and the honest objective is usually activation or "we do not know yet, we are looking for the first ten users". Write that. An invented objective on day one will misdirect every prioritisation for a year.
+
+The market research is worth doing properly even here, and it is the one part where an agent adds more than it does later: the founder has usually looked at two competitors and not at the category.
+
+Then continue with what the business card does not cover.
+
 **The product**
-- In one sentence, what does it do and for whom?
+- In one sentence, what does it do and for whom? (If the pitch is already written, this is done - do not ask twice.)
 - What is deliberately out of scope for the first version? This one matters more than the scope itself.
 - What surfaces: web, mobile, API, something else?
 
@@ -37,11 +46,13 @@ Ask these in conversation, not as a form. Four or five questions per exchange at
 
 **Measurement**
 - How will you know the first version works? One metric is enough, with its exact definition.
+- Check it against the objective you just wrote down. If the metric and the objective point in different directions, one of the two is wrong, and finding that out on day one is worth the whole interview.
 
 ## What to write on day one
 
 Create `docs/product/index.html` from `assets/template.html` and keep only:
 
+- **The five business card pages** - written first, with whatever is genuinely settled and the rest visibly empty
 - **Overview** - the sentence, the surfaces, the scope, with "does not do" filled in
 - **Glossary** - the central concepts
 - **Business rules** - only the ones actually decided; an empty rules page with the format visible is fine and honest
@@ -52,6 +63,8 @@ Create `docs/product/index.html` from `assets/template.html` and keep only:
 - **Maintaining these docs** - kept as it ships
 
 Delete the rest. Key mechanisms, Data model, Architecture, Integrations, Runbooks, Known limitations, Support: they have no content yet, and an empty page invites invention. They get created by `product-docs-update` the day the first real mechanism, entity or dependency appears - which is exactly what the CLAUDE.md block tells agents to do.
+
+The business card pages are the one exception, and they are never deleted for being thin. There, an empty section says "not settled", which is the single most useful thing a day-one documentation can record - and the thing a founder is most likely to have quietly forgotten they never decided.
 
 Set `data-status="ok"` and `data-verified` to today on what you write. Say plainly, in the Overview, that the project has not shipped yet.
 

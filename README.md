@@ -12,9 +12,15 @@ So these skills are built around one uncomfortable rule: **a docs page full of p
 reasons is worse than no docs at all.** The bootstrap skill never guesses a reason — it asks you,
 and writes `Why: to be confirmed` when you're not there. ✋
 
+Same for the other thing a repository never holds: **what the company is actually for.** Who you
+build for, how you make money, what you're optimising for. So the docs open with a **business
+card** — pitch, mission and vision, personas, business model, market and competitors, and *one*
+objective — because a feature only means something against a promise, and a roadmap can only be
+argued against an objective. 🎯
+
 | Skill | What it does |
 |---|---|
-| 📖 `product-docs-bootstrap` | Creates `docs/product/index.html` from scratch — explores the repo, gets the inventory reviewed by you, then writes |
+| 📖 `product-docs-bootstrap` | Creates `docs/product/index.html` from scratch — explores the repo, interviews you for the business card, gets the inventory reviewed, then writes |
 | ✏️ `product-docs-update` | Keeps it true — surgical edits in the same commit as the code, plus a full audit pass against the codebase |
 
 ## 🚀 Quick start
@@ -51,6 +57,22 @@ replaces it, so it doubles as a depth-and-tone reference. 🎯
 ### One page, a real sidebar, real search
 
 <img src="docs/screenshots/01-home.png" alt="Home page of the product documentation" width="100%">
+
+### One objective, and a roadmap you can argue against 🎯
+
+The business card opens the docs: pitch, mission and vision on one page, then personas, the business
+model, the market with its competitors, and — the one that does real work — **objective and
+strategy**. Exactly one objective, from acquisition, activation, retention and revenue. Two
+objectives is no objective: every project serves one of them and nothing can be refused.
+
+It's not decoration. Every spec carries a line saying **how it serves that objective**, or why it's
+the deliberate exception, and the audit pass reports roadmap rows that don't. Same idea as the
+future changelog, one level up: if you can't say what a project is for, it isn't ready. 🧭
+
+None of this is in your repo, so the skill interviews you — starting from what your own landing
+page, pricing config and import features say about you, because people correct a wrong draft far
+better than they fill a blank form. Competitors get a real web search, each row dated and sourced,
+and the list comes back to you to confirm: a search returns the loudest, not the closest. 🔍
 
 ### The page that earns the whole thing: business rules
 
@@ -122,6 +144,13 @@ detail lives.
 The test for any page: after reading it, you know which file to open and you understand what you
 read there. Copying makes docs stale within a week and adds nothing `grep` wouldn't give you. 🔍
 
+**Except on the business card, where the rule inverts.** ♻️ Nothing on those five pages is in the
+code, so the danger isn't copying — it's invention. A mission assembled from landing-page adjectives
+gets quoted in meetings for a year and nobody remembers where it came from. So anything you didn't
+actually say stays marked `Unconfirmed`, the page stays `check`, and an empty section is fine. Their
+`data-sources` names a person and a date rather than a file, because that's genuinely where the
+detail lives.
+
 ## 📖 How bootstrap works
 
 It runs in passes, with you in the loop for everything the code cannot tell you. 🔄
@@ -132,16 +161,29 @@ agents in parallel — Surfaces, Domain, Mechanisms, Data, Dependencies, Operati
 fragment that gets merged into `docs/product/INVENTORY.md`. Every agent returns **observed** and
 **inferred** separately, and none of them is allowed to invent a reason. 🕵️
 
+A seventh agent, **Positioning**, reads what the product says about itself — landing copy, pricing
+page, plan config, import features — and returns *candidates only*. Two of them are worth the whole
+pass: **where the paywall actually sits in the code**, which is often not what the pricing page
+claims, and **what the product can import from**, since you import from the tool you're replacing. 💰
+
 Then it stops and asks you to correct the inventory. **This review is where the value is.** Thirty
 minutes of your time here prevents a plausible but wrong documentation that everyone will believe
 for months. ⏳
 
-**Pass 2 — writing, in batches.** Overview + Glossary + Features, then Key mechanisms + Business
+**Pass 1b — the business card interview.** Half an hour, conversational, starting from those
+candidates. Five pages, and one line held firmly: **one objective**, not two. The request for two is
+constant, and two objectives is no objective. Competitors get a real web search with every row dated
+and sourced, then handed back to you — because a search finds the loudest, and the real incumbent is
+usually a spreadsheet, which never appears in a search result. 📋
+
+**Pass 2 — writing, in batches.** Batch 0 is the business card, written first because it changes how
+everything after it is written — which capability reads as central, which limitation is worth
+apologising for. Overview + Glossary + Features, then Key mechanisms + Business
 rules, then the technical pages, then the rest. It stops after each batch. Batches 1 and 2 carry
 most of the understanding — if you want something useful fast, do those two and stop. 🛑
 
-**Pass 2b — the critique team.** A draft written from an inventory always carries three defects its
-author can't see, so three agents go at it before you ever see it, none allowed to edit:
+**Pass 2b — the critique team.** A draft written from an inventory always carries four defects its
+author can't see, so four agents go at it before you ever see it, none allowed to edit:
 
 - 🔎 a **copy detector** that hunts content copied rather than explained
 - 🧾 a **reason auditor** that traces every "why" back to the inventory, and flags the ones that
@@ -149,8 +191,14 @@ author can't see, so three agents go at it before you ever see it, none allowed 
 - 🆕 a **newcomer test** that reads *only the docs, never the repo*, tries to answer five real
   questions, and reports what it couldn't
 
-That last one is the interesting one. The questions it can't answer point at your thin pages — and
-surprisingly often at a genuine gap in the team's understanding of its own product. 💡
+- 🎯 a **strategy fit** check that reads the objective you just stated against every spec and every
+  roadmap row, and reports the ones that don't serve it
+
+The last two are the interesting ones. The questions the newcomer can't answer point at your thin
+pages — and surprisingly often at a genuine gap in the team's understanding of its own product. And
+a project already in flight that serves no stated objective is either the exception you argued and
+won, or the first sign that the stated objective isn't the real one. Both get reported as questions,
+never as corrections: neither is an agent's call. 💡
 
 **Pass 3 — wiring the maintenance.** Docs nothing maintains go stale in a fortnight, so it appends a
 block to your `CLAUDE.md`, adds one line to the PR template, and tells you a weekly review can be
@@ -178,7 +226,26 @@ If yes, a change map says exactly which pages are in scope:
 | Changes how a mechanism unfolds, or adds a non-obvious one | Key mechanisms |
 | Adds an external dependency, or changes outage behaviour | Integrations, Architecture, Security if personal data |
 | Settles a structuring choice, product or technical | Decisions |
+| Changes who you build for, how you charge, or what you optimise for | The business card — **after asking you** |
 | Only changes values, columns, events, prices, quotas, styling or implementation | **Nothing** |
+
+### 🧭 And a second question, only when something was decided
+
+The business card can't be watched the way the rest can, because **a pivot never shows up in a
+diff** — it shows up in someone saying "actually our real users are the agencies" in the middle of a
+task about something else. So there's a second question, and it fires on a **closed list**: a new
+way of charging or the paywall moving, a group of users served on purpose for the first time, the
+metric you optimise for changing, the promise changing, a competitor starting to cost deals.
+
+Everything else is explicitly *not* a trigger — a new feature, a price moving, a metric's value
+moving, a competitor shipping something, a strategy conversation that didn't conclude. That list
+matters as much as the first one: an agent that raises the business card at every commit produces a
+prompt everyone learns to dismiss, which is worse than not raising it at all. 🔕
+
+And when it does fire, it **asks before it writes**. It names what it noticed and which page it
+changes, and waits for an explicit yes — because an agent quietly rewriting your mission has changed
+something you own, and you won't notice until it's quoted back at you. If you say no, it drops it
+and doesn't raise it again for the same change. ✋
 
 Each page also carries its own contract: `data-trigger` says what that page reacts to, `data-sources`
 says where the detail lives so you don't copy it. Touch a page and its `data-verified` becomes
@@ -203,6 +270,12 @@ opens a pull request rather than pushing, and reports page / verdict / what chan
 
 Contradictions get surfaced separately, because they usually mean the team is carrying two mental
 models of the same thing. 🪞
+
+The business card gets its own auditor, since "is this still true of the code it points at" has
+nothing to work with. It checks three other things instead: **how old** the confirmation is, whether
+the product the rest of the docs describes still **matches its own pitch**, and whether the roadmap
+still **serves its own objective**. Nothing it finds gets applied — it all comes back to you as
+questions. 🤔
 
 ## ✅ Before you start
 
@@ -286,6 +359,14 @@ Audit the product docs against the code and tell me what drifted
 Record the decision we just took about not editing issued invoices
 ```
 
+```
+On a pivoté : notre cible c'est maintenant les agences, mets à jour la business card
+```
+
+```
+Our main objective this quarter is retention, not acquisition
+```
+
 The update skill checks the docs exist first. If they don't, it hands off to bootstrap rather than
 inventing a page. 🤝
 
@@ -316,12 +397,16 @@ product-docs-bootstrap/
   references/page-catalog.md      each page: purpose, what belongs, what doesn't,
                                   where to find the material in a repo
   references/agent-teams.md       exploration, writing and critique teams: exact prompts
+  references/business-card.md     the business card interview, the market research and the
+                                  guard rails for pages the code can't verify
   references/greenfield.md        the interview, for a project that doesn't exist yet
 
 product-docs-update/
   SKILL.md                        the skill itself
   references/change-map.md        which change updates which pages + the full writing rules
   references/handover.md          shipping a spec: moving its content into the living pages
+  references/business-card.md     the closed trigger list, what is NOT a trigger, changing the
+                                  objective, adding the pages to docs that lack them
   references/audit-team.md        the audit team: per-page and cross-page prompts, verdicts
 
 dist/                             pre-built .skill bundles for Chat / Cowork / claude.ai
@@ -343,6 +428,12 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
   failing — but the docs are only as good as the half hour you give them.
 - 🗺️ **Roadmap, Specs and Decisions can't be derived from code.** The skill leaves the structure and
   says plainly what's left for you.
+- 🃏 **The business card can never be verified.** No audit can tell you your mission is wrong — only
+  that it's six months old, or that the product no longer matches it. Those pages are as good as the
+  half hour you spend on the interview and as current as the last time you confirmed them.
+- 🔎 **Competitor research is a starting point, not an answer.** A web search returns the loudest,
+  not the closest, and the competitor that actually costs you deals often does no marketing at all.
+  Every row comes back to you to confirm, dated and sourced.
 - 📏 **It's opinionated about what a business rule is.** Format validations and technical defaults get
   rejected. A business rule is something a user or a support agent could argue about.
 - 🌍 **English by default**, whatever language you're chatting in, because the docs get read by agents
@@ -362,8 +453,14 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
   accent, keep the rest.
 - 🗣️ Change the language rule in `SKILL.md` if your team writes docs in French, or German, or
   anything else.
-- 👥 Resize the exploration team in `references/agent-teams.md` — six territories is a default, not a
-  law. Drop the ones that don't apply to your project.
+- 👥 Resize the exploration team in `references/agent-teams.md` — seven territories is a default, not
+  a law. Drop the ones that don't apply to your project.
+- 🎯 Change the objective buckets in `references/business-card.md` if acquisition / activation /
+  retention / revenue isn't how your team thinks. Keep it at **one**, though — that constraint is
+  the whole point of the page.
+- 🔕 Tighten the business card trigger list in `product-docs-update/references/business-card.md` if
+  it's still speaking up too often. It's deliberately closed; making it shorter is safe, making it
+  open is not.
 - 🧪 Tighten or loosen the change map in `references/change-map.md`. The last row — *only changes
   values, columns, prices, styling or implementation → **nothing*** — is what stops the docs from
   becoming noise. Touch it last.
@@ -372,6 +469,10 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 
 ### 20 September 2026
 
+- 🃏 A business card: who it's for, how it makes money, where the market is
+- 🎯 One objective — not two — and every spec says how it serves it
+- 🔍 Competitors researched on the web, each row dated and sourced
+- ✋ A pivot never shows up in a diff, so the skill asks before it writes
 - 📦 `./update-skills.sh` rebuilds the bundles and installs them in one go
 - 🔁 Specs hand over to the living pages, line by line, when they ship
 - 🚨 A shipped project that never updated the docs shows as debt on the home page

@@ -2,6 +2,8 @@
 
 Three steps of this skill are better done by a team than by one agent working alone: exploring the repository, writing the batches, and critiquing the result. What follows is when to fan out, what to send each agent, and what to do with what comes back.
 
+One step is deliberately **not** a team job: the business card interview. It is a conversation with the user, and it does not parallelise. The only part of it an agent touches is the Positioning explorer below, which produces candidates to react to.
+
 If the environment has no subagents, everything below still works in sequence - do the same passes yourself, one after another. It is slower but the structure is what matters, not the parallelism. The critique pass in particular is worth doing even alone, with fresh eyes on a finished draft.
 
 ## Rules that apply to every agent you spawn
@@ -16,7 +18,7 @@ If the environment has no subagents, everything below still works in sequence - 
 
 ## Step 1 - exploration team
 
-Spawn one agent per domain, in the same turn. Six is a good default; drop the ones that do not apply to the project.
+Spawn one agent per domain, in the same turn. Seven is a good default; drop the ones that do not apply to the project.
 
 | Agent | Territory |
 |---|---|
@@ -26,6 +28,7 @@ Spawn one agent per domain, in the same turn. Six is a good default; drop the on
 | Data | Migrations, models, invariants, isolation, soft deletes, money and date handling |
 | Dependencies | External services, what each is for, outage behaviour, public API, AI components |
 | Operations | Scripts, admin screens, CI, environments, alerting, TODO and FIXME clusters |
+| Positioning | Landing and marketing copy, README, pricing page, plan configuration, interface strings, import and migration features |
 
 Prompt for each, adapted to its territory:
 
@@ -50,11 +53,38 @@ Write your output to <scratch>/inventory-<territory>.md and return a summary
 of at most ten lines.
 ```
 
+The Positioning explorer gets a different prompt, because it is not looking for how the product works but for what it says about itself. It produces candidates for the business card interview, and it is the one explorer whose output must never be written into the docs unreviewed:
+
+```
+Explore this repository for what the product says about itself: landing and
+marketing copy, the README's opening, the pricing page, the plan configuration,
+interface strings and empty states, and any import or migration feature.
+
+Return CANDIDATES ONLY, never conclusions. For each one, quote or cite where it
+came from so a human can agree or disagree in one glance:
+- A candidate pitch, in the product's own words.
+- Who the copy addresses: the examples, the empty states, the defaults.
+- How it charges, and WHERE THE PAYWALL ACTUALLY SITS in the code - which is
+  often not what the pricing page says it is. Flag any difference; it is the
+  single most useful thing you can find.
+- Competitors named anywhere: comparison pages, and especially what the product
+  can import from, since you import from the tool you are replacing.
+- What the instrumentation and the onboarding appear to optimise for.
+
+Do not write a mission, a vision, a persona or a strategy. None of those is in a
+repository and a plausible one is worse than none. Do not list prices or quotas.
+
+Write your output to <scratch>/inventory-positioning.md and return a summary of
+at most ten lines.
+```
+
 Then merge the fragments yourself into `docs/product/INVENTORY.md`: deduplicate across territories, resolve contradictions by reading the code yourself rather than picking a side, and consolidate the open questions into one ordered list with the why-questions first. Contradictions between two explorers are a signal - usually the same concept under two names, which the glossary then has to fix.
 
 ## Step 2 - writing team
 
 Only after the user has reviewed the inventory. Spawn one agent per batch, in the same turn, each producing HTML fragments in the scratch directory.
+
+**Batch 0, the business card, is not given to an agent.** You write it yourself from the interview answers, because the only source is a conversation you just had and an agent that has not had it will fill the gaps. Write it before spawning the others, and give every writing agent the pitch and the objective as context - it changes which capability reads as central.
 
 ```
 Write the following pages of a product documentation: <pages>.
@@ -81,6 +111,9 @@ Rules:
 - A spec, if you write one, carries its future changelog: the announcement users
   will read when it ships, a title and two or three lines, emoji, benefits not
   features. Write it from the problem, never from the implementation.
+- A spec also carries one line saying how it serves the single objective stated
+  on the business card, or why it is the exception. If you cannot write that line
+  from the inventory, say so rather than inventing a link.
 - Every explanation ends with a file, a test or a dashboard.
 - If a "why" is not in the inventory, write "Why: to be confirmed" and set that
   page's data-status to "check". Never invent one.
@@ -93,7 +126,7 @@ Assemble the fragments into `index.html` yourself, in the template's page order.
 
 ## Step 3 - critique team
 
-Run this on the assembled draft before showing it to the user, and again after their corrections if the changes were substantial. Three agents, same turn, none of them allowed to edit.
+Run this on the assembled draft before showing it to the user, and again after their corrections if the changes were substantial. Four agents, same turn, none of them allowed to edit.
 
 **Copy detector**
 
@@ -138,8 +171,28 @@ Then list what you could not answer, and anything you found confusing, ambiguous
 or apparently contradictory. Do not edit the file.
 ```
 
+**Strategy fit** - only once the business card exists:
+
+```
+Read <docs path>. Do not open the repository. Do not edit anything.
+
+Read the "Objective and strategy" page and note its single objective. Then read
+every live spec page and the Roadmap.
+
+Report:
+1. Specs whose "Serves the objective" line is missing.
+2. Specs whose line is hand-waved - it restates the expected outcome, or claims a
+   link to the objective that the spec's own content does not support.
+3. Roadmap rows, in priority order, that do not serve the objective.
+4. Anything on Features or Personas that contradicts the pitch.
+
+This is a report, not a correction. A project that does not serve the stated
+objective may be a deliberate exception, or it may be a sign that the stated
+objective is not the real one. Say which you think it is and why; do not resolve it.
+```
+
 Apply the findings yourself. Copy findings and invented reasons get fixed before the user sees the draft. Unanswerable newcomer questions are the more interesting output: they tell you which page is thin, and they are worth reporting to the user even when you have filled the gap, because the gap is often a real one in the product's own understanding of itself.
 
 ## What to report
 
-Tell the user what the teams found, not that you used teams. Three things are worth surfacing: contradictions between explorers that revealed a naming problem, reasons that could not be sourced and are now marked to be confirmed, and questions a newcomer still cannot answer from the docs.
+Tell the user what the teams found, not that you used teams. Four things are worth surfacing: contradictions between explorers that revealed a naming problem, reasons that could not be sourced and are now marked to be confirmed, questions a newcomer still cannot answer from the docs, and any project in flight that does not serve the objective the user just stated. That last one is uncomfortable to raise and it is usually the most valuable output of the whole pass.

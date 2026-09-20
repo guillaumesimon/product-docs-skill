@@ -24,9 +24,16 @@ Find the row that matches what you just changed. If several match, all of them a
 | Discovers or lifts a limitation, or takes a deliberate shortcut | Known limitations and debt |
 | Collects a new kind of personal data, or changes retention | Security and personal data |
 | Settles a structuring choice, product or technical | Decisions |
+| Introduces a new way of charging, or moves the paywall | Business model, Plans and permissions, Decisions |
+| Serves a new group of users on purpose, or drops one | Personas, Decisions |
+| Changes what the company is optimising for, or settles a strategic bet | Objective and strategy, Decisions, and re-read the Roadmap |
+| Changes the product's promise - a new surface, a new category, a pivot | Pitch mission and vision, Decisions |
+| Records a competitor moving, or a new one starting to cost deals | Market and competitors |
 | Surfaces a recurring user misunderstanding | Support and feedback |
 | Is visible to the user | Changelog |
 | Only changes values, columns, events, prices, quotas, flag states, styling or implementation | Nothing |
+
+Five of those rows - paywall, audience, objective, promise, competitor - are the **business card**, and they behave unlike the rest of this table. Their trigger is what got *decided* in the conversation, not what changed in the diff - a pivot never shows up in a diff. The trigger list is closed on purpose, they are never edited without an explicit yes from the user, and the full procedure is in `business-card.md`. In particular, none of these is a trigger: a new feature, a price or quota moving, a metric's value moving, a competitor shipping something, a strategy conversation that did not conclude, or one user asking for something a persona does not cover.
 
 If the page a change points at does not exist yet - the first background job in a project that had none, the first external dependency - create it. Copy the structure of a neighbouring page and fill in `data-title`, `data-desc`, `data-group`, `data-status`, `data-verified`, `data-trigger` and `data-sources`. It appears in the navigation and the health register by itself.
 
@@ -43,6 +50,8 @@ If the page a change points at does not exist yet - the first background job in 
 | `data-sources` | Where the detail lives - files, folders, tools, comma separated |
 
 A page's `data-trigger` is its contract. If your change matches it, the page is in scope. If you find yourself editing a page whose trigger has nothing to do with your change, you are probably putting the information in the wrong place.
+
+The `Objective and strategy` page additionally carries `data-objective` - acquisition, activation, retention or revenue - which is what an agent reads to check a spec against. There is exactly one, always.
 
 Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` and `data-updated`, hold their future changelog in a `<div class="release">` and their handover in a `<ul class="handover">` whose items carry `data-page` and, once moved, `data-done`.
 
@@ -66,6 +75,10 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 
 **Shape of a decision** - identifier, title written as a statement, date, context, options ruled out, consequences. Never edit a decision; supersede it with a new one and mark the old one superseded. This is what stops an agent silently undoing a deliberate choice.
 
+**Shape of a business card page** - nothing on these five pages is in the code, so the golden rule inverts: the danger is not copying, it is invention. Anything the user did not actually say carries `<span class="tag t-check">Unconfirmed</span>` and keeps its page at `check`. `data-sources` names a person and a date, not a file, and both move when you edit. An empty section is fine; a plausible one is not.
+
+**Shape of a strategy-fit line** - one `<p class="sub">` per spec, right after the expected outcome, saying how the project serves the single objective, or why it is the exception. Not a restatement of the expected outcome: it has to name the objective and take a position.
+
 **Shape of a runbook** - symptom, what to check in order, what to do, last occurrence. Write it right after the incident, while the detail is fresh.
 
 **Shape of a handover line** - one `<li data-page="target-id">` per page the project will have to feed, saying what the reader of that page will gain, not what we are doing to the docs. Ticked with `data-done="<date>"` the day the content actually lands there, never before.
@@ -86,4 +99,6 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 - A new or reshaped spec has a future changelog and handover lines that match its current scope
 - A change that makes a spec real ran that spec's handover, rather than leaving it for later
 - A shipped spec has every handover line ticked, its status set to shipped, its roadmap row removed and its future changelog copied into the Changelog
+- A business card page was touched only after the user said yes, and only on a trigger from the closed list
+- A new or reshaped spec has its "Serves the objective" line, and it names the current objective
 - The edit is in the same commit as the code
