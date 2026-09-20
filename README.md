@@ -69,10 +69,21 @@ It's not decoration. Every spec carries a line saying **how it serves that objec
 the deliberate exception, and the audit pass reports roadmap rows that don't. Same idea as the
 future changelog, one level up: if you can't say what a project is for, it isn't ready. 🧭
 
+<img src="docs/screenshots/02-strategy.png" alt="Objective and strategy page showing a single retention objective and why the other three levers were ruled out" width="100%">
+
+The table under it is the part teams skip and then miss: **why not the other three**, with what would
+promote each one. It's what stops the objective quietly becoming two.
+
 None of this is in your repo, so the skill interviews you — starting from what your own landing
 page, pricing config and import features say about you, because people correct a wrong draft far
 better than they fill a blank form. Competitors get a real web search, each row dated and sourced,
 and the list comes back to you to confirm: a search returns the loudest, not the closest. 🔍
+
+Personas get the same treatment — built on the day that brings someone and on what they use today
+instead of you, never on demographics. And the half everyone forgets: **who asks for the product
+that you deliberately don't serve**, with what would make you revisit. 🚫
+
+<img src="docs/screenshots/03-personas.png" alt="Personas page with two personas and the evidence behind each" width="100%">
 
 ### The page that earns the whole thing: business rules
 
@@ -80,14 +91,14 @@ An identifier that never gets reused, the intent in one verifiable sentence, **t
 that implements it, and the test that proves it. Without this page those rules only exist as
 scattered `if` statements. 🔒
 
-<img src="docs/screenshots/02-business-rules.png" alt="Business rules page with BR-001 and BR-002" width="100%">
+<img src="docs/screenshots/04-business-rules.png" alt="Business rules page with BR-001 and BR-002" width="100%">
 
 ### Mechanisms, one screen each
 
 In short / how it unfolds / special cases / why it's built this way / where to enter the code. If it
 runs past a screen, you're copying the implementation and the skill says so. 🧩
 
-<img src="docs/screenshots/03-mechanisms.png" alt="Key mechanisms page showing the invoice lifecycle" width="100%">
+<img src="docs/screenshots/05-mechanisms.png" alt="Key mechanisms page showing the invoice lifecycle" width="100%">
 
 ### A roadmap that reads itself (and yes, dark mode 🌙)
 
@@ -95,7 +106,7 @@ One row per live project, in priority order. Rank, project name and spec status 
 the spec pages — you write the problem, the metric and the horizon. Reordering the rows *is* how
 priority changes.
 
-<img src="docs/screenshots/04-roadmap-dark.png" alt="Roadmap page in dark mode" width="100%">
+<img src="docs/screenshots/06-roadmap-dark.png" alt="Roadmap page in dark mode" width="100%">
 
 ### Every spec ships with its announcement 📣
 
@@ -116,7 +127,7 @@ lines shows up as **handover debt** on the home page, under the project's name. 
 
 ### ⌘K search across pages, rules, decisions and sections
 
-<img src="docs/screenshots/05-search.png" alt="Search palette open with results across rules and decisions" width="100%">
+<img src="docs/screenshots/07-search.png" alt="Search palette open with results across rules and decisions" width="100%">
 
 ### Docs that display their own confidence 🚦
 
@@ -124,7 +135,7 @@ Every page declares what triggers an update, where the details live, and when it
 against the code. The register on the home page is the dashboard — and the header shows the count of
 pages needing review at all times. Stale docs stop being invisible.
 
-<img src="docs/screenshots/06-health.png" alt="Documentation health register listing every page with its status" width="100%">
+<img src="docs/screenshots/08-health.png" alt="Documentation health register listing every page with its status" width="100%">
 
 ## 🧠 The one rule that shapes everything
 
@@ -470,6 +481,7 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 ### 20 September 2026
 
 - 🃏 A business card: who it's for, how it makes money, where the market is
+- 📸 All the screenshots regenerated from the current template
 - 🎯 One objective — not two — and every spec says how it serves it
 - 🔍 Competitors researched on the web, each row dated and sourced
 - ✋ A pivot never shows up in a diff, so the skill asks before it writes
