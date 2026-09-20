@@ -13,6 +13,8 @@
   --accent:#635BFF; --accent-soft:#F2F1FF; --overlay:rgba(26,31,54,.45);
   --ok-bg:#D7F7C2; --ok-fg:#05690D; --check-bg:#FCEDB9; --check-fg:#A82C00; --stale-bg:#FFE0EC; --stale-fg:#B3093C;
   --info-bg:#D6ECFF; --info-fg:#0055BC; --mute-bg:#EBEEF1; --mute-fg:#545969;
+  --acq-bg:#D4F0FA; --acq-fg:#05647C; --act-bg:#ECEAFF; --act-fg:#4B45C6;
+  --ret-bg:#CDF2E4; --ret-fg:#0A6B52; --rev-bg:#F6E4FB; --rev-fg:#86279B;
   --ring:0 0 0 1px rgba(60,66,87,.10),0 1px 2px rgba(60,66,87,.08);
   --pop:0 0 0 1px rgba(60,66,87,.10),0 12px 40px rgba(26,31,54,.22);
   --sans:"Geist",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
@@ -25,6 +27,8 @@
     --accent:#938EFF; --accent-soft:#1C1A3B; --overlay:rgba(0,0,0,.6);
     --ok-bg:#12351B; --ok-fg:#84E093; --check-bg:#3B2C0A; --check-fg:#F3C66C; --stale-bg:#3F1427; --stale-fg:#FF9DC1;
     --info-bg:#0F2C47; --info-fg:#86C3FF; --mute-bg:#222736; --mute-fg:#A8AFC2;
+    --acq-bg:#0A2D38; --acq-fg:#7DD8F0; --act-bg:#211D48; --act-fg:#ADA8FF;
+    --ret-bg:#0C3328; --ret-fg:#6FDCB8; --rev-bg:#2E1339; --rev-fg:#E2A8F5;
     --ring:0 0 0 1px rgba(255,255,255,.09); --pop:0 0 0 1px rgba(255,255,255,.10),0 16px 48px rgba(0,0,0,.6);
   }
 }
@@ -33,6 +37,8 @@
   --accent:#938EFF; --accent-soft:#1C1A3B; --overlay:rgba(0,0,0,.6);
   --ok-bg:#12351B; --ok-fg:#84E093; --check-bg:#3B2C0A; --check-fg:#F3C66C; --stale-bg:#3F1427; --stale-fg:#FF9DC1;
   --info-bg:#0F2C47; --info-fg:#86C3FF; --mute-bg:#222736; --mute-fg:#A8AFC2;
+  --acq-bg:#0A2D38; --acq-fg:#7DD8F0; --act-bg:#211D48; --act-fg:#ADA8FF;
+  --ret-bg:#0C3328; --ret-fg:#6FDCB8; --rev-bg:#2E1339; --rev-fg:#E2A8F5;
   --ring:0 0 0 1px rgba(255,255,255,.09); --pop:0 0 0 1px rgba(255,255,255,.10),0 16px 48px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box}
@@ -121,6 +127,11 @@ li::marker{color:var(--muted)}
 .t-check,.b-check{background:var(--check-bg);color:var(--check-fg)}
 .t-stale,.b-stale{background:var(--stale-bg);color:var(--stale-fg)}
 .t-info{background:var(--info-bg);color:var(--info-fg)}
+.t-acquisition{background:var(--acq-bg);color:var(--acq-fg)}
+.t-activation{background:var(--act-bg);color:var(--act-fg)}
+.t-retention{background:var(--ret-bg);color:var(--ret-fg)}
+.t-revenue{background:var(--rev-bg);color:var(--rev-fg)}
+.tag.is-north{box-shadow:0 0 0 1.5px currentColor}
 
 /* Encadrés */
 .guide{position:relative;margin:0 0 32px;padding:14px 18px 14px 46px;border-radius:10px;background:var(--accent-soft);color:var(--ink)}
@@ -155,8 +166,17 @@ tbody tr:last-child td{border-bottom:0}
 /* Roadmap */
 .roadmap td.rank{font-family:var(--mono);font-size:.8125rem;color:var(--muted);font-weight:400;white-space:nowrap;padding-right:14px}
 .roadmap td.project{min-width:9rem}
-.roadmap td.horizon,.roadmap td.spec{white-space:nowrap}
+.roadmap td.horizon,.roadmap td.spec,.roadmap td.objective{white-space:nowrap}
 .roadmap tr[data-horizon="later"] td.rank{opacity:.6}
+.roadmap tr.is-off{display:none}
+p.no-match{margin:-8px 0 24px;font-size:.8125rem;color:var(--muted)}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:16px 0 -4px}
+.filters label{display:inline-flex;align-items:center;gap:7px;font-size:.8125rem;color:var(--muted)}
+.filters select{font:inherit;font-size:.8125rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:5px 26px 5px 8px}
+.filters button{font:inherit;font-size:.8125rem;color:var(--muted);background:none;border:0;padding:5px 2px;cursor:pointer}
+.filters button:hover{color:var(--accent)}
+.filters .count{margin:0 0 0 auto;font-size:.8125rem;color:var(--muted)}
+@media (max-width:720px){.filters .count{margin:0;width:100%}}
 .horizons{align-items:start;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:8px 0 8px}
 .horizons .col{border:1px solid var(--line);border-radius:10px;padding:16px 18px 6px;background:var(--bg)}
 .horizons h2{font-size:.9375rem;margin:0;letter-spacing:0}
@@ -527,10 +547,12 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
     <p><strong>Purpose:</strong> make it possible to say no. A roadmap can only be argued against an objective, and an objective can only do that job if there is exactly one.</p>
     <p><strong>One objective, from four:</strong> acquisition, activation, retention, revenue. If two feel true, pick the one whose failure would hurt most in the next two quarters and write the other down under "not this, and why". The machine-readable value is on this page's <code>data-objective</code> attribute.</p>
     <p><strong>This page is what makes the <a href="#roadmap">Roadmap</a> checkable.</strong> A project that does not serve the objective is not forbidden - it is just supposed to be visibly exceptional.</p>
+    <p><strong>Every spec names its own objective</strong> on the same attribute, and the Roadmap turns it into a column and a filter. Each of the four has its own emoji and colour - 📈 acquisition, ⚡ activation, 🔁 retention, 💰 revenue - and the one named here is the only one drawn with a ring around it. Change the objective on this page and the ring moves, which is how you see what has stopped serving it.</p>
   </div>
   <h2>The one objective</h2>
   <div class="north">
-    <span class="tag t-info">Retention</span>
+    <!-- Rendered from this page's data-objective: emoji, label and colour all follow it. -->
+    <span class="tag t-retention is-north">🔁 Retention</span>
     <b>Keep Pro subscribers past their third month.</b>
     <p>Measured by Pro retention at 90 days, by monthly cohort. The exact definition is on <a href="#metrics">Metrics and tracking</a> and is written there only.</p>
   </div>
@@ -539,9 +561,9 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <div class="scroll"><table>
     <thead><tr><th>Lever</th><th>Why not right now</th><th>What would promote it</th></tr></thead>
     <tbody>
-      <tr><td>Acquisition</td><td class="plain">Already growing without effort, and more of it makes the leak more expensive, not less</td><td class="plain">Search traffic flattening for two consecutive quarters</td></tr>
-      <tr><td>Activation</td><td class="plain">Genuinely second. <a href="#spec-S-031">S-031</a> is on the roadmap precisely because activation is the closest thing to a rival objective.</td><td class="plain">Retention at 90 days getting healthy while first-invoice drop-off stays where it is</td></tr>
-      <tr><td>Revenue</td><td class="plain">Raising the price or the paywall on a cohort that is already leaving would hide the problem behind a better number</td><td class="plain">Retention holding, and the free tier visibly carrying users who would pay</td></tr>
+      <tr><td>📈 Acquisition</td><td class="plain">Already growing without effort, and more of it makes the leak more expensive, not less</td><td class="plain">Search traffic flattening for two consecutive quarters</td></tr>
+      <tr><td>⚡ Activation</td><td class="plain">Genuinely second. <a href="#spec-S-031">S-031</a> is on the roadmap precisely because activation is the closest thing to a rival objective.</td><td class="plain">Retention at 90 days getting healthy while first-invoice drop-off stays where it is</td></tr>
+      <tr><td>💰 Revenue</td><td class="plain">Raising the price or the paywall on a cohort that is already leaving would hide the problem behind a better number</td><td class="plain">Retention holding, and the free tier visibly carrying users who would pay</td></tr>
     </tbody>
   </table></div>
   <h2>How we think we get there</h2>
@@ -707,26 +729,28 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   data-trigger="A priority changes, or a project starts, ends or is ruled out" data-sources="Linear: Bordereau project">
   <div class="guide">
     <p><strong>Purpose:</strong> one ordered list of everything we intend to do, most important first. Each row starts from a problem and targets a metric, not a dated feature list.</p>
-    <p><strong>How it works:</strong> rows are written in priority order and numbered automatically. The project name and its spec status are read from the spec page, so they are written in one place only. Once an item ships, it leaves this page and enters <a href="#features">Features</a> and the <a href="#changelog">Changelog</a>. If the roadmap lives in a tracker, reduce this page to the prioritisation logic and a link.</p>
+    <p><strong>How it works:</strong> rows are written in priority order and numbered automatically. The project name, its objective and its spec status are read from the spec page, so they are written in one place only. Once an item ships, it leaves this page and enters <a href="#features">Features</a> and the <a href="#changelog">Changelog</a>. If the roadmap lives in a tracker, reduce this page to the prioritisation logic and a link.</p>
+    <p><strong>The Objective column is the argument.</strong> Each project names the one lever it serves, and each lever has its own emoji and colour: 📈 acquisition, ⚡ activation, 🔁 retention, 💰 revenue, ⚪ no objective. The one ringed is the objective on <a href="#strategy">Objective and strategy</a>; everything else is allowed, but it has to be worth the exception. The filters above the table let you read the roadmap one objective at a time.</p>
   </div>
   <h2>Priorities</h2>
-  <p>Order is the decision. Two rows never share a rank, and moving one down is as explicit as moving another up.</p>
+  <p>Order is the decision. Two rows never share a rank, and moving one down is as explicit as moving another up. Ranks are absolute: filtering hides rows, it never renumbers them.</p>
   <div class="scroll"><table class="roadmap">
-    <thead><tr><th>#</th><th>Project</th><th>Problem it solves</th><th>Target metric</th><th>Horizon</th><th>Spec</th></tr></thead>
+    <thead><tr><th>#</th><th>Project</th><th>Problem it solves</th><th>Target metric</th><th>Objective</th><th>Horizon</th><th>Spec</th></tr></thead>
     <!-- One <tr> per project, in priority order. data-spec points at a spec page: the
-         project name and the spec status are filled in from it. Use data-project for a
-         project that has no spec yet. Horizon: now | next | later. -->
+         project name, its objective and its spec status are filled in from it. Use
+         data-project for a project that has no spec yet, and data-objective on the row
+         itself to give it an objective. Horizon: now | next | later. -->
     <tbody data-roadmap>
       <tr data-spec="spec-S-027" data-horizon="now">
         <td class="plain">Invoices settled by manual transfer are paid much later than the others</td>
         <td class="plain">Median time to payment</td></tr>
       <tr data-spec="spec-S-031" data-horizon="now">
         <td class="plain">Entering the first customer is the main drop-off point in onboarding</td>
-        <td class="plain">Activation</td></tr>
+        <td class="plain">First invoice sent within 7 days</td></tr>
       <tr data-spec="spec-S-033" data-horizon="next">
         <td class="plain">Many Pro users duplicate the same invoice every month</td>
         <td class="plain">Pro retention at 90 days</td></tr>
-      <tr data-project="Mandatory e-invoicing" data-horizon="later">
+      <tr data-project="Mandatory e-invoicing" data-objective="none" data-horizon="later">
         <td class="plain">The French reform will require receiving, then issuing, in a structured format</td>
         <td class="plain">Regulatory constraint, no metric</td></tr>
       <tr data-project="Foreign currencies" data-horizon="later">
@@ -756,7 +780,8 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   data-trigger="A spec is created, changes status or has its scope modified" data-sources="Spec pages below">
   <div class="guide">
     <p><strong>Purpose:</strong> a spec describes a change to come. The rest of the docs describes the present state. When a spec ships, its lasting content moves to Features, Business rules and Key mechanisms, then the spec is frozen.</p>
-    <p><strong>How it works:</strong> each project has its own page, a <code>&lt;section class="page" data-parent="specs"&gt;</code>. The index below is generated from those pages, so a spec's title and status are written in one place only.</p>
+    <p><strong>How it works:</strong> each project has its own page, a <code>&lt;section class="page" data-parent="specs"&gt;</code>. The index below is generated from those pages, so a spec's title, status and objective are written in one place only.</p>
+    <p><strong>Every spec names one objective</strong> on <code>data-objective</code> - 📈 acquisition, ⚡ activation, 🔁 retention or 💰 revenue, the same one its "Serves the objective" line argues for. One, not two: a project that serves everything prioritises nothing. A project that deliberately serves none, such as a regulatory constraint, says <code>none</code> rather than borrowing an objective it does not move.</p>
     <p><strong>Every spec carries its future changelog:</strong> the text users will read when it ships, written before the build. It is the benefit test - a project nobody can announce in three lines is a project whose value is not settled. On shipping, that block becomes the version's <a href="#changelog">Changelog</a> entry, with at most a word changed.</p>
   </div>
   <h2>Projects</h2>
@@ -768,7 +793,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>Copy an existing spec page and keep these sections.</p>
   <div class="sheet">
     <h3>Problem</h3><p>What is wrong today, for whom, with the evidence (data, quote, ticket).</p>
-    <h3>Expected outcome</h3><p>The metric that should move, and in which direction. Then one line saying how it serves the single objective on <a href="#strategy">Objective and strategy</a> - or, if it does not, why this project is the exception. A project that cannot answer is a project that has not been argued.</p>
+    <h3>Expected outcome</h3><p>The metric that should move, and in which direction. Then one line saying how it serves the single objective on <a href="#strategy">Objective and strategy</a> - or, if it does not, why this project is the exception. A project that cannot answer is a project that has not been argued. Name the same objective on the page's <code>data-objective</code>: that is what the <a href="#roadmap">Roadmap</a> column and its filters read.</p>
     <h3>Future changelog</h3><p>The announcement the user will read on the day this ships: a title and two or three lines, emoji, benefits rather than features. Written now, before the build. If it cannot be written, the benefit is not clear yet and the spec is not ready.</p>
     <h3>Behaviour</h3><p>What the user sees and does, screen by screen. Empty states, errors and edge cases included.</p>
     <h3>Acceptance criteria</h3><p>A checkable list. Each criterion should be able to become a test.</p>
@@ -779,9 +804,12 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
 </section>
 
 <!-- Spec pages: children of "specs". They do not appear in the sidebar or in the health register.
-     data-spec-id, data-spec-status (draft | ready | in-progress | shipped | dropped), data-target, data-updated -->
+     data-spec-id, data-spec-status (draft | ready | in-progress | shipped | dropped), data-target, data-updated
+     data-objective: the one lever this project serves - acquisition | activation | retention | revenue,
+     or none for a project that deliberately serves no objective, such as a regulatory constraint. It is
+     the machine-readable half of the "Serves the objective" line, and what the Roadmap column reads. -->
 
-<section class="page" id="spec-S-031" data-parent="specs" data-title="Customer import by email" data-spec-id="S-031" data-spec-status="in-progress" data-target="2.15" data-updated="2026-09-12"
+<section class="page" id="spec-S-031" data-parent="specs" data-title="Customer import by email" data-spec-id="S-031" data-spec-status="in-progress" data-objective="activation" data-target="2.15" data-updated="2026-09-12"
   data-desc="Forward an email, get a ready-to-use customer record.">
   <h2>Problem</h2>
   <p>Entering the first customer is where most new signups give up. They have the customer's details in an email (a quote request, a signature) and have to retype them field by field, often on a phone.</p>
@@ -840,7 +868,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   </table></div>
 </section>
 
-<section class="page" id="spec-S-027" data-parent="specs" data-title="Payment by link" data-spec-id="S-027" data-spec-status="in-progress" data-target="2.15" data-updated="2026-09-09"
+<section class="page" id="spec-S-027" data-parent="specs" data-title="Payment by link" data-spec-id="S-027" data-spec-status="in-progress" data-objective="retention" data-target="2.15" data-updated="2026-09-09"
   data-desc="A pay button on every invoice, so customers pay the day they read it.">
   <h2>Problem</h2>
   <p>Customers who pay by manual bank transfer pay late: they have to log in to their bank, retype the details and the reference. Our users then spend time matching transfers to invoices.</p>
@@ -882,7 +910,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <p>None at this stage.</p>
 </section>
 
-<section class="page" id="spec-S-033" data-parent="specs" data-title="Recurring invoicing" data-spec-id="S-033" data-spec-status="draft" data-target="To be defined" data-updated="2026-09-03"
+<section class="page" id="spec-S-033" data-parent="specs" data-title="Recurring invoicing" data-spec-id="S-033" data-spec-status="draft" data-objective="retention" data-target="To be defined" data-updated="2026-09-03"
   data-desc="Stop duplicating the same invoice every month.">
   <div class="guide"><p><strong>A draft spec is allowed to be incomplete.</strong> Problem and expected outcome come first. Behaviour is written once the problem is agreed.</p></div>
   <h2>Problem</h2>
@@ -908,7 +936,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   </table></div>
 </section>
 
-<section class="page" id="spec-S-019" data-parent="specs" data-title="Automatic reminders" data-spec-id="S-019" data-spec-status="shipped" data-target="2.3" data-updated="2026-02-20"
+<section class="page" id="spec-S-019" data-parent="specs" data-title="Automatic reminders" data-spec-id="S-019" data-spec-status="shipped" data-objective="retention" data-target="2.3" data-updated="2026-02-20"
   data-desc="Let the product chase late payers so the user does not have to.">
   <div class="guide"><p><strong>A shipped spec is frozen.</strong> It records what was decided at the time. The current behaviour is described in the living pages, which win if they disagree.</p></div>
   <h2>Handover</h2>
@@ -1206,7 +1234,7 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
   <div class="scroll"><table>
     <thead><tr><th>If the change</th><th>Update</th></tr></thead>
     <tbody>
-      <tr><td>Starts a project, reshapes its scope or changes its priority</td><td class="plain">Its spec page (create one from the template), and a row on the Roadmap in the right position</td></tr>
+      <tr><td>Starts a project, reshapes its scope or changes its priority</td><td class="plain">Its spec page (create one from the template, objective included), and a row on the Roadmap in the right position</td></tr>
       <tr><td>Makes a spec's behaviour real: a flag removed, a gate deleted, a job switched on</td><td class="plain">That spec's handover, line by line, before anything else. Then its status, the Roadmap and the Changelog</td></tr>
       <tr><td>Adds or removes a capability for the user</td><td class="plain">Features, User journeys if affected, the spec's status, Roadmap, Changelog</td></tr>
       <tr><td>Changes what the product decides on the user's behalf</td><td class="plain">Business rules, Glossary if there is a new term</td></tr>
@@ -1305,12 +1333,15 @@ and do not raise it again for the same change.
 
 Objective: exactly one, on the strategy page's data-objective - acquisition,
 activation, retention or revenue. Every spec carries a line saying how it serves
-it, or why it is the exception. Replacing the objective is a Decision; adding a
-second is not an option.
+it, or why it is the exception, and the same answer on its own data-objective -
+same four values, or none for a project that deliberately serves none, such as a
+regulatory constraint. One per spec, never two. Replacing the objective is a
+Decision; adding a second is not an option.
 
 Roadmap: one row per live project, in priority order, in the tbody[data-roadmap].
-Point it at its spec with data-spec and set data-horizon. Rank, project name and
-spec status are filled in from the spec page, so never type them in the row.
+Point it at its spec with data-spec and set data-horizon. Rank, project name,
+objective and spec status are filled in from the spec page, so never type them in
+the row; a project with no spec yet carries data-objective on the row itself.
 Reordering rows is how priority is changed; a shipped or dropped project loses
 its row.
 
@@ -1360,8 +1391,22 @@ Writing rules:
   var STATUS={ok:'Up to date',check:'Needs review',stale:'Stale'};
   var SPEC={draft:['Draft','mute'],ready:['Ready','info'],'in-progress':['In progress','info'],shipped:['Shipped','ok'],dropped:['Dropped','mute']};
   var $=function(id){return document.getElementById(id);};
+  // Objective: label, emoji. The colour is the CSS class t-<key>; "none" keeps the neutral tag.
+  var OBJ={acquisition:['Acquisition','\uD83D\uDCC8'],activation:['Activation','\u26A1'],retention:['Retention','\uD83D\uDD01'],revenue:['Revenue','\uD83D\uDCB0'],none:['No objective','\u26AA']};
+  var OBJ_ORDER=['acquisition','activation','retention','revenue','none','not-stated'];
+  var SPEC_ORDER=['draft','ready','in-progress','shipped','dropped','no-spec'];
   var pages=[].slice.call(document.querySelectorAll('.page'));
   var byId={}; pages.forEach(function(p){byId[p.id]=p;});
+  // The single objective: the one top-level page that carries data-objective (Objective and strategy)
+  var NORTH=(pages.filter(function(p){return !p.dataset.parent&&p.dataset.objective;})[0]||{dataset:{}}).dataset.objective||'';
+  function objLabel(key){ return OBJ[key]?OBJ[key][1]+'\u00a0'+OBJ[key][0]:''; }
+  function objTag(key){
+    if(!OBJ[key]) return '<span class="sub">Not stated</span>';
+    var off=NORTH&&key!==NORTH&&key!=='none';
+    return '<span class="tag t-'+esc(key)+(key===NORTH?' is-north':'')+'"'+
+      (off?' title="Not the current objective ('+esc(objLabel(NORTH)||NORTH)+')"':'')+
+      '>'+esc(objLabel(key))+'</span>';
+  }
   var nav=$('nav'), side=$('side'), menu=$('menu'), toc=$('toc');
 
   function fmt(iso){ if(!iso) return ''; return new Date(iso+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}); }
@@ -1417,6 +1462,7 @@ Writing rules:
       var st=d.status||'ok', spec=SPEC[d.specStatus], meta=[];
       if(!par) meta.push(badge(st));
       if(spec) meta.push('<span class="tag t-'+spec[1]+'">'+spec[0]+'</span>');
+      if(par&&d.objective) meta.push(objTag(d.objective));
       if(d.specId) meta.push('<span>'+esc(d.specId)+'</span>');
       if(d.target) meta.push('<span>Target '+esc(d.target)+'</span>');
       var hv=HAND[p.id];
@@ -1445,17 +1491,62 @@ Writing rules:
     p.appendChild(pg);
   });
 
-  // Roadmap rows: rank, project name and spec status filled in from the spec pages
+  // Roadmap rows: rank, project name, objective and spec status filled in from the spec pages
   var HORIZON={now:['Now','info'],next:['Next','mute'],later:['Later','mute']};
-  document.querySelectorAll('[data-roadmap] tr').forEach(function(tr,i){
+  var rmRows=[].slice.call(document.querySelectorAll('[data-roadmap] tr')), seenObj={}, seenSpec={};
+  rmRows.forEach(function(tr,i){
     var d=tr.dataset, sp=d.spec?byId[d.spec]:null, h=HORIZON[d.horizon]||['','mute'];
     var name=sp?'<a href="#'+sp.id+'">'+esc(sp.dataset.title)+'</a>':esc(d.project||'');
-    var s=sp?(SPEC[sp.dataset.specStatus]||null):null;
+    var st=sp?(sp.dataset.specStatus||''):'', s=SPEC[st]||null;
     var spec=s?'<span class="tag t-'+s[1]+'">'+s[0]+'</span> <span class="sub">'+esc(sp.dataset.specId||'')+'</span>'
              :'<span class="sub">No spec yet</span>';
+    // The objective is the spec's; a row without a spec may carry its own.
+    var o=(sp&&sp.dataset.objective)||d.objective||''; if(!OBJ[o]) o='';
+    tr.dataset.objKey=o||'not-stated'; tr.dataset.statusKey=s?st:'no-spec';
+    seenObj[tr.dataset.objKey]=1; seenSpec[tr.dataset.statusKey]=1;
     tr.insertAdjacentHTML('afterbegin','<td class="rank">'+(i+1)+'</td><td class="project">'+name+'</td>');
-    tr.insertAdjacentHTML('beforeend','<td class="plain horizon"><span class="tag t-'+h[1]+'">'+h[0]+'</span></td><td class="plain spec">'+spec+'</td>');
+    tr.insertAdjacentHTML('beforeend','<td class="plain objective">'+objTag(o)+'</td>'+
+      '<td class="plain horizon"><span class="tag t-'+h[1]+'">'+h[0]+'</span></td><td class="plain spec">'+spec+'</td>');
   });
+
+  // The single objective's own badge, so the strategy page and the roadmap cannot disagree
+  var northTag=document.querySelector('.north .tag');
+  if(northTag&&NORTH&&OBJ[NORTH]) northTag.outerHTML=objTag(NORTH);
+
+  // Filter the roadmap by objective and by spec status. Ranks stay as written: filtering
+  // hides rows, it never renumbers them, because the rank is the priority.
+  if(rmRows.length){
+    var body=rmRows[0].parentNode, wrap=body.closest('.scroll')||body.closest('table');
+    var objName={'not-stated':'Not stated'}, specName={'no-spec':'No spec yet'};
+    Object.keys(OBJ).forEach(function(k){ objName[k]=objLabel(k); });
+    Object.keys(SPEC).forEach(function(k){ specName[k]=SPEC[k][0]; });
+    function picker(id,label,names,seen){
+      var list=(id==='fObj'?OBJ_ORDER:SPEC_ORDER).filter(function(k){return seen[k];});
+      return '<label>'+label+' <select id="'+id+'"><option value="">All</option>'+
+        list.map(function(k){return '<option value="'+esc(k)+'">'+esc(names[k])+'</option>';}).join('')+'</select></label>';
+    }
+    var bar=el('div','filters',picker('fObj','Objective',objName,seenObj)+
+      picker('fSpec','Spec status',specName,seenSpec)+
+      '<button type="button" id="fClear" hidden>Clear</button>'+
+      '<p class="count" id="fCount" role="status"></p>');
+    bar.setAttribute('role','group'); bar.setAttribute('aria-label','Filter the roadmap');
+    wrap.parentNode.insertBefore(bar,wrap);
+    var none=el('p','no-match','No project matches these filters.'); none.hidden=true;
+    wrap.parentNode.insertBefore(none,wrap.nextSibling);
+    function filter(){
+      var o=$('fObj').value, st=$('fSpec').value, n=0;
+      rmRows.forEach(function(tr){
+        var keep=(!o||tr.dataset.objKey===o)&&(!st||tr.dataset.statusKey===st);
+        tr.classList.toggle('is-off',!keep); if(keep) n++;
+      });
+      none.hidden=n>0; $('fClear').hidden=!(o||st);
+      $('fCount').textContent=(o||st)? n+' of '+rmRows.length+' projects'
+        : rmRows.length+' project'+(rmRows.length>1?'s':'');
+    }
+    bar.addEventListener('change',filter);
+    $('fClear').addEventListener('click',function(){ $('fObj').value=''; $('fSpec').value=''; filter(); });
+    filter();
+  }
 
   // Child indexes, such as the project table on the Specs page
   document.querySelectorAll('[data-index-of]').forEach(function(tb){
@@ -1537,7 +1628,7 @@ Writing rules:
 
   // Search
   var index=[];
-  function blockText(root){ return [].slice.call(root.querySelectorAll('p,li,td,h2,h3,dd')).filter(function(n){return !n.closest('.pager,.page-head,.fiche,.guide');}).map(function(n){return n.textContent.replace(/^#/,'').replace(/\s+/g,' ').trim();}).filter(Boolean).join('. '); }
+  function blockText(root){ return [].slice.call(root.querySelectorAll('p,li,td,h2,h3,dd')).filter(function(n){return !n.closest('.pager,.page-head,.fiche,.guide,.filters,.no-match');}).map(function(n){return n.textContent.replace(/^#/,'').replace(/\s+/g,' ').trim();}).filter(Boolean).join('. '); }
   pages.forEach(function(p){
     if(p.id==='home') return; var t=p.dataset.title;
     index.push({id:p.id,title:t,sub:p.dataset.desc||'',kind:'Page',text:blockText(p)});

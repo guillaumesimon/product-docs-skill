@@ -66,8 +66,9 @@ strategy**. Exactly one objective, from acquisition, activation, retention and r
 objectives is no objective: every project serves one of them and nothing can be refused.
 
 It's not decoration. Every spec carries a line saying **how it serves that objective**, or why it's
-the deliberate exception, and the audit pass reports roadmap rows that don't. Same idea as the
-future changelog, one level up: if you can't say what a project is for, it isn't ready. 🧭
+the deliberate exception, plus the same answer in one word the roadmap can read. The audit pass
+reports roadmap rows that don't serve it. Same idea as the future changelog, one level up: if you
+can't say what a project is for, it isn't ready. 🧭
 
 <img src="docs/screenshots/02-strategy.png" alt="Objective and strategy page showing a single retention objective and why the other three levers were ruled out" width="100%">
 
@@ -102,11 +103,18 @@ runs past a screen, you're copying the implementation and the skill says so. �
 
 ### A roadmap that reads itself (and yes, dark mode 🌙)
 
-One row per live project, in priority order. Rank, project name and spec status are generated from
-the spec pages — you write the problem, the metric and the horizon. Reordering the rows *is* how
-priority changes.
+One row per live project, in priority order. Rank, project name, **objective** and spec status are
+generated from the spec pages — you write the problem, the metric and the horizon. Reordering the
+rows *is* how priority changes.
 
-<img src="docs/screenshots/06-roadmap-dark.png" alt="Roadmap page in dark mode" width="100%">
+Each project names the one lever it serves, and the Objective column shows it — 📈 acquisition,
+⚡ activation, 🔁 retention, 💰 revenue, each with its own colour, plus ⚪ for a project that
+deliberately serves none. Only the objective you're actually optimising for is drawn with a ring, so
+an off-objective project shows up before you've read a word. It isn't forbidden — it just has to be
+visibly worth the exception. 🎯 Two filters, by objective and by spec status, let you read a long
+roadmap one lever at a time; ranks stay put, because the rank *is* the priority.
+
+<img src="docs/screenshots/06-roadmap-dark.png" alt="Roadmap page in dark mode, with an objective column and filters by objective and spec status" width="100%">
 
 ### Every spec ships with its announcement 📣
 
@@ -429,8 +437,8 @@ docs/screenshots/                 the images above
 ```
 
 The template is **one HTML file** — no build step, no dependency, no server. Navigation, search, the
-spec index, the roadmap ranks and the health register all generate themselves from the page
-metadata. Open it with a double-click, commit it with the code, diff it in a PR. 📄
+spec index, the roadmap's ranks and objectives and the health register all generate themselves from
+the page metadata. Open it with a double-click, commit it with the code, diff it in a PR. 📄
 
 ## 🚧 Known limits
 
@@ -467,8 +475,9 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 - 👥 Resize the exploration team in `references/agent-teams.md` — seven territories is a default, not
   a law. Drop the ones that don't apply to your project.
 - 🎯 Change the objective buckets in `references/business-card.md` if acquisition / activation /
-  retention / revenue isn't how your team thinks. Keep it at **one**, though — that constraint is
-  the whole point of the page.
+  retention / revenue isn't how your team thinks — then the `OBJ` map in the template's script, which
+  holds each one's label and emoji, and the matching `--acq-*` / `--act-*` / `--ret-*` / `--rev-*`
+  colour tokens. Keep it at **one**, though — that constraint is the whole point of the page.
 - 🔕 Tighten the business card trigger list in `product-docs-update/references/business-card.md` if
   it's still speaking up too often. It's deliberately closed; making it shorter is safe, making it
   open is not.
@@ -480,6 +489,8 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 
 ### 20 September 2026
 
+- 🎨 Every spec names the one objective it serves, and the roadmap shows it in a colour-coded column
+- 🔍 Filter the roadmap by objective and by spec status, without ever renumbering it
 - 🃏 A business card: who it's for, how it makes money, where the market is
 - 📸 All the screenshots regenerated from the current template
 - 🎯 One objective — not two — and every spec says how it serves it

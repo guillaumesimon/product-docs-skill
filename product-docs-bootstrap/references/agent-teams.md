@@ -112,8 +112,10 @@ Rules:
   will read when it ships, a title and two or three lines, emoji, benefits not
   features. Write it from the problem, never from the implementation.
 - A spec also carries one line saying how it serves the single objective stated
-  on the business card, or why it is the exception. If you cannot write that line
-  from the inventory, say so rather than inventing a link.
+  on the business card, or why it is the exception, and the same answer in one
+  word on data-objective: acquisition, activation, retention, revenue, or none
+  for a project that deliberately serves none. If you cannot write that line from
+  the inventory, say so rather than inventing a link or guessing the attribute.
 - Every explanation ends with a file, a test or a dashboard.
 - If a "why" is not in the inventory, write "Why: to be confirmed" and set that
   page's data-status to "check". Never invent one.

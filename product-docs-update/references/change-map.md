@@ -53,7 +53,7 @@ A page's `data-trigger` is its contract. If your change matches it, the page is 
 
 The `Objective and strategy` page additionally carries `data-objective` - acquisition, activation, retention or revenue - which is what an agent reads to check a spec against. There is exactly one, always.
 
-Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` and `data-updated`, hold their future changelog in a `<div class="release">` and their handover in a `<ul class="handover">` whose items carry `data-page` and, once moved, `data-done`.
+Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` and `data-updated`, hold their future changelog in a `<div class="release">` and their handover in a `<ul class="handover">` whose items carry `data-page` and, once moved, `data-done`. They carry `data-objective` too: the one objective this project serves, the same four values, or `none` for a project that deliberately serves none, such as a regulatory constraint. The Roadmap reads it into its Objective column and filters on it, so it is written on the spec and nowhere else.
 
 ## Writing rules in full
 
@@ -77,7 +77,7 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 
 **Shape of a business card page** - nothing on these five pages is in the code, so the golden rule inverts: the danger is not copying, it is invention. Anything the user did not actually say carries `<span class="tag t-check">Unconfirmed</span>` and keeps its page at `check`. `data-sources` names a person and a date, not a file, and both move when you edit. An empty section is fine; a plausible one is not.
 
-**Shape of a strategy-fit line** - one `<p class="sub">` per spec, right after the expected outcome, saying how the project serves the single objective, or why it is the exception. Not a restatement of the expected outcome: it has to name the objective and take a position.
+**Shape of a strategy-fit line** - one `<p class="sub">` per spec, right after the expected outcome, saying how the project serves the single objective, or why it is the exception. Not a restatement of the expected outcome: it has to name the objective and take a position. Set the spec's `data-objective` to the objective that line argues for, so the prose and the Roadmap column cannot say different things.
 
 **Shape of a runbook** - symptom, what to check in order, what to do, last occurrence. Write it right after the incident, while the detail is fresh.
 
@@ -100,5 +100,5 @@ Spec pages additionally carry `data-spec-id`, `data-spec-status`, `data-target` 
 - A change that makes a spec real ran that spec's handover, rather than leaving it for later
 - A shipped spec has every handover line ticked, its status set to shipped, its roadmap row removed and its future changelog copied into the Changelog
 - A business card page was touched only after the user said yes, and only on a trigger from the closed list
-- A new or reshaped spec has its "Serves the objective" line, and it names the current objective
+- A new or reshaped spec has its "Serves the objective" line and a `data-objective` that agrees with it
 - The edit is in the same commit as the code

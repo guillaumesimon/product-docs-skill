@@ -68,7 +68,7 @@ Find contradictions and duplication across pages:
 - a handover line ticked as moved whose content is nowhere in the target page - the worst case, because it looks done
 - a roadmap row whose spec is shipped or dropped
 - an identifier (BR, D, S, RB) used twice
-- a live spec with no "Serves the objective" line, or one that names an objective the business card no longer states
+- a live spec with no "Serves the objective" line, no `data-objective`, or one that names an objective the business card no longer states
 
 For each, say which page should hold the fact and what the others should link to.
 ```
@@ -113,10 +113,13 @@ and never report one as false. Report three things:
    sides of any mismatch. This is the most valuable thing you can find.
 
 3. STRATEGY FIT. Note the single objective (the data-objective attribute on the
-   strategy page). Then read every live spec's "Serves the objective" line and
-   the Roadmap in order. Report: specs missing the line; specs whose line
-   restates the expected outcome instead of arguing a link; roadmap rows that do
-   not serve the objective. Also flag it if the page states more than one
+   strategy page). Then read every live spec's "Serves the objective" line, its
+   own data-objective, and the Roadmap in order. Report: specs missing the line
+   or the attribute; specs whose attribute names one objective while the line
+   argues another; specs whose line restates the expected outcome instead of
+   arguing a link; roadmap rows that do not serve the objective. Reading the
+   Roadmap filtered to the current objective shows in one pass how much of the
+   order actually serves it. Also flag it if the page states more than one
    objective, which is a finding on its own.
 
 Everything here is a question for the team, not a correction. Do not propose

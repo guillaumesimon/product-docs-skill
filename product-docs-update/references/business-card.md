@@ -55,7 +55,7 @@ The single objective on `Objective and strategy` is the one field in this docume
 - Replacing it is a Decision. Write the new objective, move the old one into the "why not the other three" table with what would promote it again, and record the Decision with the evidence that triggered the change.
 - Adding a second is not an option. If the user genuinely wants two, say what it costs - nothing can be refused against two objectives - and if they confirm, write both and set the page to `check` with one sentence saying the choice is unresolved. Do not present two objectives as a settled state.
 - Update `data-objective` on the section. It is what an agent reads to check a spec against.
-- Then re-read the roadmap: a change of objective usually means some rows no longer serve it, and that is the moment to say so rather than at the next audit.
+- Then re-read the roadmap: a change of objective usually means some rows no longer serve it, and that is the moment to say so rather than at the next audit. The Objective column does the arithmetic for you - everything that used to be highlighted and is now grey is a project that just stopped serving the objective. Leave the specs' own `data-objective` alone: they still serve what they always served, and that is exactly the finding.
 
 ## The other pages, page by page
 
@@ -73,7 +73,7 @@ Documentation written before these pages existed will not have them, and `produc
 
 Create the group rather than a single page: add `data-group="Business card"` sections for the five pages, placed after the Understand group and before Product, and add the group's description to the `GROUPS` map in the page's script - the navigation builds itself from there. On those five pages `data-sources` names a person and a date rather than a file, and `Objective and strategy` also carries `data-objective`. The interview is below; if `product-docs-bootstrap` is also installed, its `references/business-card.md` has the long form.
 
-Then two links: point the Overview's business card row at the new pages instead of at an external tool, and add the "Serves the objective" line to every live spec. Expect at least one spec that cannot answer it. That is a finding worth reporting.
+Then two links: point the Overview's business card row at the new pages instead of at an external tool, and add the "Serves the objective" line and the matching `data-objective` to every live spec. Expect at least one spec that cannot answer it. That is a finding worth reporting, not an attribute to guess.
 
 ### The interview, short form
 

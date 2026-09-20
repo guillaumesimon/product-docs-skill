@@ -40,7 +40,7 @@ The context the rest of the documentation is written against. Never deleted for 
 **For:** making it possible to say no. This is the page that does real work.
 **In:** exactly one objective - acquisition, activation, retention or revenue - with the metric it moves and why this one; a table of why not the other three and what would promote each; two to four bets, each saying what would prove it wrong; what we are deliberately not doing; when this gets revisited.
 **Out:** a second objective. Two objectives is no objective. Also out: the metric's definition, which lives on Metrics and tracking and is written there only.
-**Where to look:** the user, and only the user. Set `data-objective` on the section so an agent can check a spec against it.
+**Where to look:** the user, and only the user. Set `data-objective` on the section so an agent can check a spec against it - every spec carries the same attribute, and the Roadmap's Objective column highlights the ones that match this page.
 
 ## Understand
 
@@ -92,15 +92,17 @@ The context the rest of the documentation is written against. Never deleted for 
 
 ### Roadmap
 **For:** one ordered list of everything intended, most important first.
-**In:** one row per live project: problem, target metric, horizon, link to its spec.
+**In:** one row per live project: problem, target metric, objective, horizon, link to its spec.
 **Out:** dates, unless they are external constraints.
-**Check:** the order should be defensible against the single objective on Objective and strategy. A row that serves no objective is allowed, but it should be visibly exceptional.
+**Check:** the order should be defensible against the single objective on Objective and strategy. A row that serves no objective is allowed, but it should be visibly exceptional - the Objective column is what makes it visible, since it greys out anything that is not the current objective.
+**Objective column:** read from the spec's `data-objective`, or from the row's own when it has no spec. Each objective has its own emoji and colour - 📈 acquisition, ⚡ activation, 🔁 retention, 💰 revenue, ⚪ no objective - and the current objective is the only one ringed, so a roadmap that has drifted shows it before anyone reads a word. It comes with two filters, by objective and by spec status, which is how a long roadmap gets read one lever at a time. Filtering hides rows and never renumbers them: the rank is the priority.
 **Where to look:** not in the repo. Ask, or point the page at the tracker and keep only the prioritisation logic.
 
 ### Specs
 **For:** changes to come, one page per project, before they are built.
 **In:** per spec page - problem with evidence, expected outcome, how it serves the single objective, future changelog, behaviour, acceptance criteria, out of scope, handover, open questions with an owner.
 **Serves the objective:** one line per spec tying it to the objective on Objective and strategy - or saying why this project is the exception. It is what makes the roadmap checkable. A project that cannot answer is a project that has not been argued.
+**One objective per spec, on `data-objective`:** acquisition, activation, retention, revenue, or `none` when the project deliberately serves none. One, not two - a project that serves everything prioritises nothing. It is the same answer as the "Serves the objective" line, in a form the Roadmap column and its filters can read, so the two are written to agree.
 **Future changelog:** the announcement users will read on release day, written before the build - a title and two or three lines, emoji, benefits rather than features. It is the benefit test: a project nobody can announce in three lines is a project whose value is not settled. On shipping it becomes the Changelog entry.
 **Handover:** one line per page the project will have to feed when it ships, each naming what moves there, ticked with `data-done` once it has. Written with the spec. A shipped spec with open lines is counted as debt on the home page - this is what stops Features and Key mechanisms drifting behind the code.
 **Out:** anything about the present state; that belongs in the living pages. Once shipped, a spec is frozen and points at them.
