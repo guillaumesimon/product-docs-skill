@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+#
+# Keep dist/*.skill in step with the sources.
+#
+# The bundles are what gets uploaded to the claude.ai Skills panel, and a stale one is
+# invisible: the upload succeeds and you run last week's skill without noticing. So any
+# commit that touches a skill source rebuilds them and carries them along.
+#
+# Enable it in a fresh clone with:  git config core.hooksPath githooks
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+# Nothing in the skill sources: leave dist/ alone rather than churn it on every commit.
+if ! git diff --cached --name-only | grep -q '^product-docs-'; then
+  exit 0
+fi
+
+./update-skills.sh --bundles-only
+git add dist/product-docs-bootstrap.skill dist/product-docs-update.skill

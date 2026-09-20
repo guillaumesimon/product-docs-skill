@@ -234,6 +234,20 @@ dist/product-docs-bootstrap.skill
 dist/product-docs-update.skill
 ```
 
+Uploading a bundle whose name matches a skill you already have offers **Replace**, which saves a new
+version and keeps the old one in the skill's version history. 🔁
+
+Working from a clone and editing the skills? Rebuild the bundles with `./update-skills.sh`, or let
+the hook do it for you:
+
+```bash
+git config core.hooksPath githooks
+```
+
+Then any commit touching a skill source rebuilds `dist/` and includes it. The hook also refuses a
+`description:` over 1024 characters — the account skills panel rejects those, and Claude Code
+doesn't, so it would only surface at upload time. ✂️
+
 ⚠️ The desktop app is two worlds at once and this trips everyone up: its **Code** tab is Claude Code
 and reads `~/.claude/skills/`, its **Chat** tab uses account skills. Installing in one does not
 install in the other. Use both? Install in both. 🚪🚪
@@ -311,6 +325,10 @@ product-docs-update/
   references/audit-team.md        the audit team: per-page and cross-page prompts, verdicts
 
 dist/                             pre-built .skill bundles for Chat / Cowork / claude.ai
+                                  (plain zips - the panel takes .zip or .skill)
+update-skills.sh                  rebuild the bundles, link ~/.claude/skills at this
+                                  checkout, open the Skills panel
+githooks/pre-commit               rebuilds dist/ whenever a skill source is committed
 docs/screenshots/                 the images above
 ```
 
@@ -354,6 +372,7 @@ metadata. Open it with a double-click, commit it with the code, diff it in a PR.
 
 ### 20 September 2026
 
+- 📦 `./update-skills.sh` rebuilds the bundles and installs them in one go
 - 🔁 Specs hand over to the living pages, line by line, when they ship
 - 🚨 A shipped project that never updated the docs shows as debt on the home page
 - 🤖 The agent moves the content itself, then tells you what it couldn't source
