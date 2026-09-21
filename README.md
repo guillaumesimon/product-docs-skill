@@ -506,6 +506,17 @@ the page metadata. Open it with a double-click, commit it with the code, diff it
 
 ## 🗓️ Changelog
 
+### 21 September 2026
+
+- 🧍 Personas are the people outside your company, never the roles in your code
+- 🧭 Sorted by why they come, never by which screen they land on
+- 🃏 Each one a sketch you can decide with, plus a need that gets judged hard
+- 🎯 Exactly one main persona, the same discipline as the single objective
+- 💬 Where nobody knows, the page makes a claim you can reject — never asks you a question
+- 👥 Nobody to interview? A drafter and a critic argue it out and you write
+- ✍️ Confirming a guess is one edit, and retiring a persona never deletes the evidence under it
+- 🔄 Refreshing the personas isn't the same job as replacing them
+
 ### 20 September 2026
 
 - 🎨 Every spec names the one objective it serves, and the roadmap shows it in a colour-coded column
