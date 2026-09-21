@@ -78,6 +78,8 @@ What makes them different, in one line each: their trigger is the conversation r
 
 The page that does real work is `Objective and strategy`. It carries one objective - acquisition, activation, retention or revenue - on `data-objective`, and every live spec carries a line saying how it serves it plus the same answer on its own `data-objective`. That pair is what makes the roadmap checkable - filter the Roadmap on the objective and you see how much of the order actually serves it - so keep it singular: replacing the objective is a Decision, and adding a second is not an option.
 
+`Personas` is the one edited often enough to degrade, and it degrades by filling up rather than by going stale: every user who does not fit looks like a missing persona, and a set nobody prunes describes everyone. Three rules keep it honest - what the team wrote in their own words is theirs to reword, confirming a guess is one edit rather than two, and retiring a persona never deletes the evidence filed under them. Refreshing the page and replacing it are also two different jobs, and only one of them is allowed to see the old set. All of it is in the reference.
+
 If the documentation has no business card at all - it was written before these pages existed - that is an update job, not a bootstrap one. The reference says how to add the group; the interview itself is in `product-docs-bootstrap/references/business-card.md`.
 
 ## The audit pass
@@ -98,5 +100,5 @@ Do not use a team for a single-change update. Reading one page and editing one e
 
 - `references/change-map.md` - which change updates which pages, plus the full writing rules and the edit checklist
 - `references/handover.md` - shipping a spec: recognising it shipped, moving each line into the living pages, what blocks the shipped status
-- `references/business-card.md` - the business card: the closed trigger list, what is not a trigger, changing the objective, adding the pages to docs that lack them
+- `references/business-card.md` - the business card: the closed trigger list, what is not a trigger, changing the objective, editing the personas, adding the pages to docs that lack them
 - `references/audit-team.md` - the audit team: per-page and cross-page prompts, verdicts, how to apply the findings

@@ -17,6 +17,8 @@ The product documentation lives in `docs/product/index.html`. It explains what t
 
 Ask the second question **only when something was actually decided**, never on an ordinary commit: did this work settle who the product is for, how it makes money, what it is optimising for, or where it stands against a competitor? If so, say what you noticed and which page it changes, and wait for an explicit yes before editing. The closed trigger list is in the `product-docs-update` skill.
 
+**One main persona, always.** Personas are people outside the company - a role in the code is a permission, not a person - sorted by why they come rather than by which screen they use, and exactly one carries the main persona tag. Where nobody knows, the page carries a claim marked `Guess`, never a question. Retiring a persona never deletes the evidence filed under them.
+
 **One objective, always.** The strategy page carries a single objective - acquisition, activation, retention or revenue - and every spec says how it serves it, in a line and in one word on its own `data-objective`. The Roadmap reads that attribute into a column and filters on it. If a project cannot answer, say so rather than inventing a link.
 
 **If `docs/product/index.html` does not exist**, use the `product-docs-bootstrap` skill to create it before going further, or tell me so I can decide.

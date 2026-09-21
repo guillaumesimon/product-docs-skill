@@ -57,11 +57,68 @@ The single objective on `Objective and strategy` is the one field in this docume
 - Update `data-objective` on the section. It is what an agent reads to check a spec against.
 - Then re-read the roadmap: a change of objective usually means some rows no longer serve it, and that is the moment to say so rather than at the next audit. The Objective column does the arithmetic for you - everything that used to be highlighted and is now grey is a project that just stopped serving the objective. Leave the specs' own `data-objective` alone: they still serve what they always served, and that is exactly the finding.
 
+## Editing the personas
+
+This page is edited more often than the rest of the business card and it degrades in a way the others
+do not: not by going stale, but by quietly filling up. Every request from a user who does not fit
+looks like a missing persona, and a set nobody prunes ends up describing everyone, which is the same
+as describing nobody.
+
+Three rules hold it together.
+
+**A persona the team wrote in their own words is theirs.** Deepen it, add the evidence that arrived,
+correct a fact - never rewrite its wording because you would have phrased it better. A persona is
+quoted in design reviews; the shared phrasing is half its value. What you derived yourself is fair
+game to rewrite, and it should be marked `<span class="tag t-check">Guess</span>` so the difference
+is visible.
+
+**Confirming is the edit.** When the team confirms a persona you guessed, do the whole thing at once:
+drop the `Guess` tag, rewrite the line in their words, and move `data-sources` to `Confirmed with
+<who> on <date>`. "Still a guess" and "theirs now" is one fact, not two that can drift apart.
+
+**Retiring a persona never cascades.** Mark the entry retired and keep it - the number is permanent
+like every other identifier here - and leave the evidence filed under it exactly where it is, moved
+to whoever it now belongs to. The person was wrong, which says nothing about the facts. If the
+retired persona was the main one, promote another in the same edit and say which: a page with no main
+persona is a page that stopped settling arguments.
+
+### Refresh and replace are two different operations
+
+Conflating them is what makes a persona page rot.
+
+**Refresh** is the normal case: the evidence moved, a need sharpened, a new persona appeared. Deepen
+what is there, add or retire one entry, leave everything the team confirmed in their own words alone.
+Small edits, one entry at a time.
+
+**Replace** is starting the section again, after a pivot or when the set was never right. It is a
+different job and it has two rules that refresh does not:
+
+- **Retire what you did not rewrite.** Otherwise the worst entries are exactly the ones that survive -
+  the ones so vague that no new entry displaced them.
+- **Do not show the old personas to whoever derives the new ones.** Given the previous set, a drafter
+  will hand it back with new first names and note in its own summary that it kept them rather than
+  re-deriving. A run told to start again has to start again from the product.
+
+Either way, keep the old entries in the page as retired rather than deleting them. Replace is then
+never destructive, and the retired set is the record of what the team used to believe, which is
+exactly what someone reading the page after a pivot wants to see.
+
+### What is not a persona change
+
+One user asking for something no persona covers is not a segment, and it is the most common reason
+this page gets edited when it should not be. Two things make it one: the team deciding to serve that
+group on purpose, or a feature actually getting built for them. Until then it is a support
+conversation.
+
+The other non-change: a persona using a new feature. Personas are sorted by why people come, so a new
+screen does not create a person. If a new feature seems to need a new persona, it is usually the
+feature that is off, not the page.
+
 ## The other pages, page by page
 
 **Pitch, mission and vision.** Almost never changes, and that is the point. When it does, it is a pivot and deserves a Decision. Watch for the slow version: the pitch quietly drifting to describe whatever got built last. If the pitch no longer predicts the roadmap, one of the two is wrong - say which you think it is, and let the user decide.
 
-**Personas.** Changes when the answer to "who do we build for" changes, which includes the "not our user" table. That table is what stops the product drifting into everyone's product, so a new exclusion is as worth recording as a new persona.
+**Personas.** Changes when the answer to "who do we build for" changes, which includes the "not our user" table. That table is what stops the product drifting into everyone's product, so a new exclusion is as worth recording as a new persona. The page has enough rules of its own to be worth its own section, below.
 
 **Business model.** The logic only. Prices, quotas and tiers stay in the billing config; the split logic stays on `Plans and permissions`. If this page starts growing numbers, it has drifted into being a pricing page.
 
@@ -81,7 +138,9 @@ Conversation, not a form. Four or five questions per exchange, one page at a tim
 
 *Pitch, mission and vision.* What does it do and for whom, in one sentence? Fill the frame out loud: for … who … this is … unlike … because …; the last line is the one people skip and the only hard one. Why does the company exist - present tense, true this morning? If it works, what does the world look like in five years? A mission and a vision that say the same thing means one of the two is wrong.
 
-*Personas.* Who do you build for - two or three, and can you name a real person for each? What is the day that brings them, the specific event? What do they use today instead, which is the real competitor and is usually a spreadsheet? What would lose them? And, asked explicitly because nobody volunteers it: **who asks for the product that you deliberately do not serve, and why?** That last answer is the most useful half of the page.
+*Personas.* Who do you build for, and can you name a real person for each? What is the day that brings them, the specific event? What do they use today instead, which is the real competitor and is usually a spreadsheet? What would lose them? **If you could only serve one, which one?** - that answer is the main persona, and there is exactly one. And, asked explicitly because nobody volunteers it: **who asks for the product that you deliberately do not serve, and why?** That last answer is the most useful half of the page.
+
+Three things decide whether this page is worth having. Personas are people **outside the company** - a role in the code is a permission, not a person, and a team's own support and back office never count. They are sorted by **why people come, never by which screen they use**: two people using different features for the same reason are one persona, two using the same feature for different reasons are two. And each one is a **sketch** - first name, epithet, age range, two or three dispositions, a temperament emoji rather than a face - which is never cut for being unsourced, plus a **Needs** line, which is what they are trying to get done rather than a feature they asked for, and which is judged hard. Let the number fall out of how many reasons the product is picked up for; five is a ceiling, not a target. If `product-docs-bootstrap` is installed, its `references/personas.md` has the long form, including the drafter-and-critic pair for when there is nobody to interview.
 
 *Business model.* Who pays, for what, when? Why that shape rather than per use, per seat, a cut, ads? What makes an account stick beyond paying? What could you charge for and deliberately do not?
 
@@ -89,7 +148,7 @@ Conversation, not a form. Four or five questions per exchange, one page at a tim
 
 *Objective and strategy.* Acquisition, activation, retention or revenue - which one, right now? If two are named, ask which failure would hurt most over the next two quarters, and write the other into the "why not the other three" table with what would promote it. Then two to four bets, and for each: **what would prove it wrong?** A bet nobody can lose is a slogan. When do you revisit?
 
-Anything the user did not actually say stays marked `<span class="tag t-check">Unconfirmed</span>`, and its page stays `check`. An empty section is fine and is itself information; a plausible one is not, and it will be quoted back in meetings for a year.
+Anything the user did not actually say stays marked `<span class="tag t-check">Unconfirmed</span>` - `Guess` on a persona - and its page stays `check`. On the persona page in particular, that mark is always a claim and never a question: *"Unknown: do we serve students?"* is homework, and a claim the team can reject in one sentence is not. An empty section is fine and is itself information; a plausible one is not, and it will be quoted back in meetings for a year.
 
 ## In the audit
 
@@ -99,6 +158,10 @@ Ask three things instead:
 
 1. **Is it old?** How long since the confirmation date in `data-sources`? Over six months on the market page, or over a year on any of them, is worth flagging on its own.
 2. **Does the product still match the pitch?** Read `Features` and the pitch together. A product whose capabilities no longer fit its own positioning is the single most valuable thing an audit of these pages can find.
-3. **Does the roadmap serve the objective?** One agent, reading `Objective and strategy` and every live spec's "Serves the objective" line. It reports projects that do not serve the objective and specs where the line is missing or hand-waved.
+3. **Is the persona page still a set of people?** Read it against Features: a persona nobody has
+   shipped for in a year, two entries that want the same thing under different names, an entry that
+   turned into a description of a screen, a `Guess` still unconfirmed months later, or no main
+   persona at all. These are the ways this page rots, and none of them shows up as a false claim.
+4. **Does the roadmap serve the objective?** One agent, reading `Objective and strategy` and every live spec's "Serves the objective" line. It reports projects that do not serve the objective and specs where the line is missing or hand-waved.
 
-That third check is where the business card earns its place. Report it as a question to the team, never as a correction to apply: a project that does not serve the stated objective may be the exception that was argued and won, or it may be the first sign the stated objective is not the real one. Both are worth knowing and neither is an agent's call.
+That last check is where the business card earns its place. Report it as a question to the team, never as a correction to apply: a project that does not serve the stated objective may be the exception that was argued and won, or it may be the first sign the stated objective is not the real one. Both are worth knowing and neither is an agent's call.

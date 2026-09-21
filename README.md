@@ -80,11 +80,26 @@ page, pricing config and import features say about you, because people correct a
 better than they fill a blank form. Competitors get a real web search, each row dated and sourced,
 and the list comes back to you to confirm: a search returns the loudest, not the closest. 🔍
 
-Personas get the same treatment — built on the day that brings someone and on what they use today
-instead of you, never on demographics. And the half everyone forgets: **who asks for the product
-that you deliberately don't serve**, with what would make you revisit. 🚫
+Personas get the same treatment, and their own rulebook, because it's the page an agent gets
+confidently wrong — it fails by being *full*, not empty. Read the roles out of a codebase and you get
+`admin`, `owner`, `support`: your own back office, described as your customers. Derive them from the
+screens and you get a map of your product with first names on it — *the evening player*, *the invited
+friend* — four profiles nobody can decide with. So the rule is **outside the company, sorted by why
+people come**: two people using different features for the same reason are one persona, two using the
+same feature for different reasons are two. 🧍
 
-<img src="docs/screenshots/03-personas.png" alt="Personas page with two personas and the evidence behind each" width="100%">
+Each one is a **sketch** — first name, epithet, age range, two or three dispositions, a temperament
+emoji rather than a generated face — which is a handle and never gets cut for being unsourced, plus a
+**Needs** line that gets judged hard: what they're trying to get done, never a feature they asked
+for. The count falls out of how many reasons your product is picked up for — a ceiling of five, never
+a target — and exactly one is the **main persona**, same discipline as the single objective. Where
+nobody knows, the page carries a claim marked *Guess*, never a question: a wrong claim is corrected
+in a sentence, a question is homework. 🎯
+
+And the half everyone forgets: **who asks for the product that you deliberately don't serve**, with
+what would make you revisit. 🚫
+
+<img src="docs/screenshots/03-personas.png" alt="Personas page with two personas, the main one marked, and the evidence behind each" width="100%">
 
 ### The page that earns the whole thing: business rules
 
@@ -418,6 +433,9 @@ product-docs-bootstrap/
   references/agent-teams.md       exploration, writing and critique teams: exact prompts
   references/business-card.md     the business card interview, the market research and the
                                   guard rails for pages the code can't verify
+  references/personas.md          the four ways a persona set goes wrong, the shape, the
+                                  picture set, and the pair that drafts one when there's
+                                  nobody to interview
   references/greenfield.md        the interview, for a project that doesn't exist yet
 
 product-docs-update/
@@ -425,7 +443,8 @@ product-docs-update/
   references/change-map.md        which change updates which pages + the full writing rules
   references/handover.md          shipping a spec: moving its content into the living pages
   references/business-card.md     the closed trigger list, what is NOT a trigger, changing the
-                                  objective, adding the pages to docs that lack them
+                                  objective, editing the personas, adding the pages to docs
+                                  that lack them
   references/audit-team.md        the audit team: per-page and cross-page prompts, verdicts
 
 dist/                             pre-built .skill bundles for Chat / Cowork / claude.ai

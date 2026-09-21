@@ -163,6 +163,13 @@ tbody tr:last-child td{border-bottom:0}
 .entry dt{color:var(--muted)} .entry dd{margin:0}
 .entry:target{background:linear-gradient(90deg,var(--accent-soft),transparent 70%);box-shadow:-16px 0 0 var(--accent-soft)}
 
+/* Personas : la pastille tient lieu de portrait, jamais un visage */
+.entry .face{display:grid;place-items:center;width:42px;height:42px;margin:0 0 9px;border-radius:9px;background:var(--accent-soft);font-size:1.3125rem;line-height:1;transform:rotate(-2.5deg)}
+.entry.main .face{box-shadow:0 0 0 1.5px var(--accent)}
+.entry .who{margin:0 0 9px;color:var(--muted);font-size:.875rem;line-height:1.5}
+.entry .needs{margin:0 0 4px;color:var(--ink)}
+.entry .needs b{font-weight:600}
+
 /* Roadmap */
 .roadmap td.rank{font-family:var(--mono);font-size:.8125rem;color:var(--muted);font-weight:400;white-space:nowrap;padding-right:14px}
 .roadmap td.project{min-width:9rem}
@@ -435,36 +442,40 @@ pre{margin:0;background:var(--soft);border:1px solid var(--line);border-radius:1
 </section>
 
 <section class="page" id="personas" data-title="Personas" data-group="Business card" data-status="ok" data-verified="2026-09-18"
-  data-desc="The two people this product is built for, and the ones it is deliberately not built for."
+  data-desc="The two people this product is built for, which of them it is mainly for, and the ones it is deliberately not built for."
   data-trigger="A new audience is served on purpose, or an existing one is dropped" data-sources="Confirmed with the founders on 2026-09-18. 14 user interviews, Dovetail: Bordereau discovery">
   <div class="guide">
     <p><strong>Purpose:</strong> let anyone reading a spec ask "who is this for" and get a real answer. A persona is useful when it settles an argument about a design choice; anything that cannot settle an argument is decoration.</p>
-    <p><strong>Two to four, no more.</strong> Built on observed behaviour and the moment that brings someone to the product, not on age and job title. The test: someone in the team can name a real person for each one. If they cannot, it is a fiction and it will be used to justify anything.</p>
-    <p><strong>The second half of this page is the useful half.</strong> "Not our user" is what stops the product drifting into everyone's product.</p>
+    <p><strong>Someone outside the company, sorted by why they come rather than by which screen they land on.</strong> A role in the code - admin, owner, support - is a permission, not a person. Two people who use different features for the same reason are one persona; two who use the same feature for different reasons are two.</p>
+    <p><strong>Each one is a sketch and a claim.</strong> The sketch - first name, epithet, age range, two or three dispositions - is a handle, so a spec can ask "would Claire care about this?" and get a straight answer. It is in no repository and it is never cut for being unsourced. The claim is the <em>Needs</em> line, and that one is judged hard: what they are trying to get done, never a feature they asked for. The picture is a stand-in, not a portrait - a temperament, never a face.</p>
+    <p><strong>A claim, never a question.</strong> Where nobody knows, write what you believe with <span class="tag t-check">Guess</span> beside it and keep this page at <code>check</code> - a wrong claim gets corrected in one sentence, a question on this page is homework. <strong>Exactly one is the main persona</strong>, the one the product exists to serve rather than the largest group. And the second half of the page is the useful half: "not our user" is what stops the product drifting into everyone's product.</p>
   </div>
   <h2>Who we build for</h2>
-  <div class="entry" id="P-01"><div class="id">P-01</div><div>
-    <h3>The solo consultant, three years in</h3>
-    <p>Bills four or five regular customers, always the same, on retainer or per day. Invoicing is a monthly chore of twenty minutes that they resent, and one customer always pays a month late.</p>
+  <div class="entry main" id="P-01"><div class="id"><div class="face">🔁</div><span>P-01</span></div><div>
+    <h3>Claire, three years in <span class="tag is-north">Main persona</span></h3>
+    <p class="who">35-50. Four or five regular customers, always the same ones, billed on retainer or per day. Good at the job, resents admin, and has one customer who always pays a month late.</p>
+    <p class="needs"><b>Needs</b> the chasing to happen without them, and never to have the conversation about money in person.</p>
     <dl>
       <dt>What brings them</dt><dd>A late payment that hurt, or an accountant asking for documents they cannot find.</dd>
-      <dt>What they do today</dt><dd>A spreadsheet or a Word template, sent by hand, chased by an awkward email they put off writing.</dd>
-      <dt>What they need from us</dt><dd>That the chasing happens without them, and that they never have to have the awkward conversation.</dd>
+      <dt>Instead of us</dt><dd>A spreadsheet and a Word template, sent by hand, chased by an awkward email they put off writing for three weeks.</dd>
       <dt>What loses them</dt><dd>Anything that smells like accounting software. They left a suite because it asked them to pick a ledger account.</dd>
-      <dt>Evidence</dt><dd>The dominant profile in the interview set; the one who names late payment unprompted.</dd>
+      <dt>How much of us</dt><dd>Most of it: the dominant profile in the interview set, and nearly all of the Pro revenue.</dd>
+      <dt>Evidence</dt><dd>14 interviews; the profile that names late payment unprompted. The reason <a href="#M-reminders">automatic reminders</a> sit at the centre of the product.</dd>
     </dl>
   </div></div>
-  <div class="entry" id="P-02"><div class="id">P-02</div><div>
-    <h3>The freelancer in year one</h3>
-    <p>Just registered, has one or two customers, and is mostly afraid of doing something illegal. Every field on an invoice is a question they do not know the answer to.</p>
+  <div class="entry" id="P-02"><div class="id"><div class="face">🌱</div><span>P-02</span></div><div>
+    <h3>Sam, afraid of getting it wrong</h3>
+    <p class="who">25-35, registered this quarter. One or two customers, no idea which fields on an invoice are legally required, and no appetite to go and find out.</p>
+    <p class="needs"><b>Needs</b> to be told the document is correct, and not to be asked anything they cannot answer.</p>
     <dl>
       <dt>What brings them</dt><dd>The first invoice they have to issue, usually the same week they get the first customer.</dd>
-      <dt>What they do today</dt><dd>A free generator found on Google, or a template a friend sent them.</dd>
-      <dt>What they need from us</dt><dd>To be told the document is correct, and not to be asked anything they cannot answer.</dd>
-      <dt>What loses them</dt><dd>An empty state that assumes they already have customers, a price before they have sent anything.</dd>
+      <dt>Instead of us</dt><dd>A free generator found on Google, or a template a friend sent them.</dd>
+      <dt>What loses them</dt><dd>An empty state that assumes they already have customers, or a price before they have sent anything.</dd>
+      <dt>How much of us</dt><dd>A third of the signups and a tenth of the revenue - and where most of P-01 comes from, two years later.</dd>
       <dt>Evidence</dt><dd>The drop-off at the first customer step in the onboarding funnel, and the eleven support conversations behind <a href="#spec-S-031">S-031</a>.</dd>
     </dl>
   </div></div>
+  <p class="sub">Two, because the product is picked up for two reasons. This is not a target: a set padded to look thorough, or one person split in two to reach a number, decides nothing.</p>
   <h2>Not our user</h2>
   <p>Each of these has asked for the product, and each answer is a deliberate choice rather than a gap. They come back every quarter, which is why they are written down.</p>
   <div class="scroll"><table>
@@ -1331,6 +1342,14 @@ edit one paragraph, move data-verified and the person-and-date in data-sources,
 and record a Decision if the change is structuring. If the answer is no, drop it
 and do not raise it again for the same change.
 
+Personas: someone outside the company, sorted by why they come and not by which
+screen they use. A role in the code is a permission, not a person. Each one is a
+sketch - first name, epithet, age range, dispositions, a temperament emoji - that
+is never cut for being unsourced, plus a Needs line that is judged hard. Exactly
+one carries the "Main persona" tag. Where nobody knows, write a claim marked
+Guess rather than a question, and leave the page at check. Retiring a persona
+never deletes the evidence filed under them, and identifiers are never reused.
+
 Objective: exactly one, on the strategy page's data-objective - acquisition,
 activation, retention or revenue. Every spec carries a line saying how it serves
 it, or why it is the exception, and the same answer on its own data-objective -
@@ -1418,7 +1437,8 @@ Writing rules:
 
   // Scrollable tables, identifiers as pills
   document.querySelectorAll('table').forEach(function(t){ if(!t.parentElement.classList.contains('scroll')){ var w=el('div','scroll'); t.parentNode.insertBefore(w,t); w.appendChild(t);} });
-  document.querySelectorAll('.entry > .id').forEach(function(d){ d.innerHTML='<span>'+d.textContent+'</span>'; });
+  // Un .id déjà balisé (personas : pastille + identifiant) est laissé tel quel.
+  document.querySelectorAll('.entry > .id').forEach(function(d){ if(d.firstElementChild) return; d.innerHTML='<span>'+d.textContent+'</span>'; });
 
   // Ancres de section
   pages.forEach(function(p){

@@ -91,7 +91,7 @@ contradictory. Do not edit anything.
 
 **Business card**
 
-One agent for all five pages. It cannot check them against anything, so it checks three other things instead - and the third is the reason this agent exists at all.
+One agent for all five pages. It cannot check them against anything, so it checks four other things instead - and the last is the reason this agent exists at all.
 
 ```
 Read ONLY <docs path>. Do not open the repository. Do not edit anything.
@@ -112,7 +112,20 @@ and never report one as false. Report three things:
    describes still match the promise and the model these pages state? Quote both
    sides of any mismatch. This is the most valuable thing you can find.
 
-3. STRATEGY FIT. Note the single objective (the data-objective attribute on the
+3. PERSONAS. This page rots by filling up rather than by going stale, so check
+   its shape as well as its age. Report: entries that want the same thing under
+   different names, which are one person; an entry that describes a screen, a
+   plan tier or one end of a funnel rather than a person - test each with "would
+   this person still exist if the product shipped a different feature tomorrow?";
+   anyone who works for the company, since a role in the code is a permission and
+   not a person; a Needs line that is a feature request rather than something
+   they are trying to get done; anything written as a question instead of a
+   claim; a Guess still unconfirmed months after it was written; no main persona,
+   or more than one; and a persona nothing on Features or the Roadmap has served
+   in a year. Do not report a sketch as unsourced - the first name, epithet, age
+   range and dispositions are a handle, and no repository contains them.
+
+4. STRATEGY FIT. Note the single objective (the data-objective attribute on the
    strategy page). Then read every live spec's "Serves the objective" line, its
    own data-objective, and the Roadmap in order. Report: specs missing the line
    or the attribute; specs whose attribute names one objective while the line

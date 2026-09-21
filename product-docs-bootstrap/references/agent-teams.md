@@ -2,7 +2,7 @@
 
 Three steps of this skill are better done by a team than by one agent working alone: exploring the repository, writing the batches, and critiquing the result. What follows is when to fan out, what to send each agent, and what to do with what comes back.
 
-One step is deliberately **not** a team job: the business card interview. It is a conversation with the user, and it does not parallelise. The only part of it an agent touches is the Positioning explorer below, which produces candidates to react to.
+One step is deliberately **not** a team job: the business card interview. It is a conversation with the user, and it does not parallelise. Two parts of it are touched by agents - the Positioning explorer below, which produces candidates to react to, and the persona pair, which runs only when there is nobody available to interview.
 
 If the environment has no subagents, everything below still works in sequence - do the same passes yourself, one after another. It is slower but the structure is what matters, not the parallelism. The critique pass in particular is worth doing even alone, with fresh eyes on a finished draft.
 
@@ -79,6 +79,91 @@ at most ten lines.
 ```
 
 Then merge the fragments yourself into `docs/product/INVENTORY.md`: deduplicate across territories, resolve contradictions by reading the code yourself rather than picking a side, and consolidate the open questions into one ordered list with the why-questions first. Contradictions between two explorers are a signal - usually the same concept under two names, which the glossary then has to fix.
+
+## Step 1b - the persona pair, when there is nobody to interview
+
+Only for the Personas page, and only when the interview cannot happen - a solo project, a repository
+handed over, a team that will answer next week and wants a draft now. If the user is available, ask
+them; a set they dictated beats a set two agents argued about.
+
+Read `personas.md` first. It has the four failures these two prompts exist to prevent, and the shape
+the output has to land in. Two agents, same turn, neither of them a writer.
+
+**The drafter**, optimising for usefulness:
+
+```
+Propose the personas for this product: the people OUTSIDE the company who receive
+the value or pay for it. Do not edit any documentation.
+
+Work in this order: first say what the product is and what it is for, then ask who
+wants such a thing. Use what you know about this category - that judgement is the
+point, and no file in the repository contains it.
+
+Rules:
+- A role in the code is a permission, not a person. admin, owner, member, support,
+  moderator and the company's own back office are never personas, however much code
+  they have. The exception: if the back office IS the product being sold, its
+  operator is somebody else's customer and counts again.
+- Segment by WHY someone comes, never by which screen they land on. Two people who
+  use different features for the same reason are ONE persona; two who use the same
+  feature for different reasons are two. Before writing anybody down, ask: would
+  this person still exist if the product shipped a different feature tomorrow? If
+  not, you have described a surface, not a person.
+- As many as the product has reasons for being used, and not one more. No target,
+  a ceiling of five. Two is a real answer.
+- Never write a question. Where you do not know, write what you believe and say how
+  confident you are.
+- Nominate exactly one as the main persona: the one the product exists to serve,
+  not the largest group.
+
+For each: first name and epithet, age range, two or three dispositions, the need in
+one line following the word "Needs", the moment that brings them, what they do
+instead today, what would lose them, how much of the business they are, and what
+each claim rests on. Mark every claim observed or guessed, with a confidence.
+
+Write to <scratch>/personas-draft.md. Return at most ten lines.
+```
+
+**The critic**, optimising for truth:
+
+```
+Read <scratch>/personas-draft.md. Do not edit it and do not write documentation.
+
+Rule on EVERY proposed persona - one verdict each, none skipped, because silence
+will be read as a pass. Verdicts: keep, merge with <who>, cut, or rewrite.
+
+Cut or merge:
+- anyone inside the company: staff, support, ops, moderation, back office.
+- anyone who is a product surface with a first name: a game mode, one end of a
+  funnel, a plan tier, a screen. Test each one: would this person still exist if
+  the product shipped a different feature tomorrow?
+- two names for one person: do these two want the same thing from us? Then they
+  are one.
+- a need that is a feature request. "Wants the list to load faster" is a thing to
+  build; the need is what they would still want if that feature never shipped.
+- a claim so safe it cannot be wrong: "users who want to save time" is not a
+  finding.
+
+Do NOT cut the sketch for being unsourced - the first name, epithet, age range and
+dispositions are a handle, and no repository contains them. Judge the NEED and what
+it rests on. Do not cut a persona the team wrote themselves in their own words;
+flag it as a question for them instead.
+
+Say whether the drafter's nominated main persona survives, and if not, which
+survivor is best supported.
+
+Return one verdict per persona with its reason, in at most fifteen lines.
+```
+
+You assemble, and you are the only writer. A persona reaches the page only if the critic ruled on it
+and kept it; if the nominated main persona was cut, promote the best-supported survivor rather than
+sending the pair round again. Then report to the user what was proposed, each cut with its reason,
+and the final count - that log is the reason the pair exists, and it is where a set that came out
+feature-driven shows you why.
+
+Everything the pair produces is a guess. It goes on the page marked
+`<span class="tag t-check">Guess</span>`, the page stays at `data-status="check"`, and `data-sources`
+says it was derived from the repository on a date rather than confirmed with a person.
 
 ## Step 2 - writing team
 
@@ -186,7 +271,8 @@ Report:
 2. Specs whose line is hand-waved - it restates the expected outcome, or claims a
    link to the objective that the spec's own content does not support.
 3. Roadmap rows, in priority order, that do not serve the objective.
-4. Anything on Features or Personas that contradicts the pitch.
+4. Anything on Features or Personas that contradicts the pitch, and whether the
+   persona marked "Main persona" is the one the roadmap actually serves.
 
 This is a report, not a correction. A project that does not serve the stated
 objective may be a deliberate exception, or it may be a sign that the stated

@@ -20,9 +20,9 @@ The context the rest of the documentation is written against. Never deleted for 
 
 ### Personas
 **For:** settling arguments about design choices. A persona that cannot settle an argument is decoration.
-**In:** two to four people, built on the day that brings them and on what they use today instead of us; what they need; what would lose them; the evidence. Then the "not our user" table - who asks for the product and is deliberately not served, why, and what would make us revisit.
-**Out:** demographics. "35-45, urban, tech-savvy" decides nothing.
-**Where to look:** the user, and any interview or support corpus they have. The interface's empty states and example data often reveal who the product silently assumes.
+**In:** people from outside the company, sorted by why they come rather than by which screen they use, as many as the product has reasons for being used and never more than five. Each one a sketch - first name, epithet, age range, dispositions, a temperament emoji - and a claim: the *Needs* line, the moment that brings them, what they do instead today, what loses them, how much of the business they are, the evidence. Exactly one carries the main persona tag. Then the "not our user" table - who asks for the product and is deliberately not served, why, and what would make us revisit.
+**Out:** demographics, which decide nothing; roles out of the code, which are permissions and not people; a persona that is a product surface with a first name; and questions - where nobody knows, the page carries a claim marked `Guess`, never *"Unknown: do we serve students?"*.
+**Where to look:** personas the team has already written, first - keep their words rather than improving them. Then the user, and any interview or support corpus they have. The interface's empty states and example data often reveal who the product silently assumes. Full procedure, including what to do when there is nobody to interview, in `personas.md`.
 
 ### Business model
 **For:** arguing a feature against how the company actually makes money.

@@ -14,7 +14,7 @@ Everywhere else in this documentation the danger is copying: the code is right t
 
 So the discipline is:
 
-**Only what the user actually said gets written unmarked.** Anything you inferred - from the landing copy, the pricing config, a web search - carries `<span class="tag t-check">Unconfirmed</span>` next to it and keeps its page at `data-status="check"` until a human confirms it.
+**Only what the user actually said gets written unmarked.** Anything you inferred - from the landing copy, the pricing config, a web search - carries `<span class="tag t-check">Unconfirmed</span>` next to it and keeps its page at `data-status="check"` until a human confirms it. On the personas page the same mark reads `Guess`, because there it is always attached to a claim about a person rather than to a fact nobody has checked; the rule and the consequence are identical.
 
 **An empty section is fine. A plausible one is not.** A mission invented by an agent will be quoted in meetings for a year and nobody will remember where it came from. If the team has not settled its vision, write that the vision is not settled.
 
@@ -23,6 +23,8 @@ So the discipline is:
 ## Step 1 - get a first draft out of the repository
 
 Do not start from a blank page. People correct far better than they produce, and a wrong first draft gets corrected faster than an empty form gets filled.
+
+**For personas, look for the ones already written before deriving any.** A `personas.md`, research notes, a README section that says who it is for, a link to an interview corpus in the contributing guide. If the team has already written theirs, those are the personas: keep their names and their words and put them in shape rather than improving them.
 
 The exploration team (see `agent-teams.md`) includes a **Positioning** explorer for this. It reads the landing and marketing copy, the README, the pricing page, the plan configuration, the interface strings and any `about`, `press` or `manifesto` content, and returns candidates - never conclusions:
 
@@ -55,15 +57,24 @@ Say at the start what you are doing and why: five short pages, half an hour, and
 
 ### Personas
 
+This page has its own reference - `personas.md` - because it is the one an agent will confidently get
+wrong, and it fails by being full rather than by being empty. Read it before this part of the
+interview. The short version:
+
 - Who are the two or three people you build for? Can you name a real one for each?
 - What is the day that brings them to you - the specific event, not the general need?
 - What do they use today instead? This is the real competitor and it is usually a spreadsheet or nothing.
 - What would make them leave?
+- If you could only serve one of them, which one? That answer is the main persona, and there is exactly one.
 - **Who asks for the product that you deliberately do not serve, and why?**
 
-That last question produces the most useful half of the page. Ask it explicitly; nobody volunteers it.
+The last question produces the most useful half of the page. Ask it explicitly; nobody volunteers it.
 
-**What a bad answer looks like:** demographics. "35-45, urban, tech-savvy" settles no argument. A persona is useful when it decides a design choice.
+**What a bad answer looks like:** demographics. "35-45, urban, tech-savvy" settles no argument. A persona is useful when it decides a design choice. The other bad answer is a job title, which is a segment hiding in human form - follow it with *what are they trying to get done that day?*
+
+**What a bad question looks like:** anything you write on the page as a question. Where the team has not answered, the page carries a claim marked `<span class="tag t-check">Guess</span>`, never *"Unknown: do we serve students?"*. A claim gets corrected in one sentence; a question is homework.
+
+If nobody is available to interview at all, `personas.md` has the drafter-and-critic pair that produces a set to react to. Everything it produces is a guess and is marked as one.
 
 ### Business model
 
@@ -110,7 +121,7 @@ Search the web. This is the one part of the documentation with a genuine externa
 
 ## Step 4 - write, then link
 
-Write the five pages as batch 0, before Overview, using `assets/template.html` as the model. Then two links, both cheap and both load-bearing:
+Write the five pages as batch 0, before Overview, using `assets/template.html` as the model. Personas has its own rules in `personas.md` - the shape, the fixed picture set, the single main persona, and what to do when there is nobody to interview. Then two links, both cheap and both load-bearing:
 
 1. **Overview** points at the business card instead of repeating it. The template's Overview already carries the row; fill it in rather than restating the mission there.
 2. **Each spec** gets its "Serves the objective" line. On an existing codebase you are writing specs for work already in flight - write the line for each, and when one of them cannot be answered, say so to the user. A project already underway that serves no stated objective is a finding, not a documentation gap.

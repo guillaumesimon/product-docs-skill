@@ -26,6 +26,7 @@ Find the row that matches what you just changed. If several match, all of them a
 | Settles a structuring choice, product or technical | Decisions |
 | Introduces a new way of charging, or moves the paywall | Business model, Plans and permissions, Decisions |
 | Serves a new group of users on purpose, or drops one | Personas, Decisions |
+| Ships the first feature for a group listed under "not our user" | Personas, Decisions |
 | Changes what the company is optimising for, or settles a strategic bet | Objective and strategy, Decisions, and re-read the Roadmap |
 | Changes the product's promise - a new surface, a new category, a pivot | Pitch mission and vision, Decisions |
 | Records a competitor moving, or a new one starting to cost deals | Market and competitors |
@@ -33,7 +34,7 @@ Find the row that matches what you just changed. If several match, all of them a
 | Is visible to the user | Changelog |
 | Only changes values, columns, events, prices, quotas, flag states, styling or implementation | Nothing |
 
-Five of those rows - paywall, audience, objective, promise, competitor - are the **business card**, and they behave unlike the rest of this table. Their trigger is what got *decided* in the conversation, not what changed in the diff - a pivot never shows up in a diff. The trigger list is closed on purpose, they are never edited without an explicit yes from the user, and the full procedure is in `business-card.md`. In particular, none of these is a trigger: a new feature, a price or quota moving, a metric's value moving, a competitor shipping something, a strategy conversation that did not conclude, or one user asking for something a persona does not cover.
+Five of those rows - paywall, audience, objective, promise, competitor - are the **business card**, and they behave unlike the rest of this table. Their trigger is what got *decided* in the conversation, not what changed in the diff - a pivot never shows up in a diff. The trigger list is closed on purpose, they are never edited without an explicit yes from the user, and the full procedure is in `business-card.md`. In particular, none of these is a trigger: a new feature, a price or quota moving, a metric's value moving, a competitor shipping something, a strategy conversation that did not conclude, or one user asking for something a persona does not cover - one request is not a segment, and a new screen never creates a new person, since personas are sorted by why people come.
 
 If the page a change points at does not exist yet - the first background job in a project that had none, the first external dependency - create it. Copy the structure of a neighbouring page and fill in `data-title`, `data-desc`, `data-group`, `data-status`, `data-verified`, `data-trigger` and `data-sources`. It appears in the navigation and the health register by itself.
 
